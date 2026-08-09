@@ -254,6 +254,41 @@
             </div>
         </section>
 
+        <!-- MODAL DE TESTIMONIO (NUEVO) -->
+        <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+            <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
+                
+                <!-- Botón Cerrar -->
+                <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                
+                <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow flex flex-col items-center text-center">
+                    <!-- Foto en el Modal -->
+                    <div class="relative w-32 h-32 mb-6 group cursor-zoom-in" onclick="openTestimonioLightbox(document.getElementById('modalTestiFoto').src)">
+                        <img id="modalTestiFoto" src="" alt="Foto de Testimonio" class="w-full h-full object-cover rounded-full border-4 border-pink-100 shadow-lg transition-transform group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                        </div>
+                    </div>
+
+                    <!-- Información -->
+                    <h3 id="modalTestiNombre" class="text-2xl font-bold text-gray-800 mb-1"></h3>
+                    <p id="modalTestiFecha" class="text-sm text-gray-400 mb-4"></p>
+                    
+                    <div id="modalTestiEstrellas" class="flex gap-1 mb-6 justify-center">
+                        <!-- Se llenan por JS -->
+                    </div>
+
+                    <!-- Comillas decorativas y texto -->
+                    <div class="relative w-full">
+                        <svg class="absolute top-0 left-0 transform -translate-x-4 -translate-y-4 w-12 h-12 text-pink-100 z-0" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed relative z-10 italic"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section id="nosotros" class="py-16 bg-white border-t border-pink-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -582,6 +617,7 @@
 
         let allProducts = [];
         let currentRenderedProducts = []; // Para enlazar con el modal
+        let allTestimonios = []; // Nuevo: Para guardar los testimonios renderizados
 
         // Generar enlace de WhatsApp
         function generateWhatsAppLink(productName, price) {
@@ -1023,14 +1059,18 @@
         function renderTestimonios(testimonios) {
             const container = document.getElementById('testimonios-container');
             container.innerHTML = '';
+            
+            allTestimonios = testimonios; // Guardamos globalmente para usarlos en el modal
 
-            testimonios.forEach(testi => {
+            testimonios.forEach((testi, index) => {
                 const nombre = testi['Nombre'] || 'Mami Feliz';
-                const comentario = testi['Comentario'] || 'Excelente producto y atención.';
+                // Corregimos las comillas dobles adicionales escapadas desde Google Sheets
+                let comentario = testi['Comentario'] || 'Excelente producto y atención.';
+                comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, ''); // Limpia comillas al inicio y final
+                
                 const estrellas = parseInt(testi['Calificación']) || 5;
                 const fecha = testi['Fecha'] || '';
                 
-                // Buscar foto dinámica (si existe en la cabecera 'Foto' o 'Foto (Drive)')
                 let fotoUrl = 'https://api.dicebear.com/7.x/notionists/svg?seed=' + encodeURIComponent(nombre) + '&backgroundColor=fce7f3'; 
                 for (let k in testi) {
                     if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') {
@@ -1038,7 +1078,6 @@
                     }
                 }
 
-                // Generar estrellas SVG (Mínimo 1, Máximo 5)
                 let estrellasHTML = '';
                 const maxStars = Math.min(Math.max(estrellas, 1), 5);
                 for(let i = 0; i < maxStars; i++) {
@@ -1046,7 +1085,9 @@
                 }
 
                 const card = document.createElement('div');
-                card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-pink-50 hover:shadow-xl transition-shadow duration-300 relative group flex flex-col h-full';
+                // Agregamos cursor-pointer y onclick a la tarjeta entera para abrir el detalle
+                card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-pink-50 hover:shadow-xl transition-all duration-300 relative group flex flex-col h-full cursor-pointer hover:-translate-y-1';
+                card.onclick = () => openTestimonioModal(index);
                 
                 card.innerHTML = `
                     <div class="absolute top-0 right-0 p-6 opacity-10 text-pink-500 group-hover:scale-110 group-hover:text-pink-600 transition-all duration-300">
@@ -1055,12 +1096,15 @@
                     <div class="flex gap-1 mb-4 z-10 relative">
                         ${estrellasHTML}
                     </div>
-                    <p class="text-gray-600 italic mb-6 flex-grow z-10 relative leading-relaxed">"${comentario}"</p>
-                    <div class="flex items-center gap-4 mt-auto z-10 relative">
+                    <p class="text-gray-600 italic mb-6 flex-grow z-10 relative leading-relaxed line-clamp-4 group-hover:text-gray-800 transition-colors">"${comentario}"</p>
+                    <div class="flex items-center gap-4 mt-auto z-10 relative border-t border-gray-50 pt-4">
                         <img src="${fotoUrl}" alt="Foto de ${nombre}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200">
                         <div>
                             <h4 class="font-bold text-gray-800">${nombre}</h4>
                             ${fecha ? `<p class="text-xs text-gray-400">${fecha}</p>` : ''}
+                        </div>
+                        <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-xs text-pink-500 font-bold bg-pink-50 px-2 py-1 rounded-md">Ver más</span>
                         </div>
                     </div>
                 `;
@@ -1068,82 +1112,74 @@
             });
         }
 
-        function loadDemoTestimonios() {
-            const demoData = [
-                { 'Nombre': 'Valeria R.', 'Comentario': 'El extractor S11 me salvó la vida. Súper silencioso y no me duele nada. Lo uso mientras trabajo y nadie se da cuenta. ¡100% recomendado!', 'Calificación': '5', 'Fecha': 'Hace 1 semana' },
-                { 'Nombre': 'Claudia M.', 'Comentario': 'Tenía dudas sobre qué modelo comprar, pero la asesoría por WhatsApp fue excelente. Me ayudaron a elegir el ideal para mí. El envío fue súper rápido.', 'Calificación': '5', 'Fecha': 'Hace 2 meses' },
-                { 'Nombre': 'Sofía L.', 'Comentario': 'Los materiales se sienten de muy buena calidad y es fácil de lavar. Definitivamente volveré a comprar accesorios aquí.', 'Calificación': '4', 'Fecha': 'Hace 3 meses' }
-            ];
-            renderTestimonios(demoData);
-        }
+        // --- NUEVAS FUNCIONES PARA EL MODAL DE TESTIMONIO ---
+        function openTestimonioModal(index) {
+            const testi = allTestimonios[index];
+            if (!testi) return;
 
-        // --- NUEVO: LÓGICA DEL CHATBOT ---
+            const nombre = testi['Nombre'] || 'Mami Feliz';
+            let comentario = testi['Comentario'] || '';
+            comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
+            const estrellas = parseInt(testi['Calificación']) || 5;
+            const fecha = testi['Fecha'] || '';
 
-        const chatWindow = document.getElementById('chatbot-window');
-        const chatMessages = document.getElementById('chatbot-messages');
-        const chatInput = document.getElementById('chatbot-input');
-        const chatToggleBtn = document.getElementById('chatbot-toggle');
-
-        // Base de datos de conocimientos del bot
-        const botKnowledge = {
-            'envios': 'Realizamos envíos 📦. El costo y tiempo exacto depende de tu ubicación. ¡Escríbenos por WhatsApp para coordinar tu entrega de forma segura!',
-            'pagos': 'Aceptamos múltiples formas de pago: Transferencias, Yape, Plin y efectivo. 💳 Todo 100% seguro.',
-            'garantia': '¡Por supuesto! ✅ Todos nuestros extractores y artículos electrónicos cuentan con garantía por defectos de fábrica. Tu inversión está protegida.',
-            'asesor': `¡Claro que sí! Un asesor real estará encantado de ayudarte. Haz clic <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">AQUÍ</a> para ir a nuestro WhatsApp directo.`,
-            'precio': 'Los precios varían según el modelo del extractor. ¡Te invito a revisar nuestro catálogo en esta misma página! Tenemos opciones excelentes para cada necesidad. 💕',
-            'hola': '¡Hola hermosa! 🌸 ¿En qué puedo ayudarte en tu etapa de lactancia?',
-            'gracias': '¡A ti! Estamos aquí para apoyarte. Si necesitas algo más, no dudes en escribirnos. 🥰',
-            'fallback': 'Qué interesante. 🤔 Soy un asistente virtual aprendiendo poco a poco. Para darte una respuesta exacta, por favor escríbenos a nuestro <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">WhatsApp</a> y una asesora humana te atenderá.'
-        };
-
-        function toggleChatbot() {
-            const isHidden = chatWindow.classList.contains('hidden');
-            if (isHidden) {
-                chatWindow.classList.remove('hidden');
-                chatWindow.classList.add('flex');
-                chatToggleBtn.classList.remove('animate-bounce'); // Detener animación al abrir
-                // Pequeño delay para la animación
-                setTimeout(() => {
-                    chatWindow.classList.remove('opacity-0', 'translate-y-4');
-                }, 10);
-            } else {
-                chatWindow.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => {
-                    chatWindow.classList.add('hidden');
-                    chatWindow.classList.remove('flex');
-                }, 300);
+            let fotoUrl = 'https://api.dicebear.com/7.x/notionists/svg?seed=' + encodeURIComponent(nombre) + '&backgroundColor=fce7f3'; 
+            for (let k in testi) {
+                if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') {
+                    fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
+                }
             }
+
+            // Llenar datos
+            document.getElementById('modalTestiNombre').textContent = nombre;
+            document.getElementById('modalTestiFecha').textContent = fecha;
+            document.getElementById('modalTestiComentario').textContent = `"${comentario}"`;
+            document.getElementById('modalTestiFoto').src = fotoUrl;
+
+            // Generar estrellas
+            let estrellasHTML = '';
+            const maxStars = Math.min(Math.max(estrellas, 1), 5);
+            for(let i = 0; i < maxStars; i++) {
+                estrellasHTML += `<svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+            }
+            document.getElementById('modalTestiEstrellas').innerHTML = estrellasHTML;
+
+            // Mostrar modal
+            const modal = document.getElementById('testimonioModal');
+            const content = document.getElementById('testimonioModalContent');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
         }
 
-        function appendMessage(text, isUser = false) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex gap-2 w-full ${isUser ? 'justify-end' : 'justify-start'}`;
+        function closeTestimonioModal() {
+            const modal = document.getElementById('testimonioModal');
+            const content = document.getElementById('testimonioModalContent');
             
-            const bubble = document.createElement('div');
-            bubble.className = `p-3 rounded-2xl max-w-[85%] shadow-sm ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none'}`;
-            bubble.innerHTML = text; // Permite inyectar HTML como enlaces
-
-            msgDiv.appendChild(bubble);
-            chatMessages.appendChild(msgDiv);
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
             
-            // Hacer scroll hacia abajo suavemente
-            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = ''; 
+            }, 300);
         }
+        
+        // Cerrar modal al hacer clic afuera
+        document.getElementById('testimonioModal').addEventListener('click', function(e) {
+            if (e.target === this) closeTestimonioModal();
+        });
 
-        function showTypingIndicator() {
-            const id = 'typing-' + Date.now();
-            const msgDiv = document.createElement('div');
-            msgDiv.id = id;
-            msgDiv.className = 'flex gap-2 w-full justify-start';
-            msgDiv.innerHTML = `
-                <div class="bg-pink-50 text-gray-500 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm flex gap-1 items-center">
-                    <div class="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce"></div>
-                    <div class="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-                    <div class="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                </div>
-            `;
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+        // Modificamos para que se pueda llamar desde el modal
+        function openTestimonioLightbox(fotoUrl) {
             return id;
         }
 
