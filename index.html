@@ -661,7 +661,8 @@
             }
 
             products.forEach((product, index) => {
-                const uniqueImages = [...new Set(driveImages)].slice(0, 4);
+                // CORRECCIÓN: Ahora sí extraemos las imágenes correctamente antes de usarlas
+                const driveImages = extractImagesFromProduct(product);
                 
                 const stockStr = product['Stock'] || product['Cantidad'] || '0';
                 const stockNum = parseInt(stockStr) || 0;
@@ -677,6 +678,16 @@
                 } else {
                     stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>';
                 }
+
+                // Datos básicos
+                const name = product['Nombre'] || product['Name'] || 'Producto sin nombre';
+                const price = product['Precio'] || product['Price'] || 'S/ 0.00';
+                
+                let desc = product['Descripción Corta'] || product['Descripción'] || '';
+                if (!desc) {
+                    for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
+                }
+                const formattedDesc = desc.replace(/\n/g, '<br>');
                 
                 // Búsqueda inteligente de categoría
                 let category = 'Extractores';
@@ -684,13 +695,9 @@
 
                 const whatsappUrl = generateWhatsAppLink(name, price);
 
-                // Convertir saltos de línea a <br>
-                const formattedDesc = desc.replace(/\n/g, '<br>');
-
                 const card = document.createElement('div');
                 card.className = 'bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-pink-50 flex flex-col h-full';
                 
-                // MEJORA: Se agregó loading="lazy" a la imagen para optimizar el rendimiento en celulares
                 card.innerHTML = `
                     <div class="relative aspect-square w-full overflow-hidden bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50" onclick="showDetails(${index})">
                         <img src="${driveImages[0]}" alt="${name}" loading="lazy"
@@ -704,7 +711,7 @@
 
                         ${stockBadgeHTML}
                         
-                        <span class="absolute top-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm">${category}</span>
+                        <span class="absolute top-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase">${category}</span>
                         
                         <!-- Nota de imágenes referenciales -->
                         <span class="absolute bottom-2 right-2 z-30 bg-white/80 backdrop-blur-sm text-gray-500 text-[10px] italic px-2 py-0.5 rounded shadow-sm pointer-events-none">Imágenes referenciales</span>
