@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wawachay | Extractores de Leche Materna y Accesorios</title>
     
-    <!-- SEO Básico -->
+    <!-- SEO Básico y Favicon -->
     <meta name="description" content="Catálogo de extractores de leche materna, biberones y accesorios. Productos diseñados para facilitar la lactancia con comodidad y tecnología.">
     <meta name="keywords" content="extractores de leche, lactancia materna, accesorios para bebes, Wawachay, sacaleches">
+    <link rel="icon" type="image/png" href="./Logo_1.PNG">
     
+    <!-- Open Graph (Previsualización para WhatsApp y Facebook) -->
+    <meta property="og:title" content="Wawachay | Tienda de Extractores de Leche">
+    <meta property="og:description" content="Descubre nuestro catálogo de extractores y accesorios. Máximo confort y tecnología para tu lactancia.">
+    <meta property="og:image" content="./Logo_1.PNG">
+    <meta property="og:url" content="https://wawachay.vercel.app">
+    <meta property="og:type" content="website">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -64,7 +72,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <!-- Logo Oficial -->
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm">
+                <img src="./Logo_1.PNG" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm">
                 <div>
                     <h1 class="text-2xl font-bold font-logo italic tracking-tight text-purple-700">Wawachay</h1>
                     <p class="text-xs text-pink-500 font-medium">Extractores y Accesorios</p>
@@ -98,6 +106,45 @@
                     Ver Catálogo Completo
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 </a>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN DE BENEFICIOS -->
+        <section id="beneficios" class="py-16 bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">¿Por qué elegir Wawachay?</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto">Entendemos que la lactancia es un momento único. Nuestros productos están seleccionados para brindarte la mayor tranquilidad.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Beneficio 1 -->
+                    <div class="bg-pink-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
+                        <div class="w-14 h-14 bg-pink-200 rounded-full flex items-center justify-center mx-auto mb-4 text-pink-600">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Comodidad Indolora</h3>
+                        <p class="text-gray-600 text-sm">Tecnología de succión que simula el ritmo natural del bebé, evitando el dolor y cuidando tu piel.</p>
+                    </div>
+                    
+                    <!-- Beneficio 2 -->
+                    <div class="bg-purple-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
+                        <div class="w-14 h-14 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Libertad y Eficiencia</h3>
+                        <p class="text-gray-600 text-sm">Modelos inalámbricos y silenciosos que te permiten extraer leche en cualquier lugar y momento del día.</p>
+                    </div>
+                    
+                    <!-- Beneficio 3 -->
+                    <div class="bg-green-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
+                        <div class="w-14 h-14 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Materiales Seguros</h3>
+                        <p class="text-gray-600 text-sm">100% libres de BPA y fabricados con silicona de grado alimenticio, totalmente seguros para tu bebé.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -253,6 +300,19 @@
         // URL Pública CSV Extraída directamente de la información provista
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT21LHXXbPNxOqSAEgbJoPO98RHVKt4uXsfRb_TubMeybnLhJcVPpsVsikzZks7N79F_xz1FsB24cC/pub?output=csv';
 
+        // --- SEGURIDAD BÁSICA PARA EVITAR COPIAS (Bloquear F12 y Clic derecho) ---
+        document.addEventListener('contextmenu', event => event.preventDefault()); // Bloquea clic derecho
+        document.addEventListener('keydown', event => {
+            // Bloquea F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (event.keyCode === 123 || 
+               (event.ctrlKey && event.shiftKey && (event.keyCode === 73 || event.keyCode === 74)) || 
+               (event.ctrlKey && event.keyCode === 85)) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        // --------------------------------------------------------------------------
+
         let allProducts = [];
         let currentRenderedProducts = []; // Para enlazar con el modal
 
@@ -387,7 +447,7 @@
                 
                 const price = product['Precio'] || product['Price'] || 'Consultar precio';
                 
-                // Usar el extractor automático de imágenes
+                // Usar el extractor automático de imágenes múltiples
                 const driveImages = extractImagesFromProduct(product);
                 
                 const stock = product['Stock'] || product['Cantidad'] || '0';
@@ -405,15 +465,16 @@
                 const card = document.createElement('div');
                 card.className = 'bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-pink-50 flex flex-col h-full';
                 
+                // MEJORA: Se agregó loading="lazy" a la imagen para optimizar el rendimiento en celulares
                 card.innerHTML = `
-                    <div class="relative h-64 overflow-hidden bg-gray-50 flex items-center justify-center group cursor-pointer" onclick="showDetails(${index})">
-                        <img src="${driveImages[0]}" alt="${name}" 
-                             class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500 relative z-10"
+                    <div class="relative aspect-square w-full overflow-hidden bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50" onclick="showDetails(${index})">
+                        <img src="${driveImages[0]}" alt="${name}" loading="lazy"
+                             class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10"
                              onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
                         
                         <!-- Sello de Agua en Catálogo -->
                         <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6">
-                            <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-full h-full object-contain opacity-25">
+                            <img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25">
                         </div>
 
                         ${isAvailable ? 
