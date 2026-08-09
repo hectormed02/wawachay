@@ -228,7 +228,7 @@
                 <!-- Indicador de carga -->
                 <div id="loading" class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
-                    <p class="text-gray-500 font-medium">Cargando catálogo desde Google Sheets...</p>
+                    <p class="text-gray-500 font-medium">Cargando catálogo...</p>
                 </div>
             </div>
         </section>
@@ -561,10 +561,26 @@
         const SHEET_URL_TESTIMONIOS = 'PEGAR_AQUI_EL_LINK_CSV_DE_TESTIMONIOS';
 
         // --- SEGURIDAD BÁSICA PARA EVITAR COPIAS ---
-                event.preventDefault();
+        document.addEventListener('contextmenu', event => event.preventDefault()); // Desactiva clic derecho
+        
+        document.onkeydown = function(e) {
+            // Desactiva F12, Ctrl+Shift+I, Ctrl+U
+            if(e.keyCode == 123) {
                 return false;
             }
-        });
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
         // --------------------------------------------------------------------------
 
         let allProducts = [];
@@ -588,19 +604,19 @@
             return url; 
         }
 
-        // NUEVO: Función para extraer inteligentemente todas las imágenes de cualquier columna
+        // Función para extraer inteligentemente todas las imágenes de cualquier columna
         function extractImagesFromProduct(product) {
             let driveImages = [];
             for (let key in product) {
                 const k = key.toLowerCase();
                 // Busca cualquier columna cuyo título contenga estas palabras
-                if (k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive')) {
+                if (k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive') || k.includes('link')) {
                     const val = product[key];
                     if (val && typeof val === 'string' && val.trim() !== '') {
                         // Soporta multiples enlaces separados por coma o salto de linea
                         const links = val.split(/[\n,]+/).map(s => s.trim()).filter(s => s.startsWith('http'));
                         links.forEach(link => {
-                            const imgUrl = getDriveImageUrl(link);
+                            const imgUrl = getDriveImageUrl(link) || link;
                             if(imgUrl) driveImages.push(imgUrl);
                         });
                     }
@@ -612,13 +628,9 @@
             return [...new Set(driveImages)].slice(0, 4);
         }
 
-        // Obtener datos usando PapaParse (Actualizado para prevenir Caché y nombres dinámicos)
+        // Obtener datos usando PapaParse
         function fetchGoogleSheetsData() {
-            // El parámetro 't' evita que el navegador guarde en Caché la versión vieja de la tabla
-            const cacheBuster = new Date().getTime();
-            const fetchUrl = `${SHEET_URL}&t=${cacheBuster}`;
-
-            Papa.parse(fetchUrl, {
+            Papa.parse(SHEET_URL, {
                 download: true,
                 header: true,
                 skipEmptyLines: true,
@@ -992,8 +1004,7 @@
                 return;
             }
 
-            const cacheBuster = new Date().getTime();
-            Papa.parse(`${SHEET_URL_TESTIMONIOS}&t=${cacheBuster}`, {
+            Papa.parse(SHEET_URL_TESTIMONIOS, {
                 download: true,
                 header: true,
                 skipEmptyLines: true,
