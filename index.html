@@ -407,6 +407,54 @@
         </div>
     </footer>
 
+    <!-- NUEVO: HTML del Chatbot Interactivo -->
+    <!-- Botón Flotante del Chatbot -->
+    <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-6 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+    </button>
+
+    <!-- Ventana del Chatbot -->
+    <div id="chatbot-window" class="fixed bottom-24 right-6 w-[90vw] sm:w-80 bg-white rounded-2xl shadow-2xl border border-pink-100 z-50 flex-col hidden overflow-hidden transition-all duration-300 opacity-0 translate-y-4">
+        <!-- Header del Chat -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-4 flex justify-between items-center text-white">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-bold">W</div>
+                <div>
+                    <h4 class="font-bold text-sm">Wawi - Asistente</h4>
+                    <span class="text-[10px] text-pink-100 flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full inline-block animate-pulse"></span> En línea</span>
+                </div>
+            </div>
+            <button onclick="toggleChatbot()" class="text-white hover:text-pink-200 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <!-- Área de Mensajes -->
+        <div id="chatbot-messages" class="h-80 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 custom-scrollbar text-sm">
+            <!-- Mensaje Inicial -->
+            <div class="flex gap-2 w-full">
+                <div class="bg-pink-100 text-gray-700 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm">
+                    ¡Hola! Soy Wawi 🌸 tu asistente virtual. ¿En qué te puedo ayudar hoy?
+                </div>
+            </div>
+            <!-- Opciones Rápidas -->
+            <div class="flex flex-col gap-2 mt-1 w-full items-end" id="quick-replies">
+                <button onclick="sendQuickReply('envios')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🚚 Envíos y entregas</button>
+                <button onclick="sendQuickReply('pagos')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">💳 Métodos de pago</button>
+                <button onclick="sendQuickReply('garantia')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🛡️ Garantía</button>
+                <button onclick="sendQuickReply('asesor')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">👩‍⚕️ Hablar con asesor</button>
+            </div>
+        </div>
+
+        <!-- Área de Input -->
+        <div class="p-3 border-t border-gray-100 bg-white flex gap-2">
+            <input type="text" id="chatbot-input" placeholder="Escribe tu duda aquí..." class="flex-grow bg-gray-100 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-200" onkeypress="handleChatEnter(event)">
+            <button onclick="handleUserMessage()" class="bg-purple-600 text-white w-9 h-9 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors shrink-0">
+                <svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+            </button>
+        </div>
+    </div>
+
     <script>
         // Configuración
         const WHATSAPP_NUMBER = '51970551728'; 
@@ -818,6 +866,140 @@
             updateCategoryFilter(new Set(['Eléctricos', 'Accesorios']));
             renderProducts(allProducts);
             document.getElementById('loading').style.display = 'none';
+        }
+
+        // --- NUEVO: LÓGICA DEL CHATBOT ---
+
+        const chatWindow = document.getElementById('chatbot-window');
+        const chatMessages = document.getElementById('chatbot-messages');
+        const chatInput = document.getElementById('chatbot-input');
+        const chatToggleBtn = document.getElementById('chatbot-toggle');
+
+        // Base de datos de conocimientos del bot
+        const botKnowledge = {
+            'envios': 'Realizamos envíos 📦. El costo y tiempo exacto depende de tu ubicación. ¡Escríbenos por WhatsApp para coordinar tu entrega de forma segura!',
+            'pagos': 'Aceptamos múltiples formas de pago: Transferencias, Yape, Plin y efectivo. 💳 Todo 100% seguro.',
+            'garantia': '¡Por supuesto! ✅ Todos nuestros extractores y artículos electrónicos cuentan con garantía por defectos de fábrica. Tu inversión está protegida.',
+            'asesor': `¡Claro que sí! Un asesor real estará encantado de ayudarte. Haz clic <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">AQUÍ</a> para ir a nuestro WhatsApp directo.`,
+            'precio': 'Los precios varían según el modelo del extractor. ¡Te invito a revisar nuestro catálogo en esta misma página! Tenemos opciones excelentes para cada necesidad. 💕',
+            'hola': '¡Hola hermosa! 🌸 ¿En qué puedo ayudarte en tu etapa de lactancia?',
+            'gracias': '¡A ti! Estamos aquí para apoyarte. Si necesitas algo más, no dudes en escribirnos. 🥰',
+            'fallback': 'Qué interesante. 🤔 Soy un asistente virtual aprendiendo poco a poco. Para darte una respuesta exacta, por favor escríbenos a nuestro <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">WhatsApp</a> y una asesora humana te atenderá.'
+        };
+
+        function toggleChatbot() {
+            const isHidden = chatWindow.classList.contains('hidden');
+            if (isHidden) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.classList.add('flex');
+                chatToggleBtn.classList.remove('animate-bounce'); // Detener animación al abrir
+                // Pequeño delay para la animación
+                setTimeout(() => {
+                    chatWindow.classList.remove('opacity-0', 'translate-y-4');
+                }, 10);
+            } else {
+                chatWindow.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    chatWindow.classList.add('hidden');
+                    chatWindow.classList.remove('flex');
+                }, 300);
+            }
+        }
+
+        function appendMessage(text, isUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-2 w-full ${isUser ? 'justify-end' : 'justify-start'}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = `p-3 rounded-2xl max-w-[85%] shadow-sm ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none'}`;
+            bubble.innerHTML = text; // Permite inyectar HTML como enlaces
+
+            msgDiv.appendChild(bubble);
+            chatMessages.appendChild(msgDiv);
+            
+            // Hacer scroll hacia abajo suavemente
+            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+        }
+
+        function showTypingIndicator() {
+            const id = 'typing-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = id;
+            msgDiv.className = 'flex gap-2 w-full justify-start';
+            msgDiv.innerHTML = `
+                <div class="bg-pink-50 text-gray-500 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm flex gap-1 items-center">
+                    <div class="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce"></div>
+                    <div class="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                </div>
+            `;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+            return id;
+        }
+
+        function removeTypingIndicator(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function sendQuickReply(type) {
+            const labels = {
+                'envios': 'Información de envíos',
+                'pagos': 'Métodos de pago',
+                'garantia': '¿Tienen garantía?',
+                'asesor': 'Quiero hablar con un humano'
+            };
+            
+            appendMessage(labels[type], true);
+            
+            const typingId = showTypingIndicator();
+            setTimeout(() => {
+                removeTypingIndicator(typingId);
+                appendMessage(botKnowledge[type]);
+            }, 1000);
+        }
+
+        function handleUserMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            appendMessage(text, true);
+            chatInput.value = '';
+
+            const typingId = showTypingIndicator();
+            
+            setTimeout(() => {
+                removeTypingIndicator(typingId);
+                processUserText(text.toLowerCase());
+            }, 1200);
+        }
+
+        function handleChatEnter(e) {
+            if (e.key === 'Enter') {
+                handleUserMessage();
+            }
+        }
+
+        function processUserText(text) {
+            // Lógica de detección de palabras clave simple
+            if (text.includes('envio') || text.includes('envío') || text.includes('delivery') || text.includes('llega')) {
+                appendMessage(botKnowledge['envios']);
+            } else if (text.includes('pago') || text.includes('pagar') || text.includes('yape') || text.includes('tarjeta')) {
+                appendMessage(botKnowledge['pagos']);
+            } else if (text.includes('garantia') || text.includes('garantía') || text.includes('falla') || text.includes('cambio')) {
+                appendMessage(botKnowledge['garantia']);
+            } else if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) {
+                appendMessage(botKnowledge['precio']);
+            } else if (text.includes('hola') || text.includes('buenos dias') || text.includes('buenas tardes')) {
+                appendMessage(botKnowledge['hola']);
+            } else if (text.includes('gracias') || text.includes('ok')) {
+                appendMessage(botKnowledge['gracias']);
+            } else if (text.includes('humano') || text.includes('persona') || text.includes('whatsapp') || text.includes('numero')) {
+                appendMessage(botKnowledge['asesor']);
+            } else {
+                appendMessage(botKnowledge['fallback']);
+            }
         }
 
         // Inicializar
