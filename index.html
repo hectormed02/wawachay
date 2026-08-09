@@ -24,7 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <!-- Fuentes Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -47,7 +47,8 @@
                     },
                     fontFamily: {
                         sans: ['Nunito', 'sans-serif'],
-                        logo: ['Montserrat', 'sans-serif'], // Usado para acercarnos al estilo itálico de la marca
+                        logo: ['"Great Vibes"', 'cursive'], // Estilo cursivo idéntico al logo
+                        montserrat: ['Montserrat', 'sans-serif'], // Estilo limpio para los subtítulos
                     }
                 }
             }
@@ -70,18 +71,19 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+            <a href="#inicio" class="flex items-center gap-3 group cursor-pointer transition-transform duration-300">
                 <!-- Logo Oficial -->
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm">
-                <div>
-                    <h1 class="text-2xl font-bold font-logo italic tracking-tight text-purple-700">Wawachay</h1>
-                    <p class="text-xs text-pink-500 font-medium">Extractores y Accesorios</p>
+                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <div class="flex flex-col justify-center">
+                    <h1 class="text-4xl font-logo tracking-wide text-purple-700 group-hover:text-pink-500 transition-colors duration-300 leading-none pt-2">Wawachay</h1>
+                    <p class="text-[10px] sm:text-xs text-pink-500 font-semibold font-montserrat uppercase tracking-wider -mt-1">Extractores y Accesorios</p>
                 </div>
-            </div>
+            </a>
             <nav class="hidden md:flex gap-6">
                 <a href="#inicio" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Inicio</a>
                 <a href="#catalogo" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Catálogo</a>
                 <a href="#beneficios" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Beneficios</a>
+                <a href="#testimonios" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Testimonios</a>
                 <a href="#nosotros" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Nosotros</a>
                 <a href="#contacto" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Contacto</a>
             </nav>
@@ -107,7 +109,7 @@
                         Para la comodidad de mamá y bebé
                     </span>
                     <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
-                        Cuidamos tu lactancia con <br class="hidden lg:block"/> <span class="gradient-text font-logo italic">la mejor tecnología</span>
+                        Cuidamos tu lactancia con <br class="hidden lg:block"/> <span class="gradient-text font-logo font-normal pr-2 text-5xl sm:text-6xl lg:text-7xl">la mejor tecnología</span>
                     </h2>
                     <p class="text-lg text-gray-600 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
                         Descubre nuestro catálogo dinámico de extractores de leche materna y accesorios. Diseñados para ofrecerte máximo confort, practicidad y seguridad en cada gota.
@@ -231,6 +233,27 @@
             </div>
         </section>
 
+        <!-- NUEVA SECCIÓN DE TESTIMONIOS -->
+        <section id="testimonios" class="py-16 bg-gradient-to-b from-pink-50/30 to-white border-t border-pink-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="bg-pink-100 text-pink-600 text-sm font-bold px-4 py-1.5 rounded-full mb-4 inline-block shadow-sm">
+                        Comunidad Wawachay
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Lo que dicen las mamis</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto text-lg">Más de cientos de familias confían en nosotros para hacer su etapa de lactancia más cómoda y feliz.</p>
+                </div>
+                
+                <div id="testimonios-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Los testimonios se cargarán aquí por JS -->
+                    <div id="loading-testimonios" class="col-span-full py-10 flex flex-col items-center justify-center">
+                        <div class="animate-spin rounded-full h-10 w-10 border-4 border-purple-200 border-t-purple-500 mb-4"></div>
+                        <p class="text-gray-500 font-medium">Cargando experiencias...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="nosotros" class="py-16 bg-white border-t border-pink-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -276,7 +299,10 @@
                             <svg class="w-7 h-7 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             Ubícanos
                         </h3>
-                        <p class="text-gray-600 mb-6 font-medium text-lg">Av. Defensores del Morro 1625</p>
+                        <p class="text-gray-600 mb-6 font-medium text-lg leading-tight">
+                            Av. Defensores del Morro 1625 <br>
+                            <span class="text-base text-gray-500">C.C. Galaxy Plaza - 2do Piso, Tienda 2058</span>
+                        </p>
                         
                         <div class="flex-grow w-full rounded-2xl overflow-hidden shadow-inner bg-gray-100 min-h-[300px] lg:min-h-0 relative">
                             <!-- El mapa se incrusta dinámicamente apuntando a las coordenadas -->
@@ -434,11 +460,11 @@
 
     <footer class="bg-white border-t border-gray-200 mt-12 py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
+            <a href="#inicio" class="flex items-center gap-3 group cursor-pointer">
                 <!-- Logo Footer -->
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-10 w-auto object-contain">
-                <span class="text-xl font-bold font-logo italic text-purple-700">Wawachay</span>
-            </div>
+                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+                <span class="text-4xl font-logo text-purple-700 group-hover:text-pink-500 transition-colors duration-300 pt-1">Wawachay</span>
+            </a>
             
             <!-- Derechos y Desarrollador -->
             <div class="text-center md:text-left flex flex-col gap-1">
@@ -522,16 +548,19 @@
     <script>
         // Configuración
         const WHATSAPP_NUMBER = '51970551728'; 
-        // URL Pública CSV Extraída directamente de la información provista
+        
+        // --- ENLACES DE GOOGLE SHEETS (FORMATO CSV) ---
+        // 1. Catálogo de Productos (Tu hoja principal)
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT21LHXXbPNxOqSAEgbJoPO98RHVKt4uXsfRb_TubMeybnLhJcVPpsVsikzZks7N79F_xz1FsB24cC/pub?output=csv';
+        
+        // 2. Testimonios
+        // ¡IMPORTANTE! Para obtener este enlace:
+        // En tu Google Sheets ve a: Archivo > Compartir > Publicar en la web.
+        // Elige "TESTIMONIOS" (no Todo el documento) y "Valores separados por comas (.csv)".
+        // Pega ese nuevo enlace aquí abajo, reemplazando el texto.
+        const SHEET_URL_TESTIMONIOS = 'PEGAR_AQUI_EL_LINK_CSV_DE_TESTIMONIOS';
 
-        // --- SEGURIDAD BÁSICA PARA EVITAR COPIAS (Bloquear F12 y Clic derecho) ---
-        document.addEventListener('contextmenu', event => event.preventDefault()); // Bloquea clic derecho
-        document.addEventListener('keydown', event => {
-            // Bloquea F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
-            if (event.keyCode === 123 || 
-               (event.ctrlKey && event.shiftKey && (event.keyCode === 73 || event.keyCode === 74)) || 
-               (event.ctrlKey && event.keyCode === 85)) {
+        // --- SEGURIDAD BÁSICA PARA EVITAR COPIAS ---
                 event.preventDefault();
                 return false;
             }
@@ -948,19 +977,96 @@
                     'Stock': '10',
                     'Link de Imagen (Drive)': '',
                     'Categoría': 'Eléctricos'
-                },
-                {
-                    'Nombre': 'Accesorio Escurridor Biberones',
-                    'Descripción Corta': 'Ideal para esterilizar y guardar los frascos del bebé.',
-                    'Precio': 'S/ 68.00',
-                    'Stock': '5',
-                    'Link de Imagen (Drive)': '',
-                    'Categoría': 'Accesorios'
                 }
             ];
             updateCategoryFilter(new Set(['Eléctricos', 'Accesorios']));
             renderProducts(allProducts);
             document.getElementById('loading').style.display = 'none';
+        }
+
+        // --- LÓGICA DE TESTIMONIOS ---
+        function fetchTestimoniosData() {
+            // Si el admin no ha puesto el link aún, cargar data de prueba
+            if (SHEET_URL_TESTIMONIOS === 'PEGAR_AQUI_EL_LINK_CSV_DE_TESTIMONIOS') {
+                loadDemoTestimonios();
+                return;
+            }
+
+            const cacheBuster = new Date().getTime();
+            Papa.parse(`${SHEET_URL_TESTIMONIOS}&t=${cacheBuster}`, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    const data = results.data.filter(row => row['Nombre'] && row['Nombre'].trim() !== '');
+                    if(data.length > 0) {
+                        renderTestimonios(data);
+                    } else {
+                        loadDemoTestimonios();
+                    }
+                },
+                error: function(error) {
+                    console.error('Error al cargar testimonios:', error);
+                    loadDemoTestimonios();
+                }
+            });
+        }
+
+        function renderTestimonios(testimonios) {
+            const container = document.getElementById('testimonios-container');
+            container.innerHTML = '';
+
+            testimonios.forEach(testi => {
+                const nombre = testi['Nombre'] || 'Mami Feliz';
+                const comentario = testi['Comentario'] || 'Excelente producto y atención.';
+                const estrellas = parseInt(testi['Calificación']) || 5;
+                const fecha = testi['Fecha'] || '';
+                
+                // Buscar foto dinámica (si existe en la cabecera 'Foto' o 'Foto (Drive)')
+                let fotoUrl = 'https://api.dicebear.com/7.x/notionists/svg?seed=' + encodeURIComponent(nombre) + '&backgroundColor=fce7f3'; 
+                for (let k in testi) {
+                    if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') {
+                        fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
+                    }
+                }
+
+                // Generar estrellas SVG (Mínimo 1, Máximo 5)
+                let estrellasHTML = '';
+                const maxStars = Math.min(Math.max(estrellas, 1), 5);
+                for(let i = 0; i < maxStars; i++) {
+                    estrellasHTML += `<svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+                }
+
+                const card = document.createElement('div');
+                card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-pink-50 hover:shadow-xl transition-shadow duration-300 relative group flex flex-col h-full';
+                
+                card.innerHTML = `
+                    <div class="absolute top-0 right-0 p-6 opacity-10 text-pink-500 group-hover:scale-110 group-hover:text-pink-600 transition-all duration-300">
+                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    </div>
+                    <div class="flex gap-1 mb-4 z-10 relative">
+                        ${estrellasHTML}
+                    </div>
+                    <p class="text-gray-600 italic mb-6 flex-grow z-10 relative leading-relaxed">"${comentario}"</p>
+                    <div class="flex items-center gap-4 mt-auto z-10 relative">
+                        <img src="${fotoUrl}" alt="Foto de ${nombre}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200">
+                        <div>
+                            <h4 class="font-bold text-gray-800">${nombre}</h4>
+                            ${fecha ? `<p class="text-xs text-gray-400">${fecha}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function loadDemoTestimonios() {
+            const demoData = [
+                { 'Nombre': 'Valeria R.', 'Comentario': 'El extractor S11 me salvó la vida. Súper silencioso y no me duele nada. Lo uso mientras trabajo y nadie se da cuenta. ¡100% recomendado!', 'Calificación': '5', 'Fecha': 'Hace 1 semana' },
+                { 'Nombre': 'Claudia M.', 'Comentario': 'Tenía dudas sobre qué modelo comprar, pero la asesoría por WhatsApp fue excelente. Me ayudaron a elegir el ideal para mí. El envío fue súper rápido.', 'Calificación': '5', 'Fecha': 'Hace 2 meses' },
+                { 'Nombre': 'Sofía L.', 'Comentario': 'Los materiales se sienten de muy buena calidad y es fácil de lavar. Definitivamente volveré a comprar accesorios aquí.', 'Calificación': '4', 'Fecha': 'Hace 3 meses' }
+            ];
+            renderTestimonios(demoData);
         }
 
         // --- NUEVO: LÓGICA DEL CHATBOT ---
@@ -1100,6 +1206,7 @@
         // Inicializar
         document.addEventListener('DOMContentLoaded', () => {
             fetchGoogleSheetsData();
+            fetchTestimoniosData(); // Iniciar carga de testimonios
 
             // Escuchar cambios en los inputs de filtro
             document.getElementById('searchInput').addEventListener('input', filterProducts);
