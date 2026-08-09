@@ -8,12 +8,12 @@
     <!-- SEO Básico y Favicon -->
     <meta name="description" content="Catálogo de extractores de leche materna, biberones y accesorios. Productos diseñados para facilitar la lactancia con comodidad y tecnología.">
     <meta name="keywords" content="extractores de leche, lactancia materna, accesorios para bebes, Wawachay, sacaleches">
-    <link rel="icon" type="image/png" href="./Logo_1.png">
+    <link rel="icon" type="image/png" href="./Logo_1.PNG">
     
     <!-- Open Graph (Previsualización para WhatsApp y Facebook) -->
     <meta property="og:title" content="Wawachay | Tienda de Extractores de Leche">
     <meta property="og:description" content="Descubre nuestro catálogo de extractores y accesorios. Máximo confort y tecnología para tu lactancia.">
-    <meta property="og:image" content="./Logo_1.png">
+    <meta property="og:image" content="./Logo_1.PNG">
     <meta property="og:url" content="https://wawachay.vercel.app">
     <meta property="og:type" content="website">
 
@@ -72,7 +72,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <!-- Logo Oficial -->
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm">
+                <img src="./Logo_1.PNG" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm">
                 <div>
                     <h1 class="text-2xl font-bold font-logo italic tracking-tight text-purple-700">Wawachay</h1>
                     <p class="text-xs text-pink-500 font-medium">Extractores y Accesorios</p>
@@ -221,12 +221,18 @@
                 <div class="flex flex-col md:flex-row gap-6 mt-2">
                     <!-- Imagen Modal y Miniaturas -->
                     <div class="w-full md:w-1/2 flex flex-col gap-4">
-                        <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden">
-                            <img id="modalImg" src="" alt="Producto" class="max-h-64 object-contain transition-opacity duration-300 relative z-10">
+                        <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden group">
+                            <!-- Se agregó cursor-zoom-in, animación hover, aumento de tamaño (max-h-80 sm:max-h-96) y el evento onclick -->
+                            <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" title="Clic para expandir" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
                             
                             <!-- Sello de agua Modal -->
                             <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4">
                                 <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-25">
+                            </div>
+                            
+                            <!-- Indicador visual de zoom -->
+                            <div class="absolute bottom-4 right-4 bg-white/80 backdrop-blur-sm text-gray-600 p-2 rounded-full shadow-sm z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                             </div>
                         </div>
                         <!-- Miniaturas -->
@@ -255,6 +261,24 @@
         </div>
     </div>
     
+    <!-- NUEVO: Contenedor Lightbox para expandir imagen a pantalla completa -->
+    <div id="imageLightbox" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
+        <!-- Botón Cerrar Lightbox -->
+        <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 z-[80]">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        
+        <div class="relative max-w-5xl w-full h-full flex items-center justify-center">
+            <!-- Imagen Expandida -->
+            <img id="lightboxImg" src="" alt="Producto Expandido" class="max-w-full max-h-[90vh] object-contain relative z-[75] cursor-zoom-out" onclick="event.stopPropagation(); closeLightbox();">
+            
+            <!-- Sello de agua en Lightbox -->
+            <div class="absolute inset-0 z-[76] flex items-center justify-center pointer-events-none p-10">
+                <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-20">
+            </div>
+        </div>
+    </div>
+
     <style>
         /* Scrollbar personalizado para el modal */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
@@ -267,7 +291,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
                 <!-- Logo Footer -->
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-10 w-auto object-contain">
+                <img src="./Logo_1.PNG" alt="Logo Wawachay" class="h-10 w-auto object-contain">
                 <span class="text-xl font-bold font-logo italic text-purple-700">Wawachay</span>
             </div>
             <p class="text-gray-500 text-sm text-center md:text-left">
@@ -614,6 +638,36 @@
         document.getElementById('productModal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
+
+        // Funciones para el Lightbox (Pantalla completa)
+        function openLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const mainImg = document.getElementById('modalImg');
+            
+            // Copiar la imagen actual al lightbox
+            lightboxImg.src = mainImg.src;
+            
+            // Mostrar lightbox
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            
+            // Pequeño timeout para que se active la animación de opacidad de Tailwind
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            
+            lightbox.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }, 300);
+        }
 
         function filterProducts() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
