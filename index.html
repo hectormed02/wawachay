@@ -324,7 +324,7 @@
                         </div>
                         <h4 class="font-bold text-gray-800 mb-1">Atención vía WhatsApp</h4>
                         <p class="text-gray-500 text-sm mb-3">Escríbenos directamente</p>
-                        <a href="https://wa.me/51970551728" target="_blank" class="text-green-600 font-bold hover:underline">+51 970551728</a>
+                        <a href="https://wa.me/51970551728" target="_blank" class="text-green-600 font-bold hover:underline">Iniciar chat</a>
                     </div>
 
                     <!-- Tarjeta Redes -->
@@ -704,7 +704,7 @@
 
                         ${isAvailable ? 
                             '<span class="absolute top-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>' : 
-                            '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Agotado</span>'
+                            '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>'
                         }
                         <span class="absolute top-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm">${category}</span>
                         
@@ -721,9 +721,9 @@
                                 <button onclick="showDetails(${index})" class="w-full bg-pink-50 text-pink-700 font-semibold py-2 rounded-xl hover:bg-pink-100 transition-colors text-sm border border-pink-100">
                                     Ver Detalle
                                 </button>
-                                <a href="${whatsappUrl}" target="_blank" class="w-full bg-green-500 text-white font-semibold py-2 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-1 text-sm shadow-sm shadow-green-200">
+                                <a href="${whatsappUrl}" target="_blank" class="w-full ${isAvailable ? 'bg-green-500 hover:bg-green-600 shadow-green-200' : 'bg-gray-400 hover:bg-gray-500 shadow-gray-200'} text-white font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm shadow-sm">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
-                                    Comprar
+                                    ${isAvailable ? 'Comprar' : 'Consultar'}
                                 </a>
                             </div>
                         </div>
@@ -765,6 +765,9 @@
                 fullDesc += '\n\n' + longDesc;
             }
             
+            const stock = product['Stock'] || product['Cantidad'] || '0';
+            const isAvailable = parseInt(stock) > 0;
+
             document.getElementById('modalTitle').textContent = name;
             document.getElementById('modalPrice').textContent = price;
             document.getElementById('modalCategory').textContent = category;
@@ -809,7 +812,16 @@
                 thumbnailsContainer.classList.remove('flex');
             }
 
-            document.getElementById('modalWhatsapp').href = generateWhatsAppLink(name, price);
+            const modalWhatsappBtn = document.getElementById('modalWhatsapp');
+            modalWhatsappBtn.href = generateWhatsAppLink(name, price);
+            
+            if (isAvailable) {
+                modalWhatsappBtn.className = "w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200";
+                modalWhatsappBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Pedir por WhatsApp';
+            } else {
+                modalWhatsappBtn.className = "w-full bg-gray-500 text-white font-bold py-3 rounded-xl hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-gray-200";
+                modalWhatsappBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar Reposición';
+            }
             
             const modal = document.getElementById('productModal');
             const content = document.getElementById('productModalContent');
