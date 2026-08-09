@@ -661,22 +661,22 @@
             }
 
             products.forEach((product, index) => {
-                const name = product['Nombre'] || product['Name'] || 'Producto sin nombre';
+                const uniqueImages = [...new Set(driveImages)].slice(0, 4);
                 
-                // Búsqueda inteligente de la columna de descripción corta
-                let desc = product['Descripción Corta'] || product['Descripción'] || '';
-                if (!desc) {
-                    for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
+                const stockStr = product['Stock'] || product['Cantidad'] || '0';
+                const stockNum = parseInt(stockStr) || 0;
+                const isAvailable = stockNum > 0;
+
+                // LÓGICA DE ETIQUETA DE STOCK (CON ALERTA DE POCO STOCK)
+                let stockBadgeHTML = '';
+                if (stockNum === 0) {
+                    stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>';
+                } else if (stockNum <= 5) {
+                    // Etiqueta de urgencia (Naranja, ícono de alerta y animación de latido)
+                    stockBadgeHTML = `<span class="absolute top-3 left-3 z-30 bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 shadow-md flex items-center gap-1 animate-pulse" title="¡Se agotan rápido!"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
+                } else {
+                    stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>';
                 }
-                if (!desc) desc = 'Sin descripción';
-                
-                const price = product['Precio'] || product['Price'] || 'Consultar precio';
-                
-                // Usar el extractor automático de imágenes múltiples
-                const driveImages = extractImagesFromProduct(product);
-                
-                const stock = product['Stock'] || product['Cantidad'] || '0';
-                const isAvailable = parseInt(stock) > 0;
                 
                 // Búsqueda inteligente de categoría
                 let category = 'Extractores';
@@ -702,10 +702,8 @@
                             <img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25">
                         </div>
 
-                        ${isAvailable ? 
-                            '<span class="absolute top-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>' : 
-                            '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>'
-                        }
+                        ${stockBadgeHTML}
+                        
                         <span class="absolute top-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm">${category}</span>
                         
                         <!-- Nota de imágenes referenciales -->
@@ -765,12 +763,26 @@
                 fullDesc += '\n\n' + longDesc;
             }
             
-            const stock = product['Stock'] || product['Cantidad'] || '0';
-            const isAvailable = parseInt(stock) > 0;
+            const stockStr = product['Stock'] || product['Cantidad'] || '0';
+            const stockNum = parseInt(stockStr) || 0;
+            const isAvailable = stockNum > 0;
 
             document.getElementById('modalTitle').textContent = name;
             document.getElementById('modalPrice').textContent = price;
-            document.getElementById('modalCategory').textContent = category;
+            
+            // Lógica de Etiquetas para el Modal (Categoría + Stock)
+            let modalStockBadge = '';
+            if (stockNum === 0) {
+                modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Sin Stock</span>';
+            } else if (stockNum <= 5) {
+                modalStockBadge = `<span class="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
+            } else {
+                modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
+            }
+            
+            const modalCatEl = document.getElementById('modalCategory');
+            modalCatEl.className = "flex flex-wrap gap-2 mb-3 self-start";
+            modalCatEl.innerHTML = `<span class="bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full border border-pink-200">${category}</span>${modalStockBadge}`;
             
             document.getElementById('modalDesc').innerHTML = fullDesc
                 .replace(/</g, "&lt;").replace(/>/g, "&gt;") 
