@@ -1031,12 +1031,6 @@
 
         // --- LÓGICA DE TESTIMONIOS ---
         function fetchTestimoniosData() {
-            // Si el admin no ha puesto el link aún, cargar data de prueba
-            if (SHEET_URL_TESTIMONIOS === 'PEGAR_AQUI_EL_LINK_CSV_DE_TESTIMONIOS') {
-                loadDemoTestimonios();
-                return;
-            }
-
             Papa.parse(SHEET_URL_TESTIMONIOS, {
                 download: true,
                 header: true,
@@ -1064,9 +1058,8 @@
 
             testimonios.forEach((testi, index) => {
                 const nombre = testi['Nombre'] || 'Mami Feliz';
-                // Corregimos las comillas dobles adicionales escapadas desde Google Sheets
                 let comentario = testi['Comentario'] || 'Excelente producto y atención.';
-                comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, ''); // Limpia comillas al inicio y final
+                comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
                 
                 const estrellas = parseInt(testi['Calificación']) || 5;
                 const fecha = testi['Fecha'] || '';
@@ -1085,7 +1078,6 @@
                 }
 
                 const card = document.createElement('div');
-                // Agregamos cursor-pointer y onclick a la tarjeta entera para abrir el detalle
                 card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-pink-50 hover:shadow-xl transition-all duration-300 relative group flex flex-col h-full cursor-pointer hover:-translate-y-1';
                 card.onclick = () => openTestimonioModal(index);
                 
@@ -1098,18 +1090,27 @@
                     </div>
                     <p class="text-gray-600 italic mb-6 flex-grow z-10 relative leading-relaxed line-clamp-4 group-hover:text-gray-800 transition-colors">"${comentario}"</p>
                     <div class="flex items-center gap-4 mt-auto z-10 relative border-t border-gray-50 pt-4">
-                        <img src="${fotoUrl}" alt="Foto de ${nombre}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200">
+                        <img src="${fotoUrl}" alt="Foto de ${nombre}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200 relative z-20 cursor-zoom-in hover:scale-110 transition-transform" onclick="event.stopPropagation(); openTestimonioLightbox('${fotoUrl}')" title="Clic para ampliar">
                         <div>
                             <h4 class="font-bold text-gray-800">${nombre}</h4>
                             ${fecha ? `<p class="text-xs text-gray-400">${fecha}</p>` : ''}
                         </div>
                         <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span class="text-xs text-pink-500 font-bold bg-pink-50 px-2 py-1 rounded-md">Ver más</span>
+                            <span class="text-xs text-pink-500 font-bold bg-pink-50 px-2 py-1 rounded-md">Ver detalle</span>
                         </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
+        }
+        
+        function loadDemoTestimonios() {
+             const demoData = [
+                { 'Nombre': 'María Fernández', 'Comentario': 'El extractor S11 me salvó la lactancia. Es súper silencioso y no me duele nada. Lo uso mientras trabajo y nadie se da cuenta. ¡100% recomendado!', 'Calificación': '5', 'Fecha': 'Hace 2 días' },
+                { 'Nombre': 'Lucía M.', 'Comentario': 'Tenía dudas sobre comprar uno inalámbrico pero fue la mejor decisión. La batería dura bastante y es muy fácil de limpiar.', 'Calificación': '5', 'Fecha': 'Hace 1 semana' },
+                { 'Nombre': 'Ana S.', 'Comentario': 'Los materiales se sienten de muy buena calidad. Al principio me costó acomodarlo pero una vez que le agarras el truco saca muy buena cantidad de leche.', 'Calificación': '4', 'Fecha': 'Hace 2 semanas' }
+            ];
+            renderTestimonios(demoData);
         }
 
         // --- NUEVAS FUNCIONES PARA EL MODAL DE TESTIMONIO ---
@@ -1180,6 +1181,87 @@
 
         // Modificamos para que se pueda llamar desde el modal
         function openTestimonioLightbox(fotoUrl) {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            
+            // Asignar imagen
+            lightboxImg.src = fotoUrl;
+            
+            // Mostrar lightbox
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        // --- LÓGICA DEL CHATBOT ---
+        let chatOpen = false;
+        const chatWindow = document.getElementById('chatbot-window');
+        const chatMessages = document.getElementById('chatbot-messages');
+        const chatInput = document.getElementById('chatbot-input');
+        const quickReplies = document.getElementById('quick-replies');
+
+        // Base de conocimiento del Bot
+        const botKnowledge = {
+            'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias, el tiempo depende de la agencia (Shalom o Marvisur).',
+            'pagos': 'Aceptamos Yape, Plin, y transferencias bancarias (BCP, BBVA, Interbank). Todo pago es 100% seguro.',
+            'garantia': '¡Claro que sí! Todos nuestros extractores cuentan con garantía por defectos de fábrica. Queremos que tu inversión esté segura.',
+            'precio': 'Nuestros precios varían según el modelo (manual, eléctrico, doble, inalámbrico). ¡Te invito a revisar el catálogo aquí mismo en la web para ver los detalles!',
+            'hola': '¡Hola de nuevo, mami! 🌸 ¿En qué te puedo ayudar hoy?',
+            'gracias': '¡De nada! Aquí estoy si necesitas algo más.',
+            'asesor': 'Con gusto te comunicaré con una asesora. Por favor, haz clic aquí para hablar por WhatsApp: <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>',
+            'fallback': 'Mmm, no estoy muy segura de eso. 🤔 ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí para chatear</a>.'
+        };
+
+        function toggleChatbot() {
+            chatOpen = !chatOpen;
+            if (chatOpen) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.classList.add('flex');
+                setTimeout(() => {
+                    chatWindow.classList.remove('opacity-0', 'translate-y-4');
+                    chatInput.focus();
+                }, 10);
+            } else {
+                chatWindow.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    chatWindow.classList.add('hidden');
+                    chatWindow.classList.remove('flex');
+                }, 300);
+            }
+        }
+
+        function appendMessage(text, isUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex gap-2 w-full ' + (isUser ? 'justify-end' : '');
+            
+            const bubble = document.createElement('div');
+            bubble.className = `p-3 rounded-2xl max-w-[85%] shadow-sm text-sm ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none'}`;
+            bubble.innerHTML = text; // Permite HTML para los links
+            
+            msgDiv.appendChild(bubble);
+            chatMessages.insertBefore(msgDiv, quickReplies); // Inserta antes de las opciones rápidas
+            
+            // Scroll hacia abajo
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const id = 'typing-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = id;
+            msgDiv.className = 'flex gap-2 w-full';
+            msgDiv.innerHTML = `
+                <div class="bg-pink-100 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm flex items-center gap-1">
+                    <span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0s"></span>
+                    <span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                    <span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
+                </div>
+            `;
+            chatMessages.insertBefore(msgDiv, quickReplies);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
             return id;
         }
 
