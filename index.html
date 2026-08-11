@@ -47,8 +47,8 @@
                     },
                     fontFamily: {
                         sans: ['Nunito', 'sans-serif'],
-                        logo: ['"Great Vibes"', 'cursive'], // Estilo cursivo idéntico al logo
-                        montserrat: ['Montserrat', 'sans-serif'], // Estilo limpio para los subtítulos
+                        logo: ['"Great Vibes"', 'cursive'], 
+                        montserrat: ['Montserrat', 'sans-serif'], 
                     }
                 }
             }
@@ -65,6 +65,11 @@
             background-image: radial-gradient(#fce7f3 2px, transparent 2px);
             background-size: 30px 30px;
         }
+        /* Scrollbar personalizado */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #db2777; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
@@ -72,8 +77,7 @@
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#inicio" class="flex items-center gap-3 group cursor-pointer transition-transform duration-300">
-                <!-- Logo Oficial -->
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/fce7f3/db2777?text=W'">
                 <div class="flex flex-col justify-center">
                     <h1 class="text-4xl font-logo tracking-wide text-purple-700 group-hover:text-pink-500 transition-colors duration-300 leading-none pt-2">Wawachay</h1>
                     <p class="text-[10px] sm:text-xs text-pink-500 font-semibold font-montserrat uppercase tracking-wider -mt-1">Extractores y Accesorios</p>
@@ -95,15 +99,11 @@
     </header>
 
     <main class="flex-grow" id="inicio">
-        <!-- NUEVA SECCIÓN HERO CON BANNER -->
         <section class="relative pt-12 pb-16 px-4 sm:px-6 lg:px-8 border-b border-pink-100 overflow-hidden bg-gradient-to-b from-pink-50/50 to-white">
-            <!-- Círculos decorativos de fondo -->
             <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-pink-100 opacity-50 blur-3xl pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-purple-100 opacity-50 blur-3xl pointer-events-none"></div>
             
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-                
-                <!-- Columna de Texto -->
                 <div class="text-center lg:text-left order-2 lg:order-1">
                     <span class="bg-purple-100 text-purple-700 text-sm font-bold px-4 py-1.5 rounded-full mb-6 inline-block shadow-sm">
                         Para la comodidad de mamá y bebé
@@ -120,21 +120,15 @@
                     </a>
                 </div>
                 
-                <!-- Columna del Banner (Imagen) -->
                 <div class="order-1 lg:order-2 relative mx-auto w-full max-w-lg lg:max-w-full group">
-                    <!-- Sombra/Borde decorativo animado detrás del banner -->
                     <div class="absolute inset-0 bg-gradient-to-tr from-pink-300 to-purple-300 rounded-3xl transform rotate-3 scale-105 opacity-30 group-hover:rotate-6 transition-transform duration-500"></div>
-                    
-                    <!-- Imagen Banner Principal -->
                     <img src="./banner.webp" alt="Banner Principal Wawachay" fetchpriority="high" loading="eager"
                          class="relative z-10 rounded-3xl shadow-2xl w-full object-cover transform hover:-translate-y-2 transition-transform duration-500"
                          onerror="this.src='https://placehold.co/800x600/fce7f3/db2777?text=Banner+Wawachay'">
                 </div>
-                
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN DE BENEFICIOS -->
         <section id="beneficios" class="py-16 bg-white border-b border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -143,7 +137,6 @@
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Beneficio 1 -->
                     <div class="bg-pink-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
                         <div class="w-14 h-14 bg-pink-200 rounded-full flex items-center justify-center mx-auto mb-4 text-pink-600">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
@@ -152,7 +145,6 @@
                         <p class="text-gray-600 text-sm">Tecnología de succión que simula el ritmo natural del bebé, evitando el dolor y cuidando tu piel.</p>
                     </div>
                     
-                    <!-- Beneficio 2 -->
                     <div class="bg-purple-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
                         <div class="w-14 h-14 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -161,7 +153,6 @@
                         <p class="text-gray-600 text-sm">Modelos inalámbricos y silenciosos que te permiten extraer leche en cualquier lugar y momento del día.</p>
                     </div>
                     
-                    <!-- Beneficio 3 -->
                     <div class="bg-green-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
                         <div class="w-14 h-14 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -174,58 +165,48 @@
         </section>
 
         <section id="catalogo" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Nuestro Catálogo</h2>
-                    <p class="text-gray-500">Encuentra el producto perfecto para ti</p>
-                </div>
-                
-                <!-- Buscador y Filtros -->
-                <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                    <div class="relative w-full sm:w-64">
-                        <input type="text" id="searchInput" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none transition-all">
-                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <div class="mb-10 flex flex-col gap-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Nuestro Catálogo</h2>
+                        <p class="text-gray-500">Encuentra el producto perfecto para ti</p>
                     </div>
                     
-                    <div class="flex items-center gap-2">
-                        <label for="categoryFilter" class="text-sm font-semibold text-gray-600 whitespace-nowrap">Categoría:</label>
-                        <select id="categoryFilter" class="border border-gray-200 rounded-xl py-2 px-4 bg-white text-gray-700 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none">
-                            <option value="all">Todas las categorías</option>
-                            <!-- Se llenará dinámicamente -->
-                        </select>
+                    <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                        <div class="relative w-full sm:w-64">
+                            <input type="text" id="searchInput" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none transition-all">
+                            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label for="sortOrder" class="text-sm font-semibold text-gray-600 whitespace-nowrap">Ordenar por:</label>
+                            <select id="sortOrder" class="border border-gray-200 rounded-xl py-2 px-4 bg-white text-gray-700 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none">
+                                <option value="default">Relevancia</option>
+                                <option value="low-high">Menor a Mayor Precio</option>
+                                <option value="high-low">Mayor a Menor Precio</option>
+                            </select>
+                        </div>
                     </div>
-
-                    <div class="flex items-center gap-2">
-                        <label for="sortOrder" class="text-sm font-semibold text-gray-600 whitespace-nowrap">Ordenar por:</label>
-                        <select id="sortOrder" class="border border-gray-200 rounded-xl py-2 px-4 bg-white text-gray-700 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none">
-                            <option value="default">Relevancia</option>
-                            <option value="low-high">Menor a Mayor Precio</option>
-                            <option value="high-low">Mayor a Menor Precio</option>
-                        </select>
-                    </div>
+                </div>
+                
+                <!-- Pestañas Nuevas -->
+                <div id="categoryTabs" class="flex gap-3 overflow-x-auto py-2 custom-scrollbar w-full">
+                    <!-- Se llenará por JS -->
                 </div>
             </div>
 
-            <!-- Contenedor de Error (Oculto por defecto) -->
             <div id="error-message" class="hidden col-span-full mb-8 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
                 <div class="flex">
                     <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
+                        <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
                     </div>
                     <div class="ml-3">
-                        <p class="text-sm text-yellow-700">
-                            <strong>No se pudo conectar a Google Sheets.</strong> Mostrando productos de demostración. 
-                            Asegúrate de que tu Google Sheet esté publicado (Archivo > Compartir > Publicar en la web > Formato CSV).
-                        </p>
+                        <p class="text-sm text-yellow-700"><strong>No se pudo conectar a Google Sheets.</strong> Mostrando productos de demostración.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Contenedor Principal de Productos -->
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Indicador de carga -->
                 <div id="loading" class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
                     <p class="text-gray-500 font-medium">Cargando catálogo...</p>
@@ -233,7 +214,6 @@
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN DE TESTIMONIOS -->
         <section id="testimonios" class="py-16 bg-gradient-to-b from-pink-50/30 to-white border-t border-pink-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -245,7 +225,6 @@
                 </div>
                 
                 <div id="testimonios-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Los testimonios se cargarán aquí por JS -->
                     <div id="loading-testimonios" class="col-span-full py-10 flex flex-col items-center justify-center">
                         <div class="animate-spin rounded-full h-10 w-10 border-4 border-purple-200 border-t-purple-500 mb-4"></div>
                         <p class="text-gray-500 font-medium">Cargando experiencias...</p>
@@ -253,41 +232,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- MODAL DE TESTIMONIO (NUEVO) -->
-        <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-            <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
-                
-                <!-- Botón Cerrar -->
-                <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-                
-                <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow flex flex-col items-center text-center">
-                    <!-- Foto en el Modal -->
-                    <div class="relative w-32 h-32 mb-6 group cursor-zoom-in" onclick="openTestimonioLightbox(document.getElementById('modalTestiFoto').src)">
-                        <img id="modalTestiFoto" src="" alt="Foto de Testimonio" class="w-full h-full object-cover rounded-full border-4 border-pink-100 shadow-lg transition-transform group-hover:scale-105">
-                        <div class="absolute inset-0 bg-black/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                        </div>
-                    </div>
-
-                    <!-- Información -->
-                    <h3 id="modalTestiNombre" class="text-2xl font-bold text-gray-800 mb-1"></h3>
-                    <p id="modalTestiFecha" class="text-sm text-gray-400 mb-4"></p>
-                    
-                    <div id="modalTestiEstrellas" class="flex gap-1 mb-6 justify-center">
-                        <!-- Se llenan por JS -->
-                    </div>
-
-                    <!-- Comillas decorativas y texto -->
-                    <div class="relative w-full">
-                        <svg class="absolute top-0 left-0 transform -translate-x-4 -translate-y-4 w-12 h-12 text-pink-100 z-0" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                        <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed relative z-10 italic"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <section id="nosotros" class="py-16 bg-white border-t border-pink-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -297,9 +241,7 @@
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-                    <!-- Misión y Visión -->
                     <div class="flex flex-col gap-6 justify-center">
-                        <!-- Misión -->
                         <div class="bg-pink-50 p-6 md:p-8 rounded-3xl border border-pink-100 shadow-sm relative overflow-hidden transition-transform duration-300 hover:-translate-y-1">
                             <div class="absolute -right-6 -top-6 text-pink-200 opacity-40">
                                 <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -309,11 +251,10 @@
                                 Nuestra Misión
                             </h3>
                             <p class="text-gray-600 leading-relaxed relative z-10 text-base md:text-lg">
-                                Acompañar a las madres en su hermosa etapa de lactancia, ofreciendo extractores de leche materna y accesorios de la más alta calidad, totalmente seguros y cómodos. Facilitamos el día a día de mamá promoviendo el bienestar integral del bebé.
+                                Acompañar a las madres en su hermosa etapa de lactancia, ofreciendo extractores de leche materna y accesorios de la más alta calidad, totalmente seguros y cómodos.
                             </p>
                         </div>
                         
-                        <!-- Visión -->
                         <div class="bg-purple-50 p-6 md:p-8 rounded-3xl border border-purple-100 shadow-sm relative overflow-hidden transition-transform duration-300 hover:-translate-y-1">
                             <div class="absolute -right-6 -top-6 text-purple-200 opacity-40">
                                  <svg class="w-32 h-32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -323,12 +264,11 @@
                                 Nuestra Visión
                             </h3>
                             <p class="text-gray-600 leading-relaxed relative z-10 text-base md:text-lg">
-                                Ser la tienda líder y más confiable de productos de lactancia en el Perú, reconocida por nuestra innovación y por el profundo compromiso de brindar la mejor experiencia y confort a cada familia que confía en nosotros.
+                                Ser la tienda líder y más confiable de productos de lactancia en el Perú, reconocida por nuestra innovación y por el profundo compromiso de brindar la mejor experiencia.
                             </p>
                         </div>
                     </div>
 
-                    <!-- Ubicación y Mapa -->
                     <div class="h-full flex flex-col bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                         <h3 class="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
                             <svg class="w-7 h-7 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -340,15 +280,10 @@
                         </p>
                         
                         <div class="flex-grow w-full rounded-2xl overflow-hidden shadow-inner bg-gray-100 min-h-[300px] lg:min-h-0 relative">
-                            <!-- El mapa se incrusta dinámicamente apuntando a las coordenadas -->
                             <iframe 
                                 src="https://www.google.com/maps?q=-12.176993787811982,-77.01614323810442&hl=es&z=16&output=embed" 
-                                width="100%" 
-                                height="100%" 
-                                style="border:0; position: absolute; top:0; left:0;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
+                                width="100%" height="100%" style="border:0; position: absolute; top:0; left:0;" 
+                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
                         </div>
                     </div>
@@ -356,7 +291,6 @@
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: POLÍTICA DE CALIDAD -->
         <section class="py-16 bg-gradient-to-b from-white to-pink-50/50 border-t border-pink-50 relative overflow-hidden">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 text-pink-500 shadow-sm">
@@ -364,47 +298,40 @@
                 </div>
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Nuestra Política de Calidad</h2>
                 <p class="text-gray-600 text-lg leading-relaxed bg-white p-8 rounded-3xl shadow-sm border border-pink-100">
-                    En <strong>Wawachay</strong>, la seguridad y comodidad de mamá y bebé son nuestra prioridad absoluta. Nos comprometemos a ofrecer extractores de leche y accesorios fabricados con materiales de grado alimenticio, 100% libres de BPA y testeados bajo rigurosos estándares de seguridad. Buscamos la mejora continua en nuestros servicios para garantizar una experiencia de lactancia tranquila, eficiente y protegida.
+                    En <strong>Wawachay</strong>, la seguridad y comodidad de mamá y bebé son nuestra prioridad. Nos comprometemos a ofrecer extractores de leche y accesorios fabricados con materiales de grado alimenticio, 100% libres de BPA y testeados bajo rigurosos estándares de seguridad.
                 </p>
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: CONTÁCTANOS -->
         <section id="contacto" class="py-16 bg-white border-t border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">Estamos aquí para ti</h2>
-                    <p class="text-gray-500 max-w-2xl mx-auto">¿Tienes alguna duda sobre qué extractor elegir o sobre tu pedido? Escríbenos y una asesora te atenderá con mucho gusto.</p>
+                    <p class="text-gray-500 max-w-2xl mx-auto">¿Tienes alguna duda sobre qué extractor elegir o sobre tu pedido? Escríbenos.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                    <!-- Tarjeta WhatsApp -->
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
                         </div>
                         <h4 class="font-bold text-gray-800 mb-1">Atención vía WhatsApp</h4>
-                        <p class="text-gray-500 text-sm mb-3">Escríbenos directamente</p>
                         <a href="https://wa.me/51970551728" target="_blank" class="text-green-600 font-bold hover:underline">Iniciar chat</a>
                     </div>
 
-                    <!-- Tarjeta Redes -->
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
                         </div>
                         <h4 class="font-bold text-gray-800 mb-1">Asesoría Personalizada</h4>
-                        <p class="text-gray-500 text-sm mb-3">Síguenos y consúltanos</p>
                         <a href="https://www.instagram.com/wawa.extractordelechematerna/" target="_blank" class="text-purple-600 font-bold hover:underline">@wawa.extractordelechematerna</a>
                     </div>
 
-                    <!-- Tarjeta Horario -->
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <h4 class="font-bold text-gray-800 mb-1">Horario de Atención</h4>
-                        <p class="text-gray-500 text-sm mb-3">Estamos disponibles para ti</p>
                         <p class="text-pink-600 font-bold">Lunes a Domingo<br>9:00 am - 8:00 pm</p>
                     </div>
                 </div>
@@ -412,50 +339,43 @@
         </section>
     </main>
 
+    <!-- Modal Producto -->
     <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="productModalContent">
             
-            <!-- Botón Cerrar -->
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
             <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow">
                 <div class="flex flex-col md:flex-row gap-6 mt-2">
-                    <!-- Imagen Modal y Miniaturas -->
+                    <!-- Imágenes -->
                     <div class="w-full md:w-1/2 flex flex-col gap-4">
                         <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden group">
-                            <!-- Se agregó cursor-zoom-in, animación hover, aumento de tamaño (max-h-80 sm:max-h-96) y el evento onclick -->
                             <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" title="Clic para expandir" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
                             
-                            <!-- Sello de agua Modal -->
                             <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4">
                                 <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-25">
                             </div>
                             
-                            <!-- Indicador visual de zoom -->
                             <div class="absolute bottom-4 right-4 bg-white/80 backdrop-blur-sm text-gray-600 p-2 rounded-full shadow-sm z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                             </div>
-
-                            <!-- Nota de imágenes referenciales -->
                             <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30 bg-white/80 backdrop-blur-sm text-gray-500 text-[10px] italic px-2 py-0.5 rounded shadow-sm pointer-events-none">Imágenes referenciales</span>
                         </div>
-                        <!-- Miniaturas -->
-                        <div id="modalThumbnails" class="hidden gap-2 justify-center overflow-x-auto py-2 custom-scrollbar">
-                            <!-- Se llenan por JS -->
-                        </div>
+                        <div id="modalThumbnails" class="hidden gap-2 justify-center overflow-x-auto py-2 custom-scrollbar"></div>
                     </div>
+                    
                     <!-- Info Modal -->
                     <div class="w-full md:w-1/2 flex flex-col justify-center">
                         <div id="modalCategory" class="inline-block bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full mb-3 self-start"></div>
                         <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-2 leading-tight"></h3>
                         <p id="modalPrice" class="text-3xl font-extrabold text-purple-600 mb-6"></p>
                         
-                        <a id="modalWhatsapp" href="#" target="_blank" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
-                            Pedir por WhatsApp
-                        </a>
+                        <!-- BOTÓN MODIFICADO PARA EL CARRITO -->
+                        <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg">
+                            <!-- Se llena por JS -->
+                        </button>
                     </div>
                 </div>
                 
@@ -463,45 +383,87 @@
                     <h4 class="font-bold text-gray-800 mb-3 text-lg">Descripción y Características:</h4>
                     <p id="modalDesc" class="text-gray-600 text-base leading-relaxed whitespace-pre-line"></p>
                 </div>
+
+                <!-- SECCIÓN NUEVA: RECOMENDACIONES CRUZADAS -->
+                <div id="modalRecommendationsContainer" class="mt-8 border-t border-gray-100 pt-6 hidden bg-purple-50/50 p-4 rounded-2xl">
+                    <h4 class="font-bold text-purple-800 mb-4 text-sm uppercase tracking-wide flex items-center gap-2">
+                        <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        Te recomendamos llevar también:
+                    </h4>
+                    <div id="modalRecommendationsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Testimonio -->
+    <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
+            
+            <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow flex flex-col items-center text-center">
+                <div class="relative w-32 h-32 mb-6 group cursor-zoom-in" onclick="openTestimonioLightbox(document.getElementById('modalTestiFoto').src)">
+                    <img id="modalTestiFoto" src="" alt="Foto de Testimonio" class="w-full h-full object-cover rounded-full border-4 border-pink-100 shadow-lg transition-transform group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                </div>
+
+                <h3 id="modalTestiNombre" class="text-2xl font-bold text-gray-800 mb-1"></h3>
+                <p id="modalTestiFecha" class="text-sm text-gray-400 mb-4"></p>
+                <div id="modalTestiEstrellas" class="flex gap-1 mb-6 justify-center"></div>
+
+                <div class="relative w-full">
+                    <svg class="absolute top-0 left-0 transform -translate-x-4 -translate-y-4 w-12 h-12 text-pink-100 z-0" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed relative z-10 italic"></p>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- NUEVO: Contenedor Lightbox para expandir imagen a pantalla completa -->
+    <!-- Lightbox -->
     <div id="imageLightbox" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
-        <!-- Botón Cerrar Lightbox -->
         <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 z-[80]">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-        
         <div class="relative max-w-5xl w-full h-full flex items-center justify-center">
-            <!-- Imagen Expandida -->
             <img id="lightboxImg" src="" alt="Producto Expandido" class="max-w-full max-h-[90vh] object-contain relative z-[75] cursor-zoom-out" onclick="event.stopPropagation(); closeLightbox();">
-            
-            <!-- Sello de agua en Lightbox -->
             <div class="absolute inset-0 z-[76] flex items-center justify-center pointer-events-none p-10">
                 <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-20">
             </div>
         </div>
     </div>
 
-    <style>
-        /* Scrollbar personalizado para el modal */
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #db2777; }
-    </style>
+    <!-- BARRA FLOTANTE CARRITO (NUEVO) -->
+    <div id="floatingCart" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-10px_25px_-10px_rgba(0,0,0,0.15)] z-[45] transform translate-y-full transition-transform duration-500 p-4 border-t border-pink-100 flex justify-center items-center">
+        <div class="max-w-7xl w-full px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4 w-full sm:w-auto">
+                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 relative shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-purple-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">0</span>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Tu selección:</p>
+                    <p id="cartTotalText" class="text-xl font-extrabold text-gray-800">S/ 0.00</p>
+                </div>
+            </div>
+            <a id="btnCheckout" href="#" target="_blank" class="w-full sm:w-auto bg-green-500 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200 shrink-0">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
+                Enviar pedido a WhatsApp
+            </a>
+        </div>
+    </div>
 
-    <footer class="bg-white border-t border-gray-200 mt-12 py-10">
+    <footer class="bg-white border-t border-gray-200 mt-12 py-10 pb-28"> <!-- pb-28 añadido para que el carrito flotante no tape el footer -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <a href="#inicio" class="flex items-center gap-3 group cursor-pointer">
-                <!-- Logo Footer -->
                 <img src="./Logo_1.png" alt="Logo Wawachay" class="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
                 <span class="text-4xl font-logo text-purple-700 group-hover:text-pink-500 transition-colors duration-300 pt-1">Wawachay</span>
             </a>
             
-            <!-- Derechos y Desarrollador -->
             <div class="text-center md:text-left flex flex-col gap-1">
                 <p class="text-gray-500 text-sm">
                     © 2024 Wawachay - Tienda Especializada en Extractores de Leche Materna y Accesorios.
@@ -512,35 +474,24 @@
             </div>
 
             <div class="flex gap-4">
-                <!-- Facebook -->
                 <a href="https://web.facebook.com/Wawachay.Extractordelechematerna" target="_blank" class="text-gray-400 hover:text-[#1877F2] transition-colors" title="Síguenos en Facebook">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 </a>
-                <!-- Instagram -->
                 <a href="https://www.instagram.com/wawa.extractordelechematerna/" target="_blank" class="text-gray-400 hover:text-[#E4405F] transition-colors" title="Síguenos en Instagram">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 </a>
-                <!-- TikTok -->
                 <a href="https://www.tiktok.com/@wawa.extractordeleche" target="_blank" class="text-gray-400 hover:text-black transition-colors" title="Síguenos en TikTok">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-                </a>
-                <!-- WhatsApp -->
-                <a href="https://wa.me/51970551728" target="_blank" class="text-gray-400 hover:text-[#25D366] transition-colors" title="Contáctanos por WhatsApp">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
                 </a>
             </div>
         </div>
     </footer>
 
-    <!-- NUEVO: HTML del Chatbot Interactivo -->
-    <!-- Botón Flotante del Chatbot -->
-    <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-6 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
+    <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-24 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
     </button>
 
-    <!-- Ventana del Chatbot -->
-    <div id="chatbot-window" class="fixed bottom-24 right-6 w-[90vw] sm:w-80 bg-white rounded-2xl shadow-2xl border border-pink-100 z-50 flex-col hidden overflow-hidden transition-all duration-300 opacity-0 translate-y-4">
-        <!-- Header del Chat -->
+    <div id="chatbot-window" class="fixed bottom-40 right-6 w-[90vw] sm:w-80 bg-white rounded-2xl shadow-2xl border border-pink-100 z-50 flex-col hidden overflow-hidden transition-all duration-300 opacity-0 translate-y-4">
         <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-4 flex justify-between items-center text-white">
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-bold">W</div>
@@ -554,15 +505,12 @@
             </button>
         </div>
         
-        <!-- Área de Mensajes -->
         <div id="chatbot-messages" class="h-80 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 custom-scrollbar text-sm">
-            <!-- Mensaje Inicial -->
             <div class="flex gap-2 w-full">
                 <div class="bg-pink-100 text-gray-700 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm">
                     ¡Hola! Soy Wawi 🌸 tu asistente virtual. ¿En qué te puedo ayudar hoy?
                 </div>
             </div>
-            <!-- Opciones Rápidas -->
             <div class="flex flex-col gap-2 mt-1 w-full items-end" id="quick-replies">
                 <button onclick="sendQuickReply('envios')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🚚 Envíos y entregas</button>
                 <button onclick="sendQuickReply('pagos')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">💳 Métodos de pago</button>
@@ -571,7 +519,6 @@
             </div>
         </div>
 
-        <!-- Área de Input -->
         <div class="p-3 border-t border-gray-100 bg-white flex gap-2">
             <input type="text" id="chatbot-input" placeholder="Escribe tu duda aquí..." class="flex-grow bg-gray-100 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-200" onkeypress="handleChatEnter(event)">
             <button onclick="handleUserMessage()" class="bg-purple-600 text-white w-9 h-9 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors shrink-0">
@@ -581,54 +528,87 @@
     </div>
 
     <script>
-        // Configuración
         const WHATSAPP_NUMBER = '51970551728'; 
-        
-        // --- ENLACES DE GOOGLE SHEETS (FORMATO CSV) ---
-        
-        // 1. Catálogo de Productos (Tu hoja de inventario publicada)
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT21LHXXbPNxOqSAEgbJoPO98RHVKt4uXsfRb_TubMeybnLhJcVPpsVsikzZks7N79F_xz1FsB24cC/pub?output=csv';
-        
-        // 2. Testimonios (Tu hoja de testimonios publicada)
         const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
 
-        // --- SEGURIDAD BÁSICA PARA EVITAR COPIAS ---
-        document.addEventListener('contextmenu', event => event.preventDefault()); // Desactiva clic derecho
-        
+        document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
-            // Desactiva F12, Ctrl+Shift+I, Ctrl+U
-            if(e.keyCode == 123) {
-                return false;
-            }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                return false;
-            }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-                return false;
-            }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                return false;
-            }
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                return false;
-            }
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) return false;
         }
-        // --------------------------------------------------------------------------
 
         let allProducts = [];
-        let currentRenderedProducts = []; // Para enlazar con el modal
-        let allTestimonios = []; // Nuevo: Para guardar los testimonios renderizados
+        let currentRenderedProducts = []; 
+        let allTestimonios = []; 
+        let shoppingCart = []; // NUEVO: Arreglo del carrito
+        let currentCategoryTab = 'all'; // NUEVO: Estado de pestaña actual
 
-        // Generar enlace de WhatsApp
-        function generateWhatsAppLink(productName, price) {
-            const message = `¡Hola Wawachay! 🌸 Estoy interesada en: *${productName}* (${price}). ¿Me brindan más información?`;
+        // NUEVO: Generador de enlace de carrito completo
+        function generateCartWhatsAppLink() {
+            if(shoppingCart.length === 0) return `https://wa.me/${WHATSAPP_NUMBER}`;
+            let message = `¡Hola Wawachay! 🌸 Deseo pedir los siguientes productos:\n\n`;
+            let total = 0;
+            shoppingCart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}* (${item.priceStr})\n`;
+                total += item.priceNum;
+            });
+            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n\n¿Me indican cómo procedemos?`;
             return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         }
+        
+        function parsePrice(priceStr) {
+            if (!priceStr) return 0;
+            const match = priceStr.toString().match(/[\d\.]+/);
+            return match ? parseFloat(match[0]) : 0;
+        }
 
-        // Parsear URL de Google Drive (Solución para bloqueos recientes de Google)
+        // NUEVO: Función para agregar/quitar del carrito
+        function toggleCart(productName, priceStr, event) {
+            if(event) event.stopPropagation(); 
+            const index = shoppingCart.findIndex(item => item.name === productName);
+            if (index > -1) {
+                shoppingCart.splice(index, 1); // Quita si ya existe
+            } else {
+                shoppingCart.push({ name: productName, priceStr: priceStr, priceNum: parsePrice(priceStr) }); // Agrega
+            }
+            updateCartUI();
+            renderProducts(currentRenderedProducts); // Re-renderiza para actualizar colores de botones
+            
+            // Actualizar botón del modal si está abierto
+            const modal = document.getElementById('productModal');
+            if(!modal.classList.contains('hidden')){
+                const btn = document.getElementById('modalBtnCart');
+                const inCart = shoppingCart.some(item => item.name === productName);
+                if(inCart){
+                    btn.innerHTML = 'Quitar de mi selección';
+                    btn.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
+                } else {
+                    btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
+                    btn.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200";
+                }
+            }
+        }
+
+        // NUEVO: Actualizar UI de la barra flotante
+        function updateCartUI() {
+            const cartBar = document.getElementById('floatingCart');
+            const cartCountBadge = document.getElementById('cartCountBadge');
+            const cartTotalText = document.getElementById('cartTotalText');
+            const btnCheckout = document.getElementById('btnCheckout');
+            
+            if (shoppingCart.length > 0) {
+                cartBar.classList.remove('translate-y-full'); // Muestra la barra
+                cartCountBadge.textContent = shoppingCart.length;
+                let total = shoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
+                cartTotalText.textContent = `S/ ${total.toFixed(2)}`;
+                btnCheckout.href = generateCartWhatsAppLink();
+            } else {
+                cartBar.classList.add('translate-y-full'); // Oculta la barra
+            }
+        }
+
         function getDriveImageUrl(url) {
             if (!url || url.trim() === '') return '';
-            
             const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
             if (match && match[1]) {
                 const fileId = match[1];
@@ -637,16 +617,13 @@
             return url; 
         }
 
-        // Función para extraer inteligentemente todas las imágenes de cualquier columna
         function extractImagesFromProduct(product) {
             let driveImages = [];
             for (let key in product) {
                 const k = key.toLowerCase();
-                // Busca cualquier columna cuyo título contenga estas palabras
                 if (k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive') || k.includes('link')) {
                     const val = product[key];
                     if (val && typeof val === 'string' && val.trim() !== '') {
-                        // Soporta multiples enlaces separados por coma o salto de linea
                         const links = val.split(/[\n,]+/).map(s => s.trim()).filter(s => s.startsWith('http'));
                         links.forEach(link => {
                             const imgUrl = getDriveImageUrl(link) || link;
@@ -655,13 +632,10 @@
                     }
                 }
             }
-            // Si no hay imágenes, colocar una de repuesto por defecto
             if (driveImages.length === 0) driveImages.push('https://placehold.co/400x400/fce7f3/db2777?text=Wawachay');
-            // Eliminar duplicados y limitar a 4 imágenes para la galería
             return [...new Set(driveImages)].slice(0, 4);
         }
 
-        // Obtener datos usando PapaParse
         function fetchGoogleSheetsData() {
             Papa.parse(SHEET_URL, {
                 download: true,
@@ -669,32 +643,24 @@
                 skipEmptyLines: true,
                 complete: function(results) {
                     let data = results.data;
+                    if (data.length === 0) { showErrorAndLoadFallback(); return; }
                     
-                    if (data.length === 0) {
-                        showErrorAndLoadFallback();
-                        return;
-                    }
-                    
-                    // Normalizar columnas (limpiar espacios invisibles en los títulos)
                     allProducts = data.map(row => {
                         let cleanRow = {};
-                        for (let key in row) {
-                            cleanRow[key.trim()] = row[key];
-                        }
+                        for (let key in row) cleanRow[key.trim()] = row[key];
                         return cleanRow;
                     }).filter(row => {
                         const name = row['Nombre'] || row['Name'] || '';
                         return name.trim() !== '';
                     });
                     
-                    // Extraer categorías dinámicamente buscando columnas relacionadas a "categoría"
                     const categories = new Set();
                     allProducts.forEach(p => {
                         let cat = 'Extractores';
                         for (let k in p) if (k.toLowerCase().includes('categor')) cat = p[k];
                         if (cat && cat.trim() !== '') categories.add(cat.trim());
                     });
-                    updateCategoryFilter(categories);
+                    updateCategoryFilter(categories); // Ahora crea tabs
                     
                     renderProducts(allProducts);
                     document.getElementById('loading').style.display = 'none';
@@ -708,25 +674,64 @@
 
         function showErrorAndLoadFallback() {
             document.getElementById('error-message').classList.remove('hidden');
-            loadFallbackData();
+            document.getElementById('loading').style.display = 'none';
         }
 
+        // NUEVO: Crea pestañas (Tabs) en lugar del select desplegable
         function updateCategoryFilter(categories) {
-            const filter = document.getElementById('categoryFilter');
-            filter.innerHTML = '<option value="all">Todas las categorías</option>';
-            categories.forEach(cat => {
-                const option = document.createElement('option');
-                option.value = cat;
-                option.textContent = cat;
-                filter.appendChild(option);
-            });
+            const tabsContainer = document.getElementById('categoryTabs');
+            if (!tabsContainer) return;
+            tabsContainer.innerHTML = '';
+            
+            const createTab = (catName, label) => {
+                const btn = document.createElement('button');
+                btn.textContent = label;
+                const isActive = currentCategoryTab === catName;
+                btn.className = `whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${isActive ? 'bg-pink-500 text-white border-pink-500 shadow-md transform scale-105' : 'bg-white text-gray-600 border-gray-200 hover:bg-pink-50 hover:border-pink-300'}`;
+                btn.onclick = () => {
+                    currentCategoryTab = catName;
+                    updateCategoryFilter(categories); // Re-renderiza tabs para actualizar el activo
+                    filterProducts();
+                };
+                return btn;
+            };
+
+            tabsContainer.appendChild(createTab('all', '🌟 Todo'));
+            categories.forEach(cat => tabsContainer.appendChild(createTab(cat, cat)));
         }
 
-        // Renderizar Catálogo
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const sortOrder = document.getElementById('sortOrder').value;
+
+            let filtered = allProducts.filter(product => {
+                const name = (product['Nombre'] || product['Name'] || '').toLowerCase();
+                let desc = product['Descripción Corta'] || product['Descripción'] || '';
+                for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
+                desc = desc.toLowerCase();
+                
+                let cat = 'Extractores';
+                for (let k in product) if (k.toLowerCase().includes('categor')) cat = product[k].trim();
+
+                const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
+                const matchesCategory = currentCategoryTab === 'all' || cat === currentCategoryTab;
+                return matchesSearch && matchesCategory;
+            });
+
+            if (sortOrder !== 'default') {
+                filtered.sort((a, b) => {
+                    const getVal = str => parseFloat((str || '0').toString().replace(/[^0-9.-]+/g,"")) || 0;
+                    const priceA = getVal(a['Precio'] || a['Price']);
+                    const priceB = getVal(b['Precio'] || b['Price']);
+                    return sortOrder === 'low-high' ? priceA - priceB : priceB - priceA;
+                });
+            }
+            renderProducts(filtered);
+        }
+
         function renderProducts(products) {
             const container = document.getElementById('products-container');
             container.innerHTML = ''; 
-            
             currentRenderedProducts = products; 
             
             if (products.length === 0) {
@@ -735,60 +740,41 @@
             }
 
             products.forEach((product, index) => {
-                // CORRECCIÓN: Ahora sí extraemos las imágenes correctamente antes de usarlas
                 const driveImages = extractImagesFromProduct(product);
-                
                 const stockStr = product['Stock'] || product['Cantidad'] || '0';
                 const stockNum = parseInt(stockStr) || 0;
                 const isAvailable = stockNum > 0;
 
-                // LÓGICA DE ETIQUETA DE STOCK (CON ALERTA DE POCO STOCK)
-                let stockBadgeHTML = '';
-                if (stockNum === 0) {
-                    stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>';
-                } else if (stockNum <= 5) {
-                    // Etiqueta de urgencia (Naranja, ícono de alerta y animación de latido)
-                    stockBadgeHTML = `<span class="absolute top-3 left-3 z-30 bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 shadow-md flex items-center gap-1 animate-pulse" title="¡Se agotan rápido!"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
-                } else {
-                    stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>';
-                }
-
-                // Datos básicos
                 const name = product['Nombre'] || product['Name'] || 'Producto sin nombre';
                 const price = product['Precio'] || product['Price'] || 'S/ 0.00';
                 
+                // NUEVO: Verifica si el producto ya está en el carrito para pintarlo diferente
+                const inCart = shoppingCart.some(item => item.name === name);
+
+                let stockBadgeHTML = '';
+                if (stockNum === 0) stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>';
+                else if (stockNum <= 5) stockBadgeHTML = `<span class="absolute top-3 left-3 z-30 bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 shadow-md flex items-center gap-1 animate-pulse" title="¡Se agotan rápido!"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
+                else stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>';
+
                 let desc = product['Descripción Corta'] || product['Descripción'] || '';
-                if (!desc) {
-                    for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
-                }
+                if (!desc) for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
                 const formattedDesc = desc.replace(/\n/g, '<br>');
                 
-                // Búsqueda inteligente de categoría
                 let category = 'Extractores';
                 for (let k in product) if (k.toLowerCase().includes('categor')) category = product[k].trim();
 
-                const whatsappUrl = generateWhatsAppLink(name, price);
-
                 const card = document.createElement('div');
-                card.className = 'bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-pink-50 flex flex-col h-full';
+                // NUEVO: Borde morado si está en el carrito
+                card.className = `bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border flex flex-col h-full ${inCart ? 'border-purple-400 ring-2 ring-purple-100' : 'border-pink-50'}`;
                 
                 card.innerHTML = `
                     <div class="relative aspect-square w-full overflow-hidden bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50" onclick="showDetails(${index})">
-                        <img src="${driveImages[0]}" alt="${name}" loading="lazy"
-                             class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10"
-                             onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
-                        
-                        <!-- Sello de Agua en Catálogo -->
+                        <img src="${driveImages[0]}" alt="${name}" loading="lazy" class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10" onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
                         <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6">
                             <img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25">
                         </div>
-
                         ${stockBadgeHTML}
-                        
                         <span class="absolute top-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase">${category}</span>
-                        
-                        <!-- Nota de imágenes referenciales -->
-                        <span class="absolute bottom-2 right-2 z-30 bg-white/80 backdrop-blur-sm text-gray-500 text-[10px] italic px-2 py-0.5 rounded shadow-sm pointer-events-none">Imágenes referenciales</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight uppercase">${name}</h3>
@@ -800,10 +786,14 @@
                                 <button onclick="showDetails(${index})" class="w-full bg-pink-50 text-pink-700 font-semibold py-2 rounded-xl hover:bg-pink-100 transition-colors text-sm border border-pink-100">
                                     Ver Detalle
                                 </button>
-                                <a href="${whatsappUrl}" target="_blank" class="w-full ${isAvailable ? 'bg-green-500 hover:bg-green-600 shadow-green-200' : 'bg-gray-400 hover:bg-gray-500 shadow-gray-200'} text-white font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm shadow-sm">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
-                                    ${isAvailable ? 'Comprar' : 'Consultar'}
-                                </a>
+                                <!-- NUEVO: Botón de Comprar modificado para el carrito -->
+                                ${isAvailable ? 
+                                    `<button onclick="toggleCart('${name.replace(/'/g, "\\'")}', '${price}', event)" class="w-full ${inCart ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' : 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm'} font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm">
+                                        ${inCart ? 'Quitar' : '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Agregar'}
+                                    </button>` 
+                                    : 
+                                    `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}" target="_blank" class="w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm shadow-sm">Consultar</a>`
+                                }
                             </div>
                         </div>
                     </div>
@@ -817,32 +807,19 @@
             if (!product) return;
             
             const name = product['Nombre'] || product['Name'] || 'Producto sin nombre';
-            
-            // Descripción corta inteligente
             let desc = product['Descripción Corta'] || product['Descripción'] || '';
-            if (!desc) {
-                for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
-            }
-
-            // Descripción larga inteligente
+            if (!desc) for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
             let longDesc = product['Descripción Larga / Beneficios (Optional)'] || '';
-            if (!longDesc) {
-                for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) longDesc = product[k];
-            }
-
-            const price = product['Precio'] || product['Price'] || 'S/ 0.00';
+            if (!longDesc) for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) longDesc = product[k];
             
-            // Usar extractor automático
+            const price = product['Precio'] || product['Price'] || 'S/ 0.00';
             const driveImages = extractImagesFromProduct(product);
             
-            // Categoría inteligente
             let category = 'Extractores';
             for (let k in product) if (k.toLowerCase().includes('categor')) category = product[k].trim();
             
             let fullDesc = desc;
-            if (longDesc && longDesc.trim() !== '') {
-                fullDesc += '\n\n' + longDesc;
-            }
+            if (longDesc && longDesc.trim() !== '') fullDesc += '\n\n' + longDesc;
             
             const stockStr = product['Stock'] || product['Cantidad'] || '0';
             const stockNum = parseInt(stockStr) || 0;
@@ -851,46 +828,77 @@
             document.getElementById('modalTitle').textContent = name;
             document.getElementById('modalPrice').textContent = price;
             
-            // Lógica de Etiquetas para el Modal (Categoría + Stock)
             let modalStockBadge = '';
-            if (stockNum === 0) {
-                modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Sin Stock</span>';
-            } else if (stockNum <= 5) {
-                modalStockBadge = `<span class="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
-            } else {
-                modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
-            }
+            if (stockNum === 0) modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Sin Stock</span>';
+            else if (stockNum <= 5) modalStockBadge = `<span class="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
+            else modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
             
             const modalCatEl = document.getElementById('modalCategory');
             modalCatEl.className = "flex flex-wrap gap-2 mb-3 self-start";
             modalCatEl.innerHTML = `<span class="bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full border border-pink-200">${category}</span>${modalStockBadge}`;
             
-            document.getElementById('modalDesc').innerHTML = fullDesc
-                .replace(/</g, "&lt;").replace(/>/g, "&gt;") 
-                .replace(/\n/g, '<br>'); 
-
+            document.getElementById('modalDesc').innerHTML = fullDesc.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>'); 
+            
             const mainImg = document.getElementById('modalImg');
             mainImg.src = driveImages[0];
             
+            // NUEVO: Lógica de Recomendaciones (si es extractor, ofrece accesorios al azar)
+            const recContainer = document.getElementById('modalRecommendationsContainer');
+            const recList = document.getElementById('modalRecommendationsList');
+            
+            if (category.toLowerCase().includes('extractor') || category.toLowerCase().includes('eléctrico') || category.toLowerCase().includes('manual')) {
+                // Buscar productos que NO sean extractores y tengan stock
+                let recommendations = allProducts.filter(p => {
+                    let pCat = '';
+                    for (let k in p) if (k.toLowerCase().includes('categor')) pCat = p[k].trim();
+                    const pStockStr = p['Stock'] || p['Cantidad'] || '0';
+                    return pCat && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && parseInt(pStockStr) > 0;
+                });
+                
+                // Elegir 2 al azar
+                recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 2);
+                
+                if (recommendations.length > 0) {
+                    recContainer.classList.remove('hidden');
+                    recList.innerHTML = '';
+                    
+                    recommendations.forEach(rec => {
+                        const recName = rec['Nombre'] || rec['Name'] || '';
+                        const recPrice = rec['Precio'] || rec['Price'] || '';
+                        const recImgs = extractImagesFromProduct(rec);
+                        const recInCart = shoppingCart.some(item => item.name === recName);
+                        
+                        const recCard = document.createElement('div');
+                        recCard.className = 'flex items-center justify-between gap-3 bg-white p-3 rounded-xl shadow-sm border border-pink-100';
+                        recCard.innerHTML = `
+                            <div class="flex items-center gap-3">
+                                <img src="${recImgs[0]}" alt="${recName}" class="w-14 h-14 object-contain bg-gray-50 rounded-lg border border-gray-100 p-1">
+                                <div>
+                                    <h5 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${recName}</h5>
+                                    <p class="text-sm font-extrabold text-pink-500 mt-1">${recPrice}</p>
+                                </div>
+                            </div>
+                            <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recPrice}', event); this.classList.toggle('bg-pink-100'); this.classList.toggle('bg-red-100'); this.classList.toggle('text-pink-600'); this.classList.toggle('text-red-600');" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 shadow-sm ${recInCart ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600 hover:bg-pink-200'}" title="Añadir a mi selección">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                        `;
+                        recList.appendChild(recCard);
+                    });
+                } else { recContainer.classList.add('hidden'); }
+            } else { recContainer.classList.add('hidden'); }
+
             const thumbnailsContainer = document.getElementById('modalThumbnails');
             thumbnailsContainer.innerHTML = ''; 
-            
             if (driveImages.length > 1) {
                 thumbnailsContainer.classList.remove('hidden');
                 thumbnailsContainer.classList.add('flex');
-                
                 driveImages.forEach((imgSrc, idx) => {
                     const thumb = document.createElement('img');
                     thumb.src = imgSrc;
                     thumb.className = `w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 hover:scale-105 ${idx === 0 ? 'border-pink-500 shadow-md' : 'border-transparent hover:border-pink-300'}`;
-                    
                     thumb.onclick = () => {
                         mainImg.style.opacity = '0.5';
-                        setTimeout(() => {
-                            mainImg.src = imgSrc;
-                            mainImg.style.opacity = '1';
-                        }, 150);
-                        
+                        setTimeout(() => { mainImg.src = imgSrc; mainImg.style.opacity = '1'; }, 150);
                         Array.from(thumbnailsContainer.children).forEach(c => {
                             c.classList.remove('border-pink-500', 'shadow-md');
                             c.classList.add('border-transparent');
@@ -905,38 +913,44 @@
                 thumbnailsContainer.classList.remove('flex');
             }
 
-            const modalWhatsappBtn = document.getElementById('modalWhatsapp');
-            modalWhatsappBtn.href = generateWhatsAppLink(name, price);
+            // NUEVO: Configuración del Botón Principal del Modal (Carrito)
+            const modalBtnCart = document.getElementById('modalBtnCart');
+            const inCart = shoppingCart.some(item => item.name === name);
             
             if (isAvailable) {
-                modalWhatsappBtn.className = "w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200";
-                modalWhatsappBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Pedir por WhatsApp';
+                modalBtnCart.onclick = (e) => { e.preventDefault(); toggleCart(name, price, null); };
+                if (inCart) {
+                    modalBtnCart.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
+                    modalBtnCart.innerHTML = 'Quitar de mi selección';
+                } else {
+                    modalBtnCart.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200";
+                    modalBtnCart.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
+                }
             } else {
-                modalWhatsappBtn.className = "w-full bg-gray-500 text-white font-bold py-3 rounded-xl hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-gray-200";
-                modalWhatsappBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar Reposición';
+                // Botón de Consultar Reposición
+                modalBtnCart.onclick = null;
+                modalBtnCart.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}`;
+                modalBtnCart.className = "w-full bg-gray-500 text-white font-bold py-3 rounded-xl hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-gray-200 block text-center"; // Asegurar que actúe como link visual
+                modalBtnCart.onclick = function() { window.open(this.href, '_blank'); return false; }; // Comportamiento de enlace para botón
+                modalBtnCart.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar Reposición';
             }
             
             const modal = document.getElementById('productModal');
             const content = document.getElementById('productModalContent');
-            
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 content.classList.remove('scale-95');
             }, 10);
-            
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('productModal');
             const content = document.getElementById('productModalContent');
-            
             modal.classList.add('opacity-0');
             content.classList.add('scale-95');
-            
             setTimeout(() => {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
@@ -948,88 +962,25 @@
             if (e.target === this) closeModal();
         });
 
-        // Funciones para el Lightbox (Pantalla completa)
         function openLightbox() {
             const lightbox = document.getElementById('imageLightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const mainImg = document.getElementById('modalImg');
-            
-            // Copiar la imagen actual al lightbox
             lightboxImg.src = mainImg.src;
-            
-            // Mostrar lightbox
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
-            
-            // Pequeño timeout para que se active la animación de opacidad de Tailwind
-            setTimeout(() => {
-                lightbox.classList.remove('opacity-0');
-            }, 10);
+            setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
 
         function closeLightbox() {
             const lightbox = document.getElementById('imageLightbox');
-            
             lightbox.classList.add('opacity-0');
-            
             setTimeout(() => {
                 lightbox.classList.add('hidden');
                 lightbox.classList.remove('flex');
             }, 300);
         }
 
-        function filterProducts() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const categoryFilter = document.getElementById('categoryFilter').value;
-            const sortOrder = document.getElementById('sortOrder').value;
-
-            let filtered = allProducts.filter(product => {
-                const name = (product['Nombre'] || product['Name'] || '').toLowerCase();
-                
-                let desc = product['Descripción Corta'] || product['Descripción'] || '';
-                for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
-                desc = desc.toLowerCase();
-                
-                let cat = 'Extractores';
-                for (let k in product) if (k.toLowerCase().includes('categor')) cat = product[k].trim();
-
-                const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
-                const matchesCategory = categoryFilter === 'all' || cat === categoryFilter;
-
-                return matchesSearch && matchesCategory;
-            });
-
-            if (sortOrder !== 'default') {
-                filtered.sort((a, b) => {
-                    const getVal = str => parseFloat((str || '0').toString().replace(/[^0-9.-]+/g,"")) || 0;
-                    const priceA = getVal(a['Precio'] || a['Price']);
-                    const priceB = getVal(b['Precio'] || b['Price']);
-                    
-                    return sortOrder === 'low-high' ? priceA - priceB : priceB - priceA;
-                });
-            }
-
-            renderProducts(filtered);
-        }
-
-        // Datos de respaldo en caso de que Google Sheets falle
-        function loadFallbackData() {
-            allProducts = [
-                {
-                    'Nombre': 'Extractor Eléctrico Premium de Prueba',
-                    'Descripción Corta': '✅ Doble succión\n✅ Batería recargable\n✅ Libre de BPA',
-                    'Precio': 'S/ 250.00',
-                    'Stock': '10',
-                    'Link de Imagen (Drive)': '',
-                    'Categoría': 'Eléctricos'
-                }
-            ];
-            updateCategoryFilter(new Set(['Eléctricos', 'Accesorios']));
-            renderProducts(allProducts);
-            document.getElementById('loading').style.display = 'none';
-        }
-
-        // --- LÓGICA DE TESTIMONIOS ---
         function fetchTestimoniosData() {
             Papa.parse(SHEET_URL_TESTIMONIOS, {
                 download: true,
@@ -1037,67 +988,41 @@
                 skipEmptyLines: true,
                 complete: function(results) {
                     const data = results.data.filter(row => row['Nombre'] && row['Nombre'].trim() !== '');
-                    if(data.length > 0) {
-                        renderTestimonios(data);
-                    } else {
-                        loadDemoTestimonios();
-                    }
+                    if(data.length > 0) { renderTestimonios(data); } 
+                    else { loadDemoTestimonios(); }
                 },
-                error: function(error) {
-                    console.error('Error al cargar testimonios:', error);
-                    loadDemoTestimonios();
-                }
+                error: function(error) { loadDemoTestimonios(); }
             });
         }
 
         function renderTestimonios(testimonios) {
             const container = document.getElementById('testimonios-container');
             container.innerHTML = '';
-            
-            allTestimonios = testimonios; // Guardamos globalmente para usarlos en el modal
-
+            allTestimonios = testimonios; 
             testimonios.forEach((testi, index) => {
                 const nombre = testi['Nombre'] || 'Mami Feliz';
-                let comentario = testi['Comentario'] || 'Excelente producto y atención.';
+                let comentario = testi['Comentario'] || 'Excelente producto.';
                 comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
-                
                 const estrellas = parseInt(testi['Calificación']) || 5;
                 const fecha = testi['Fecha'] || '';
                 
                 let fotoUrl = 'https://api.dicebear.com/7.x/notionists/svg?seed=' + encodeURIComponent(nombre) + '&backgroundColor=fce7f3'; 
-                for (let k in testi) {
-                    if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') {
-                        fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
-                    }
-                }
+                for (let k in testi) if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
 
                 let estrellasHTML = '';
                 const maxStars = Math.min(Math.max(estrellas, 1), 5);
-                for(let i = 0; i < maxStars; i++) {
-                    estrellasHTML += `<svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
-                }
+                for(let i = 0; i < maxStars; i++) estrellasHTML += `<svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
 
                 const card = document.createElement('div');
                 card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-pink-50 hover:shadow-xl transition-all duration-300 relative group flex flex-col h-full cursor-pointer hover:-translate-y-1';
                 card.onclick = () => openTestimonioModal(index);
-                
                 card.innerHTML = `
-                    <div class="absolute top-0 right-0 p-6 opacity-10 text-pink-500 group-hover:scale-110 group-hover:text-pink-600 transition-all duration-300">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    </div>
-                    <div class="flex gap-1 mb-4 z-10 relative">
-                        ${estrellasHTML}
-                    </div>
+                    <div class="absolute top-0 right-0 p-6 opacity-10 text-pink-500 group-hover:scale-110 group-hover:text-pink-600 transition-all duration-300"><svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg></div>
+                    <div class="flex gap-1 mb-4 z-10 relative">${estrellasHTML}</div>
                     <p class="text-gray-600 italic mb-6 flex-grow z-10 relative leading-relaxed line-clamp-4 group-hover:text-gray-800 transition-colors">"${comentario}"</p>
                     <div class="flex items-center gap-4 mt-auto z-10 relative border-t border-gray-50 pt-4">
-                        <img src="${fotoUrl}" alt="Foto de ${nombre}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200 relative z-20 cursor-zoom-in hover:scale-110 transition-transform" onclick="event.stopPropagation(); openTestimonioLightbox('${fotoUrl}')" title="Clic para ampliar">
-                        <div>
-                            <h4 class="font-bold text-gray-800">${nombre}</h4>
-                            ${fecha ? `<p class="text-xs text-gray-400">${fecha}</p>` : ''}
-                        </div>
-                        <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span class="text-xs text-pink-500 font-bold bg-pink-50 px-2 py-1 rounded-md">Ver detalle</span>
-                        </div>
+                        <img src="${fotoUrl}" alt="Foto de ${nombre}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200 relative z-20 cursor-zoom-in hover:scale-110 transition-transform" onclick="event.stopPropagation(); openTestimonioLightbox('${fotoUrl}')">
+                        <div><h4 class="font-bold text-gray-800">${nombre}</h4>${fecha ? `<p class="text-xs text-gray-400">${fecha}</p>` : ''}</div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1105,146 +1030,89 @@
         }
         
         function loadDemoTestimonios() {
-             const demoData = [
-                { 'Nombre': 'María Fernández', 'Comentario': 'El extractor S11 me salvó la lactancia. Es súper silencioso y no me duele nada. Lo uso mientras trabajo y nadie se da cuenta. ¡100% recomendado!', 'Calificación': '5', 'Fecha': 'Hace 2 días' },
-                { 'Nombre': 'Lucía M.', 'Comentario': 'Tenía dudas sobre comprar uno inalámbrico pero fue la mejor decisión. La batería dura bastante y es muy fácil de limpiar.', 'Calificación': '5', 'Fecha': 'Hace 1 semana' },
-                { 'Nombre': 'Ana S.', 'Comentario': 'Los materiales se sienten de muy buena calidad. Al principio me costó acomodarlo pero una vez que le agarras el truco saca muy buena cantidad de leche.', 'Calificación': '4', 'Fecha': 'Hace 2 semanas' }
-            ];
-            renderTestimonios(demoData);
+            renderTestimonios([
+                { 'Nombre': 'María Fernández', 'Comentario': 'El extractor S11 me salvó la lactancia. Es súper silencioso y no me duele nada.', 'Calificación': '5' },
+                { 'Nombre': 'Lucía M.', 'Comentario': 'Tenía dudas sobre comprar uno inalámbrico pero fue la mejor decisión. La batería dura bastante.', 'Calificación': '5' }
+            ]);
         }
 
-        // --- NUEVAS FUNCIONES PARA EL MODAL DE TESTIMONIO ---
         function openTestimonioModal(index) {
             const testi = allTestimonios[index];
             if (!testi) return;
-
             const nombre = testi['Nombre'] || 'Mami Feliz';
-            let comentario = testi['Comentario'] || '';
-            comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
-            const estrellas = parseInt(testi['Calificación']) || 5;
-            const fecha = testi['Fecha'] || '';
-
+            let comentario = (testi['Comentario'] || '').replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
             let fotoUrl = 'https://api.dicebear.com/7.x/notionists/svg?seed=' + encodeURIComponent(nombre) + '&backgroundColor=fce7f3'; 
-            for (let k in testi) {
-                if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') {
-                    fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
-                }
-            }
+            for (let k in testi) if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
 
-            // Llenar datos
             document.getElementById('modalTestiNombre').textContent = nombre;
-            document.getElementById('modalTestiFecha').textContent = fecha;
+            document.getElementById('modalTestiFecha').textContent = testi['Fecha'] || '';
             document.getElementById('modalTestiComentario').textContent = `"${comentario}"`;
             document.getElementById('modalTestiFoto').src = fotoUrl;
 
-            // Generar estrellas
             let estrellasHTML = '';
-            const maxStars = Math.min(Math.max(estrellas, 1), 5);
-            for(let i = 0; i < maxStars; i++) {
+            for(let i = 0; i < Math.min(Math.max(parseInt(testi['Calificación']) || 5, 1), 5); i++) {
                 estrellasHTML += `<svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
             }
             document.getElementById('modalTestiEstrellas').innerHTML = estrellasHTML;
 
-            // Mostrar modal
             const modal = document.getElementById('testimonioModal');
             const content = document.getElementById('testimonioModalContent');
-            
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-            }, 10);
-            
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function closeTestimonioModal() {
             const modal = document.getElementById('testimonioModal');
             const content = document.getElementById('testimonioModalContent');
-            
             modal.classList.add('opacity-0');
             content.classList.add('scale-95');
-            
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.style.overflow = ''; 
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
         }
-        
-        // Cerrar modal al hacer clic afuera
-        document.getElementById('testimonioModal').addEventListener('click', function(e) {
-            if (e.target === this) closeTestimonioModal();
-        });
+        document.getElementById('testimonioModal').addEventListener('click', function(e) { if (e.target === this) closeTestimonioModal(); });
 
-        // Modificamos para que se pueda llamar desde el modal
         function openTestimonioLightbox(fotoUrl) {
             const lightbox = document.getElementById('imageLightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            
-            // Asignar imagen
-            lightboxImg.src = fotoUrl;
-            
-            // Mostrar lightbox
+            document.getElementById('lightboxImg').src = fotoUrl;
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
-            
-            setTimeout(() => {
-                lightbox.classList.remove('opacity-0');
-            }, 10);
+            setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
 
-        // --- LÓGICA DEL CHATBOT ---
+        // Lógica del Chatbot
         let chatOpen = false;
         const chatWindow = document.getElementById('chatbot-window');
         const chatMessages = document.getElementById('chatbot-messages');
         const chatInput = document.getElementById('chatbot-input');
         const quickReplies = document.getElementById('quick-replies');
 
-        // Base de conocimiento del Bot
         const botKnowledge = {
-            'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias, el tiempo depende de la agencia (Shalom o Marvisur).',
+            'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias enviamos por agencias seguras.',
             'pagos': 'Aceptamos Yape, Plin, y transferencias bancarias (BCP, BBVA, Interbank). Todo pago es 100% seguro.',
-            'garantia': '¡Claro que sí! Todos nuestros extractores cuentan con garantía por defectos de fábrica. Queremos que tu inversión esté segura.',
-            'precio': 'Nuestros precios varían según el modelo (manual, eléctrico, doble, inalámbrico). ¡Te invito a revisar el catálogo aquí mismo en la web para ver los detalles!',
+            'garantia': '¡Claro que sí! Todos nuestros extractores cuentan con garantía por defectos de fábrica.',
+            'precio': 'Nuestros precios varían según el modelo. ¡Te invito a revisar el catálogo en la web!',
             'hola': '¡Hola de nuevo, mami! 🌸 ¿En qué te puedo ayudar hoy?',
-            'gracias': '¡De nada! Aquí estoy si necesitas algo más.',
-            'asesor': 'Con gusto te comunicaré con una asesora. Por favor, haz clic aquí para hablar por WhatsApp: <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>',
-            'fallback': 'Mmm, no estoy muy segura de eso. 🤔 ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí para chatear</a>.'
+            'asesor': 'Con gusto te comunicaré con una asesora. <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>',
+            'fallback': 'Mmm, no estoy muy segura. ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí</a>.'
         };
 
         function toggleChatbot() {
             chatOpen = !chatOpen;
             if (chatOpen) {
-                chatWindow.classList.remove('hidden');
-                chatWindow.classList.add('flex');
-                setTimeout(() => {
-                    chatWindow.classList.remove('opacity-0', 'translate-y-4');
-                    chatInput.focus();
-                }, 10);
+                chatWindow.classList.remove('hidden'); chatWindow.classList.add('flex');
+                setTimeout(() => { chatWindow.classList.remove('opacity-0', 'translate-y-4'); chatInput.focus(); }, 10);
             } else {
                 chatWindow.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => {
-                    chatWindow.classList.add('hidden');
-                    chatWindow.classList.remove('flex');
-                }, 300);
+                setTimeout(() => { chatWindow.classList.add('hidden'); chatWindow.classList.remove('flex'); }, 300);
             }
         }
 
         function appendMessage(text, isUser = false) {
             const msgDiv = document.createElement('div');
             msgDiv.className = 'flex gap-2 w-full ' + (isUser ? 'justify-end' : '');
-            
-            const bubble = document.createElement('div');
-            bubble.className = `p-3 rounded-2xl max-w-[85%] shadow-sm text-sm ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none'}`;
-            bubble.innerHTML = text; // Permite HTML para los links
-            
-            msgDiv.appendChild(bubble);
-            chatMessages.insertBefore(msgDiv, quickReplies); // Inserta antes de las opciones rápidas
-            
-            // Scroll hacia abajo
+            msgDiv.innerHTML = `<div class="p-3 rounded-2xl max-w-[85%] shadow-sm text-sm ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none'}">${text}</div>`;
+            chatMessages.insertBefore(msgDiv, quickReplies);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
@@ -1253,90 +1121,46 @@
             const msgDiv = document.createElement('div');
             msgDiv.id = id;
             msgDiv.className = 'flex gap-2 w-full';
-            msgDiv.innerHTML = `
-                <div class="bg-pink-100 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm flex items-center gap-1">
-                    <span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0s"></span>
-                    <span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                    <span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
-                </div>
-            `;
+            msgDiv.innerHTML = `<div class="bg-pink-100 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm flex items-center gap-1"><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0s"></span><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></span></div>`;
             chatMessages.insertBefore(msgDiv, quickReplies);
             chatMessages.scrollTop = chatMessages.scrollHeight;
             return id;
         }
 
-        function removeTypingIndicator(id) {
-            const el = document.getElementById(id);
-            if (el) el.remove();
-        }
+        function removeTypingIndicator(id) { const el = document.getElementById(id); if (el) el.remove(); }
 
         function sendQuickReply(type) {
-            const labels = {
-                'envios': 'Información de envíos',
-                'pagos': 'Métodos de pago',
-                'garantia': '¿Tienen garantía?',
-                'asesor': 'Quiero hablar con un humano'
-            };
-            
+            const labels = { 'envios': 'Información de envíos', 'pagos': 'Métodos de pago', 'garantia': '¿Tienen garantía?', 'asesor': 'Hablar con un humano' };
             appendMessage(labels[type], true);
-            
             const typingId = showTypingIndicator();
-            setTimeout(() => {
-                removeTypingIndicator(typingId);
-                appendMessage(botKnowledge[type]);
-            }, 1000);
+            setTimeout(() => { removeTypingIndicator(typingId); appendMessage(botKnowledge[type]); }, 1000);
         }
 
         function handleUserMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
-
             appendMessage(text, true);
             chatInput.value = '';
-
             const typingId = showTypingIndicator();
-            
             setTimeout(() => {
                 removeTypingIndicator(typingId);
-                processUserText(text.toLowerCase());
+                const lText = text.toLowerCase();
+                if (lText.includes('envio') || lText.includes('delivery') || lText.includes('llega')) appendMessage(botKnowledge['envios']);
+                else if (lText.includes('pago') || lText.includes('yape') || lText.includes('tarjeta')) appendMessage(botKnowledge['pagos']);
+                else if (lText.includes('garantia') || lText.includes('falla')) appendMessage(botKnowledge['garantia']);
+                else if (lText.includes('precio') || lText.includes('cuesta')) appendMessage(botKnowledge['precio']);
+                else if (lText.includes('hola') || lText.includes('buenos')) appendMessage(botKnowledge['hola']);
+                else if (lText.includes('humano') || lText.includes('whatsapp') || lText.includes('asesor')) appendMessage(botKnowledge['asesor']);
+                else appendMessage(botKnowledge['fallback']);
             }, 1200);
         }
 
-        function handleChatEnter(e) {
-            if (e.key === 'Enter') {
-                handleUserMessage();
-            }
-        }
+        function handleChatEnter(e) { if (e.key === 'Enter') handleUserMessage(); }
 
-        function processUserText(text) {
-            // Lógica de detección de palabras clave simple
-            if (text.includes('envio') || text.includes('envío') || text.includes('delivery') || text.includes('llega')) {
-                appendMessage(botKnowledge['envios']);
-            } else if (text.includes('pago') || text.includes('pagar') || text.includes('yape') || text.includes('tarjeta')) {
-                appendMessage(botKnowledge['pagos']);
-            } else if (text.includes('garantia') || text.includes('garantía') || text.includes('falla') || text.includes('cambio')) {
-                appendMessage(botKnowledge['garantia']);
-            } else if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) {
-                appendMessage(botKnowledge['precio']);
-            } else if (text.includes('hola') || text.includes('buenos dias') || text.includes('buenas tardes')) {
-                appendMessage(botKnowledge['hola']);
-            } else if (text.includes('gracias') || text.includes('ok')) {
-                appendMessage(botKnowledge['gracias']);
-            } else if (text.includes('humano') || text.includes('persona') || text.includes('whatsapp') || text.includes('numero')) {
-                appendMessage(botKnowledge['asesor']);
-            } else {
-                appendMessage(botKnowledge['fallback']);
-            }
-        }
-
-        // Inicializar
         document.addEventListener('DOMContentLoaded', () => {
             fetchGoogleSheetsData();
-            fetchTestimoniosData(); // Iniciar carga de testimonios
-
-            // Escuchar cambios en los inputs de filtro
+            fetchTestimoniosData(); 
             document.getElementById('searchInput').addEventListener('input', filterProducts);
-            document.getElementById('categoryFilter').addEventListener('change', filterProducts);
             document.getElementById('sortOrder').addEventListener('change', filterProducts);
         });
     </script>
