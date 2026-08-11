@@ -31,19 +31,8 @@
             theme: {
                 extend: {
                     colors: {
-                        pink: {
-                            50: '#fdf2f8',
-                            100: '#fce7f3',
-                            400: '#f472b6',
-                            500: '#ec4899',
-                            600: '#db2777',
-                        },
-                        purple: {
-                            100: '#f3e8ff',
-                            500: '#a855f7',
-                            600: '#9333ea',
-                            700: '#7e22ce',
-                        }
+                        pink: { 50: '#fdf2f8', 100: '#fce7f3', 400: '#f472b6', 500: '#ec4899', 600: '#db2777' },
+                        purple: { 100: '#f3e8ff', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce' }
                     },
                     fontFamily: {
                         sans: ['Nunito', 'sans-serif'],
@@ -55,16 +44,8 @@
         }
     </script>
     <style>
-        .gradient-text {
-            background: linear-gradient(to right, #ec4899, #9333ea);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-pattern {
-            background-color: #fdf2f8;
-            background-image: radial-gradient(#fce7f3 2px, transparent 2px);
-            background-size: 30px 30px;
-        }
+        .gradient-text { background: linear-gradient(to right, #ec4899, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-pattern { background-color: #fdf2f8; background-image: radial-gradient(#fce7f3 2px, transparent 2px); background-size: 30px 30px; }
         /* Scrollbar personalizado */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
@@ -119,7 +100,6 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                     </a>
                 </div>
-                
                 <div class="order-1 lg:order-2 relative mx-auto w-full max-w-lg lg:max-w-full group">
                     <div class="absolute inset-0 bg-gradient-to-tr from-pink-300 to-purple-300 rounded-3xl transform rotate-3 scale-105 opacity-30 group-hover:rotate-6 transition-transform duration-500"></div>
                     <img src="./banner.webp" alt="Banner Principal Wawachay" fetchpriority="high" loading="eager"
@@ -135,7 +115,6 @@
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">¿Por qué elegir Wawachay?</h2>
                     <p class="text-gray-500 max-w-2xl mx-auto">Entendemos que la lactancia es un momento único. Nuestros productos están seleccionados para brindarte la mayor tranquilidad.</p>
                 </div>
-                
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="bg-pink-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
                         <div class="w-14 h-14 bg-pink-200 rounded-full flex items-center justify-center mx-auto mb-4 text-pink-600">
@@ -144,7 +123,6 @@
                         <h3 class="font-bold text-lg text-gray-800 mb-2">Comodidad Indolora</h3>
                         <p class="text-gray-600 text-sm">Tecnología de succión que simula el ritmo natural del bebé, evitando el dolor y cuidando tu piel.</p>
                     </div>
-                    
                     <div class="bg-purple-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
                         <div class="w-14 h-14 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -152,7 +130,6 @@
                         <h3 class="font-bold text-lg text-gray-800 mb-2">Libertad y Eficiencia</h3>
                         <p class="text-gray-600 text-sm">Modelos inalámbricos y silenciosos que te permiten extraer leche en cualquier lugar y momento del día.</p>
                     </div>
-                    
                     <div class="bg-green-50 rounded-2xl p-6 text-center hover:-translate-y-1 transition-transform duration-300">
                         <div class="w-14 h-14 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -171,13 +148,11 @@
                         <h2 class="text-3xl font-bold text-gray-800 mb-2">Nuestro Catálogo</h2>
                         <p class="text-gray-500">Encuentra el producto perfecto para ti</p>
                     </div>
-                    
                     <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
                         <div class="relative w-full sm:w-64">
                             <input type="text" id="searchInput" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none transition-all">
                             <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
-                        
                         <div class="flex items-center gap-2">
                             <label for="sortOrder" class="text-sm font-semibold text-gray-600 whitespace-nowrap">Ordenar por:</label>
                             <select id="sortOrder" class="border border-gray-200 rounded-xl py-2 px-4 bg-white text-gray-700 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none">
@@ -189,13 +164,14 @@
                     </div>
                 </div>
                 
-                <!-- Pestañas Nuevas -->
+                <!-- Pestañas (Tabs) de Categorías -->
                 <div id="categoryTabs" class="flex gap-3 overflow-x-auto py-2 custom-scrollbar w-full">
-                    <!-- Se llenará por JS -->
+                    <!-- Se llenará dinámicamente por JS -->
                 </div>
             </div>
 
-            <div id="error-message" class="hidden col-span-full mb-8 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+            <!-- Contenedor de Error (Oculto por defecto) -->
+            <div id="error-message" class="hidden col-span-full mb-8 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl shadow-sm">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
@@ -206,7 +182,9 @@
                 </div>
             </div>
 
+            <!-- Contenedor Principal de Productos -->
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Indicador de carga -->
                 <div id="loading" class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
                     <p class="text-gray-500 font-medium">Cargando catálogo...</p>
@@ -225,6 +203,7 @@
                 </div>
                 
                 <div id="testimonios-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Los testimonios se cargarán aquí por JS -->
                     <div id="loading-testimonios" class="col-span-full py-10 flex flex-col items-center justify-center">
                         <div class="animate-spin rounded-full h-10 w-10 border-4 border-purple-200 border-t-purple-500 mb-4"></div>
                         <p class="text-gray-500 font-medium">Cargando experiencias...</p>
@@ -278,7 +257,6 @@
                             Av. Defensores del Morro 1625 <br>
                             <span class="text-base text-gray-500">C.C. Galaxy Plaza - 2do Piso, Tienda 2058</span>
                         </p>
-                        
                         <div class="flex-grow w-full rounded-2xl overflow-hidden shadow-inner bg-gray-100 min-h-[300px] lg:min-h-0 relative">
                             <iframe 
                                 src="https://www.google.com/maps?q=-12.176993787811982,-77.01614323810442&hl=es&z=16&output=embed" 
@@ -309,7 +287,6 @@
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">Estamos aquí para ti</h2>
                     <p class="text-gray-500 max-w-2xl mx-auto">¿Tienes alguna duda sobre qué extractor elegir o sobre tu pedido? Escríbenos.</p>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -318,7 +295,6 @@
                         <h4 class="font-bold text-gray-800 mb-1">Atención vía WhatsApp</h4>
                         <a href="https://wa.me/51970551728" target="_blank" class="text-green-600 font-bold hover:underline">Iniciar chat</a>
                     </div>
-
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
@@ -326,7 +302,6 @@
                         <h4 class="font-bold text-gray-800 mb-1">Asesoría Personalizada</h4>
                         <a href="https://www.instagram.com/wawa.extractordelechematerna/" target="_blank" class="text-purple-600 font-bold hover:underline">@wawa.extractordelechematerna</a>
                     </div>
-
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -342,22 +317,17 @@
     <!-- Modal Producto -->
     <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="productModalContent">
-            
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            
             <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow">
                 <div class="flex flex-col md:flex-row gap-6 mt-2">
-                    <!-- Imágenes -->
                     <div class="w-full md:w-1/2 flex flex-col gap-4">
                         <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden group">
                             <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" title="Clic para expandir" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
-                            
                             <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4">
                                 <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-25">
                             </div>
-                            
                             <div class="absolute bottom-4 right-4 bg-white/80 backdrop-blur-sm text-gray-600 p-2 rounded-full shadow-sm z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                             </div>
@@ -365,26 +335,19 @@
                         </div>
                         <div id="modalThumbnails" class="hidden gap-2 justify-center overflow-x-auto py-2 custom-scrollbar"></div>
                     </div>
-                    
-                    <!-- Info Modal -->
                     <div class="w-full md:w-1/2 flex flex-col justify-center">
                         <div id="modalCategory" class="inline-block bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full mb-3 self-start"></div>
                         <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-2 leading-tight"></h3>
                         <p id="modalPrice" class="text-3xl font-extrabold text-purple-600 mb-6"></p>
-                        
                         <!-- BOTÓN MODIFICADO PARA EL CARRITO -->
-                        <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg">
-                            <!-- Se llena por JS -->
-                        </button>
+                        <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"></button>
                     </div>
                 </div>
-                
                 <div class="mt-8 border-t border-gray-100 pt-6">
                     <h4 class="font-bold text-gray-800 mb-3 text-lg">Descripción y Características:</h4>
                     <p id="modalDesc" class="text-gray-600 text-base leading-relaxed whitespace-pre-line"></p>
                 </div>
-
-                <!-- SECCIÓN NUEVA: RECOMENDACIONES CRUZADAS -->
+                <!-- SECCIÓN: RECOMENDACIONES CRUZADAS -->
                 <div id="modalRecommendationsContainer" class="mt-8 border-t border-gray-100 pt-6 hidden bg-purple-50/50 p-4 rounded-2xl">
                     <h4 class="font-bold text-purple-800 mb-4 text-sm uppercase tracking-wide flex items-center gap-2">
                         <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -396,14 +359,42 @@
         </div>
     </div>
 
+    <!-- Modal del Carrito de Compras -->
+    <div id="cartModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="cartModalContent">
+            <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                Mi Pedido
+            </h3>
+            <div id="cartItemsList" class="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-grow mb-4 pr-2"></div>
+            
+            <div id="cartSuggestions" class="hidden border-t border-gray-100 pt-4 mb-4">
+                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" /></svg> Completa tu pedido:</h4>
+                <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto custom-scrollbar pb-2"></div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-4 mt-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="font-bold text-gray-600">Total a pagar:</span>
+                    <span id="cartModalTotal" class="text-2xl font-extrabold text-purple-600">S/ 0.00</span>
+                </div>
+                <a id="cartModalBtnCheckout" href="#" target="_blank" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
+                    Enviar pedido a WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Testimonio -->
     <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
-            
             <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            
             <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow flex flex-col items-center text-center">
                 <div class="relative w-32 h-32 mb-6 group cursor-zoom-in" onclick="openTestimonioLightbox(document.getElementById('modalTestiFoto').src)">
                     <img id="modalTestiFoto" src="" alt="Foto de Testimonio" class="w-full h-full object-cover rounded-full border-4 border-pink-100 shadow-lg transition-transform group-hover:scale-105">
@@ -411,11 +402,9 @@
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                     </div>
                 </div>
-
                 <h3 id="modalTestiNombre" class="text-2xl font-bold text-gray-800 mb-1"></h3>
                 <p id="modalTestiFecha" class="text-sm text-gray-400 mb-4"></p>
                 <div id="modalTestiEstrellas" class="flex gap-1 mb-6 justify-center"></div>
-
                 <div class="relative w-full">
                     <svg class="absolute top-0 left-0 transform -translate-x-4 -translate-y-4 w-12 h-12 text-pink-100 z-0" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
                     <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed relative z-10 italic"></p>
@@ -437,52 +426,39 @@
         </div>
     </div>
 
-    <!-- BARRA FLOTANTE CARRITO (NUEVO) -->
+    <!-- BARRA FLOTANTE CARRITO -->
     <div id="floatingCart" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-10px_25px_-10px_rgba(0,0,0,0.15)] z-[45] transform translate-y-full transition-transform duration-500 p-4 border-t border-pink-100 flex justify-center items-center">
         <div class="max-w-7xl w-full px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-4 w-full sm:w-auto">
+            <div class="flex items-center gap-4 w-full sm:w-auto cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors" onclick="openCart()">
                 <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 relative shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-purple-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">0</span>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Tu selección:</p>
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider flex items-center gap-1">Tu selección <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></p>
                     <p id="cartTotalText" class="text-xl font-extrabold text-gray-800">S/ 0.00</p>
                 </div>
             </div>
-            <a id="btnCheckout" href="#" target="_blank" class="w-full sm:w-auto bg-green-500 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200 shrink-0">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
-                Enviar pedido a WhatsApp
-            </a>
+            <button onclick="openCart()" class="w-full sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-full font-bold hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200 shrink-0">
+                Ver mi pedido completo
+            </button>
         </div>
     </div>
 
-    <footer class="bg-white border-t border-gray-200 mt-12 py-10 pb-28"> <!-- pb-28 añadido para que el carrito flotante no tape el footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-10 pb-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <a href="#inicio" class="flex items-center gap-3 group cursor-pointer">
                 <img src="./Logo_1.png" alt="Logo Wawachay" class="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
                 <span class="text-4xl font-logo text-purple-700 group-hover:text-pink-500 transition-colors duration-300 pt-1">Wawachay</span>
             </a>
-            
             <div class="text-center md:text-left flex flex-col gap-1">
-                <p class="text-gray-500 text-sm">
-                    © 2024 Wawachay - Tienda Especializada en Extractores de Leche Materna y Accesorios.
-                </p>
-                <p class="text-xs text-gray-400 font-medium mt-1">
-                    Diseñado y desarrollado por <a href="#" class="font-bold text-purple-600 hover:text-pink-500 transition-colors">hsoluciones</a> 💻
-                </p>
+                <p class="text-gray-500 text-sm">© 2024 Wawachay - Tienda Especializada en Extractores de Leche Materna y Accesorios.</p>
+                <p class="text-xs text-gray-400 font-medium mt-1">Diseñado y desarrollado por <a href="#" class="font-bold text-purple-600 hover:text-pink-500 transition-colors">hsoluciones</a> 💻</p>
             </div>
-
             <div class="flex gap-4">
-                <a href="https://web.facebook.com/Wawachay.Extractordelechematerna" target="_blank" class="text-gray-400 hover:text-[#1877F2] transition-colors" title="Síguenos en Facebook">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/wawa.extractordelechematerna/" target="_blank" class="text-gray-400 hover:text-[#E4405F] transition-colors" title="Síguenos en Instagram">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                </a>
-                <a href="https://www.tiktok.com/@wawa.extractordeleche" target="_blank" class="text-gray-400 hover:text-black transition-colors" title="Síguenos en TikTok">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-                </a>
+                <a href="https://web.facebook.com/Wawachay.Extractordelechematerna" target="_blank" class="text-gray-400 hover:text-[#1877F2] transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.instagram.com/wawa.extractordelechematerna/" target="_blank" class="text-gray-400 hover:text-[#E4405F] transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                <a href="https://www.tiktok.com/@wawa.extractordeleche" target="_blank" class="text-gray-400 hover:text-black transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
             </div>
         </div>
     </footer>
@@ -490,7 +466,6 @@
     <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-24 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
     </button>
-
     <div id="chatbot-window" class="fixed bottom-40 right-6 w-[90vw] sm:w-80 bg-white rounded-2xl shadow-2xl border border-pink-100 z-50 flex-col hidden overflow-hidden transition-all duration-300 opacity-0 translate-y-4">
         <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-4 flex justify-between items-center text-white">
             <div class="flex items-center gap-2">
@@ -504,7 +479,6 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
-        
         <div id="chatbot-messages" class="h-80 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 custom-scrollbar text-sm">
             <div class="flex gap-2 w-full">
                 <div class="bg-pink-100 text-gray-700 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm">
@@ -518,7 +492,6 @@
                 <button onclick="sendQuickReply('asesor')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">👩‍⚕️ Hablar con asesor</button>
             </div>
         </div>
-
         <div class="p-3 border-t border-gray-100 bg-white flex gap-2">
             <input type="text" id="chatbot-input" placeholder="Escribe tu duda aquí..." class="flex-grow bg-gray-100 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-200" onkeypress="handleChatEnter(event)">
             <button onclick="handleUserMessage()" class="bg-purple-600 text-white w-9 h-9 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors shrink-0">
@@ -540,10 +513,17 @@
         let allProducts = [];
         let currentRenderedProducts = []; 
         let allTestimonios = []; 
-        let shoppingCart = []; // NUEVO: Arreglo del carrito
-        let currentCategoryTab = 'all'; // NUEVO: Estado de pestaña actual
+        let shoppingCart = []; 
+        let currentCategoryTab = 'all';
 
-        // NUEVO: Generador de enlace de carrito completo
+        // LÓGICA CORREGIDA DE PRECIOS
+        function parsePrice(priceStr) {
+            if (!priceStr) return 0;
+            const clean = priceStr.toString().replace(/s\/\.?\s*/i, '').replace(/,/g, '');
+            const match = clean.match(/\d+(\.\d+)?/);
+            return match ? parseFloat(match[0]) : 0;
+        }
+
         function generateCartWhatsAppLink() {
             if(shoppingCart.length === 0) return `https://wa.me/${WHATSAPP_NUMBER}`;
             let message = `¡Hola Wawachay! 🌸 Deseo pedir los siguientes productos:\n\n`;
@@ -552,68 +532,171 @@
                 message += `${index + 1}. *${item.name}* (${item.priceStr})\n`;
                 total += item.priceNum;
             });
-            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n\n¿Me indican cómo procedemos?`;
+            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n\n¿Me indican cómo procedemos para el pago y envío?`;
             return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         }
-        
-        function parsePrice(priceStr) {
-            if (!priceStr) return 0;
-            const match = priceStr.toString().match(/[\d\.]+/);
-            return match ? parseFloat(match[0]) : 0;
-        }
 
-        // NUEVO: Función para agregar/quitar del carrito
         function toggleCart(productName, priceStr, event) {
             if(event) event.stopPropagation(); 
             const index = shoppingCart.findIndex(item => item.name === productName);
             if (index > -1) {
-                shoppingCart.splice(index, 1); // Quita si ya existe
+                shoppingCart.splice(index, 1);
             } else {
-                shoppingCart.push({ name: productName, priceStr: priceStr, priceNum: parsePrice(priceStr) }); // Agrega
+                shoppingCart.push({ name: productName, priceStr: priceStr, priceNum: parsePrice(priceStr) });
             }
             updateCartUI();
-            renderProducts(currentRenderedProducts); // Re-renderiza para actualizar colores de botones
+            renderProducts(currentRenderedProducts);
             
-            // Actualizar botón del modal si está abierto
             const modal = document.getElementById('productModal');
             if(!modal.classList.contains('hidden')){
                 const btn = document.getElementById('modalBtnCart');
-                const inCart = shoppingCart.some(item => item.name === productName);
-                if(inCart){
-                    btn.innerHTML = 'Quitar de mi selección';
-                    btn.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
-                } else {
-                    btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
-                    btn.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200";
+                if (btn) {
+                    const inCart = shoppingCart.some(item => item.name === productName);
+                    if(inCart){
+                        btn.innerHTML = 'Quitar de mi selección';
+                        btn.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
+                    } else {
+                        btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
+                        btn.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200";
+                    }
                 }
             }
         }
 
-        // NUEVO: Actualizar UI de la barra flotante
         function updateCartUI() {
             const cartBar = document.getElementById('floatingCart');
             const cartCountBadge = document.getElementById('cartCountBadge');
             const cartTotalText = document.getElementById('cartTotalText');
-            const btnCheckout = document.getElementById('btnCheckout');
             
             if (shoppingCart.length > 0) {
-                cartBar.classList.remove('translate-y-full'); // Muestra la barra
+                cartBar.classList.remove('translate-y-full');
                 cartCountBadge.textContent = shoppingCart.length;
                 let total = shoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
                 cartTotalText.textContent = `S/ ${total.toFixed(2)}`;
-                btnCheckout.href = generateCartWhatsAppLink();
             } else {
-                cartBar.classList.add('translate-y-full'); // Oculta la barra
+                cartBar.classList.add('translate-y-full');
+                const modal = document.getElementById('cartModal');
+                if(modal && !modal.classList.contains('hidden')) closeCart();
             }
+        }
+
+        function openCart() {
+            if (shoppingCart.length === 0) return;
+            renderCartModal();
+            const modal = document.getElementById('cartModal');
+            const content = document.getElementById('cartModalContent');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            const modal = document.getElementById('cartModal');
+            const content = document.getElementById('cartModalContent');
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) closeCart();
+        });
+
+        function renderCartModal() {
+            const list = document.getElementById('cartItemsList');
+            const totalText = document.getElementById('cartModalTotal');
+            const btnCheckout = document.getElementById('cartModalBtnCheckout');
+            const suggestionsContainer = document.getElementById('cartSuggestions');
+            const suggestionsList = document.getElementById('cartSuggestionsList');
+
+            list.innerHTML = '';
+            let total = 0;
+            let hasExtractores = false;
+
+            shoppingCart.forEach(item => {
+                total += item.priceNum;
+                const product = allProducts.find(p => (p['Nombre'] || p['Name']) === item.name);
+                let imgUrl = 'https://placehold.co/100x100/fce7f3/db2777?text=W';
+                if (product) {
+                    const imgs = extractImagesFromProduct(product);
+                    if(imgs.length > 0) imgUrl = imgs[0];
+                    let cat = 'Extractores';
+                    for (let k in product) if (k.toLowerCase().includes('categor')) cat = product[k].trim();
+                    if(cat.toLowerCase().includes('extractor') || cat.toLowerCase().includes('eléctrico') || cat.toLowerCase().includes('manual')) {
+                        hasExtractores = true;
+                    }
+                }
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-4 bg-gray-50 p-3 rounded-2xl border border-gray-100';
+                div.innerHTML = `
+                    <img src="${imgUrl}" alt="${item.name}" class="w-16 h-16 object-contain bg-white rounded-xl p-1 border border-gray-200 shrink-0">
+                    <div class="flex-grow">
+                        <h5 class="text-sm font-bold text-gray-800 line-clamp-2 leading-tight">${item.name}</h5>
+                        <p class="text-purple-600 font-extrabold mt-1">${item.priceStr}</p>
+                    </div>
+                    <button onclick="toggleCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', event); renderCartModal();" class="w-8 h-8 rounded-full bg-red-100 text-red-500 hover:bg-red-200 flex items-center justify-center shrink-0 transition-colors" title="Quitar">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+
+            let recommendations = allProducts.filter(p => {
+                const pName = p['Nombre'] || p['Name'] || '';
+                let pCat = '';
+                for (let k in p) if (k.toLowerCase().includes('categor')) pCat = p[k].trim();
+                const stockStr = p['Stock'] || p['Cantidad'] || '0';
+                const isAvailable = parseInt(stockStr) > 0;
+                const inCart = shoppingCart.some(item => item.name === pName);
+
+                if (hasExtractores) {
+                    return isAvailable && !inCart && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && !pCat.toLowerCase().includes('manual');
+                } else {
+                    return isAvailable && !inCart;
+                }
+            });
+
+            recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+            if (recommendations.length > 0) {
+                suggestionsContainer.classList.remove('hidden');
+                suggestionsList.innerHTML = '';
+                recommendations.forEach(rec => {
+                    const recName = rec['Nombre'] || rec['Name'] || '';
+                    const recPrice = rec['Precio'] || rec['Price'] || '';
+                    const recImgs = extractImagesFromProduct(rec);
+                    const recCard = document.createElement('div');
+                    recCard.className = 'flex flex-col min-w-[140px] max-w-[140px] bg-white p-3 rounded-xl border border-pink-100 shadow-sm relative shrink-0';
+                    recCard.innerHTML = `
+                        <img src="${recImgs[0]}" class="w-full h-20 object-contain mb-2 rounded-lg bg-gray-50 p-1">
+                        <h6 class="text-[10px] font-bold text-gray-700 line-clamp-2 leading-tight flex-grow mb-1">${recName}</h6>
+                        <p class="text-xs font-extrabold text-pink-500">${recPrice}</p>
+                        <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recPrice}', event); renderCartModal();" class="absolute top-2 right-2 bg-pink-100 text-pink-600 hover:bg-pink-200 w-7 h-7 rounded-full flex items-center justify-center transition-colors shadow-sm" title="Agregar">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
+                    `;
+                    suggestionsList.appendChild(recCard);
+                });
+            } else {
+                suggestionsContainer.classList.add('hidden');
+            }
+
+            totalText.textContent = `S/ ${total.toFixed(2)}`;
+            btnCheckout.href = generateCartWhatsAppLink();
         }
 
         function getDriveImageUrl(url) {
             if (!url || url.trim() === '') return '';
             const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-                const fileId = match[1];
-                return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
-            }
+            if (match && match[1]) { return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`; }
             return url; 
         }
 
@@ -642,28 +725,33 @@
                 header: true,
                 skipEmptyLines: true,
                 complete: function(results) {
-                    let data = results.data;
-                    if (data.length === 0) { showErrorAndLoadFallback(); return; }
-                    
-                    allProducts = data.map(row => {
-                        let cleanRow = {};
-                        for (let key in row) cleanRow[key.trim()] = row[key];
-                        return cleanRow;
-                    }).filter(row => {
-                        const name = row['Nombre'] || row['Name'] || '';
-                        return name.trim() !== '';
-                    });
-                    
-                    const categories = new Set();
-                    allProducts.forEach(p => {
-                        let cat = 'Extractores';
-                        for (let k in p) if (k.toLowerCase().includes('categor')) cat = p[k];
-                        if (cat && cat.trim() !== '') categories.add(cat.trim());
-                    });
-                    updateCategoryFilter(categories); // Ahora crea tabs
-                    
-                    renderProducts(allProducts);
-                    document.getElementById('loading').style.display = 'none';
+                    try {
+                        let data = results.data;
+                        if (data.length === 0) { showErrorAndLoadFallback(); return; }
+                        
+                        allProducts = data.map(row => {
+                            let cleanRow = {};
+                            for (let key in row) cleanRow[key.trim()] = row[key];
+                            return cleanRow;
+                        }).filter(row => {
+                            const name = row['Nombre'] || row['Name'] || '';
+                            return name.trim() !== '';
+                        });
+                        
+                        const categories = new Set();
+                        allProducts.forEach(p => {
+                            let cat = 'Extractores';
+                            for (let k in p) if (k.toLowerCase().includes('categor')) cat = p[k];
+                            if (cat && cat.trim() !== '') categories.add(cat.trim());
+                        });
+                        
+                        updateCategoryFilter(categories);
+                        renderProducts(allProducts);
+                        document.getElementById('loading').style.display = 'none';
+                    } catch (err) {
+                        console.error('Error procesando catálogo:', err);
+                        showErrorAndLoadFallback();
+                    }
                 },
                 error: function(error) {
                     console.error('Error al descargar el CSV:', error);
@@ -674,10 +762,11 @@
 
         function showErrorAndLoadFallback() {
             document.getElementById('error-message').classList.remove('hidden');
-            document.getElementById('loading').style.display = 'none';
+            const loading = document.getElementById('loading');
+            if(loading) loading.style.display = 'none';
         }
 
-        // NUEVO: Crea pestañas (Tabs) en lugar del select desplegable
+        // Sistema de Pestañas (Tabs)
         function updateCategoryFilter(categories) {
             const tabsContainer = document.getElementById('categoryTabs');
             if (!tabsContainer) return;
@@ -690,7 +779,7 @@
                 btn.className = `whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${isActive ? 'bg-pink-500 text-white border-pink-500 shadow-md transform scale-105' : 'bg-white text-gray-600 border-gray-200 hover:bg-pink-50 hover:border-pink-300'}`;
                 btn.onclick = () => {
                     currentCategoryTab = catName;
-                    updateCategoryFilter(categories); // Re-renderiza tabs para actualizar el activo
+                    updateCategoryFilter(categories); 
                     filterProducts();
                 };
                 return btn;
@@ -709,7 +798,6 @@
                 let desc = product['Descripción Corta'] || product['Descripción'] || '';
                 for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
                 desc = desc.toLowerCase();
-                
                 let cat = 'Extractores';
                 for (let k in product) if (k.toLowerCase().includes('categor')) cat = product[k].trim();
 
@@ -720,9 +808,8 @@
 
             if (sortOrder !== 'default') {
                 filtered.sort((a, b) => {
-                    const getVal = str => parseFloat((str || '0').toString().replace(/[^0-9.-]+/g,"")) || 0;
-                    const priceA = getVal(a['Precio'] || a['Price']);
-                    const priceB = getVal(b['Precio'] || b['Price']);
+                    const priceA = parsePrice(a['Precio'] || a['Price']);
+                    const priceB = parsePrice(b['Precio'] || b['Price']);
                     return sortOrder === 'low-high' ? priceA - priceB : priceB - priceA;
                 });
             }
@@ -731,6 +818,7 @@
 
         function renderProducts(products) {
             const container = document.getElementById('products-container');
+            if(!container) return;
             container.innerHTML = ''; 
             currentRenderedProducts = products; 
             
@@ -747,13 +835,11 @@
 
                 const name = product['Nombre'] || product['Name'] || 'Producto sin nombre';
                 const price = product['Precio'] || product['Price'] || 'S/ 0.00';
-                
-                // NUEVO: Verifica si el producto ya está en el carrito para pintarlo diferente
                 const inCart = shoppingCart.some(item => item.name === name);
 
                 let stockBadgeHTML = '';
                 if (stockNum === 0) stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>';
-                else if (stockNum <= 5) stockBadgeHTML = `<span class="absolute top-3 left-3 z-30 bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 shadow-md flex items-center gap-1 animate-pulse" title="¡Se agotan rápido!"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
+                else if (stockNum <= 5) stockBadgeHTML = `<span class="absolute top-3 left-3 z-30 bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 shadow-md flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
                 else stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>';
 
                 let desc = product['Descripción Corta'] || product['Descripción'] || '';
@@ -764,7 +850,6 @@
                 for (let k in product) if (k.toLowerCase().includes('categor')) category = product[k].trim();
 
                 const card = document.createElement('div');
-                // NUEVO: Borde morado si está en el carrito
                 card.className = `bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border flex flex-col h-full ${inCart ? 'border-purple-400 ring-2 ring-purple-100' : 'border-pink-50'}`;
                 
                 card.innerHTML = `
@@ -779,14 +864,10 @@
                     <div class="p-5 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight uppercase">${name}</h3>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">${formattedDesc}</p>
-                        
                         <div class="mt-auto">
                             <p class="text-2xl font-extrabold text-purple-700 mb-4">${price}</p>
                             <div class="grid grid-cols-2 gap-2">
-                                <button onclick="showDetails(${index})" class="w-full bg-pink-50 text-pink-700 font-semibold py-2 rounded-xl hover:bg-pink-100 transition-colors text-sm border border-pink-100">
-                                    Ver Detalle
-                                </button>
-                                <!-- NUEVO: Botón de Comprar modificado para el carrito -->
+                                <button onclick="showDetails(${index})" class="w-full bg-pink-50 text-pink-700 font-semibold py-2 rounded-xl hover:bg-pink-100 transition-colors text-sm border border-pink-100">Ver Detalle</button>
                                 ${isAvailable ? 
                                     `<button onclick="toggleCart('${name.replace(/'/g, "\\'")}', '${price}', event)" class="w-full ${inCart ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' : 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm'} font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm">
                                         ${inCart ? 'Quitar' : '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Agregar'}
@@ -814,7 +895,6 @@
             
             const price = product['Precio'] || product['Price'] || 'S/ 0.00';
             const driveImages = extractImagesFromProduct(product);
-            
             let category = 'Extractores';
             for (let k in product) if (k.toLowerCase().includes('categor')) category = product[k].trim();
             
@@ -842,41 +922,32 @@
             const mainImg = document.getElementById('modalImg');
             mainImg.src = driveImages[0];
             
-            // NUEVO: Lógica de Recomendaciones (si es extractor, ofrece accesorios al azar)
             const recContainer = document.getElementById('modalRecommendationsContainer');
             const recList = document.getElementById('modalRecommendationsList');
             
             if (category.toLowerCase().includes('extractor') || category.toLowerCase().includes('eléctrico') || category.toLowerCase().includes('manual')) {
-                // Buscar productos que NO sean extractores y tengan stock
                 let recommendations = allProducts.filter(p => {
                     let pCat = '';
                     for (let k in p) if (k.toLowerCase().includes('categor')) pCat = p[k].trim();
                     const pStockStr = p['Stock'] || p['Cantidad'] || '0';
                     return pCat && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && parseInt(pStockStr) > 0;
                 });
-                
-                // Elegir 2 al azar
                 recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 2);
                 
                 if (recommendations.length > 0) {
                     recContainer.classList.remove('hidden');
                     recList.innerHTML = '';
-                    
                     recommendations.forEach(rec => {
                         const recName = rec['Nombre'] || rec['Name'] || '';
                         const recPrice = rec['Precio'] || rec['Price'] || '';
                         const recImgs = extractImagesFromProduct(rec);
                         const recInCart = shoppingCart.some(item => item.name === recName);
-                        
                         const recCard = document.createElement('div');
                         recCard.className = 'flex items-center justify-between gap-3 bg-white p-3 rounded-xl shadow-sm border border-pink-100';
                         recCard.innerHTML = `
                             <div class="flex items-center gap-3">
                                 <img src="${recImgs[0]}" alt="${recName}" class="w-14 h-14 object-contain bg-gray-50 rounded-lg border border-gray-100 p-1">
-                                <div>
-                                    <h5 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${recName}</h5>
-                                    <p class="text-sm font-extrabold text-pink-500 mt-1">${recPrice}</p>
-                                </div>
+                                <div><h5 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${recName}</h5><p class="text-sm font-extrabold text-pink-500 mt-1">${recPrice}</p></div>
                             </div>
                             <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recPrice}', event); this.classList.toggle('bg-pink-100'); this.classList.toggle('bg-red-100'); this.classList.toggle('text-pink-600'); this.classList.toggle('text-red-600');" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 shadow-sm ${recInCart ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600 hover:bg-pink-200'}" title="Añadir a mi selección">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -899,10 +970,7 @@
                     thumb.onclick = () => {
                         mainImg.style.opacity = '0.5';
                         setTimeout(() => { mainImg.src = imgSrc; mainImg.style.opacity = '1'; }, 150);
-                        Array.from(thumbnailsContainer.children).forEach(c => {
-                            c.classList.remove('border-pink-500', 'shadow-md');
-                            c.classList.add('border-transparent');
-                        });
+                        Array.from(thumbnailsContainer.children).forEach(c => { c.classList.remove('border-pink-500', 'shadow-md'); c.classList.add('border-transparent'); });
                         thumb.classList.remove('border-transparent');
                         thumb.classList.add('border-pink-500', 'shadow-md');
                     };
@@ -913,7 +981,6 @@
                 thumbnailsContainer.classList.remove('flex');
             }
 
-            // NUEVO: Configuración del Botón Principal del Modal (Carrito)
             const modalBtnCart = document.getElementById('modalBtnCart');
             const inCart = shoppingCart.some(item => item.name === name);
             
@@ -927,11 +994,10 @@
                     modalBtnCart.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
                 }
             } else {
-                // Botón de Consultar Reposición
                 modalBtnCart.onclick = null;
                 modalBtnCart.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}`;
-                modalBtnCart.className = "w-full bg-gray-500 text-white font-bold py-3 rounded-xl hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-gray-200 block text-center"; // Asegurar que actúe como link visual
-                modalBtnCart.onclick = function() { window.open(this.href, '_blank'); return false; }; // Comportamiento de enlace para botón
+                modalBtnCart.className = "w-full bg-gray-500 text-white font-bold py-3 rounded-xl hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-gray-200 block text-center";
+                modalBtnCart.onclick = function() { window.open(this.href, '_blank'); return false; }; 
                 modalBtnCart.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar Reposición';
             }
             
@@ -939,10 +1005,7 @@
             const content = document.getElementById('productModalContent');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-            }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
             document.body.style.overflow = 'hidden';
         }
 
@@ -951,34 +1014,21 @@
             const content = document.getElementById('productModalContent');
             modal.classList.add('opacity-0');
             content.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.style.overflow = ''; 
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
         }
-
-        document.getElementById('productModal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
+        document.getElementById('productModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
         function openLightbox() {
             const lightbox = document.getElementById('imageLightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            const mainImg = document.getElementById('modalImg');
-            lightboxImg.src = mainImg.src;
+            document.getElementById('lightboxImg').src = document.getElementById('modalImg').src;
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
             setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
-
         function closeLightbox() {
             const lightbox = document.getElementById('imageLightbox');
             lightbox.classList.add('opacity-0');
-            setTimeout(() => {
-                lightbox.classList.add('hidden');
-                lightbox.classList.remove('flex');
-            }, 300);
+            setTimeout(() => { lightbox.classList.add('hidden'); lightbox.classList.remove('flex'); }, 300);
         }
 
         function fetchTestimoniosData() {
@@ -987,9 +1037,13 @@
                 header: true,
                 skipEmptyLines: true,
                 complete: function(results) {
-                    const data = results.data.filter(row => row['Nombre'] && row['Nombre'].trim() !== '');
-                    if(data.length > 0) { renderTestimonios(data); } 
-                    else { loadDemoTestimonios(); }
+                    try {
+                        const data = results.data.filter(row => row['Nombre'] && row['Nombre'].trim() !== '');
+                        if(data.length > 0) { renderTestimonios(data); } 
+                        else { loadDemoTestimonios(); }
+                    } catch (err) {
+                        loadDemoTestimonios();
+                    }
                 },
                 error: function(error) { loadDemoTestimonios(); }
             });
@@ -997,11 +1051,13 @@
 
         function renderTestimonios(testimonios) {
             const container = document.getElementById('testimonios-container');
+            if(!container) return;
             container.innerHTML = '';
             allTestimonios = testimonios; 
+            
             testimonios.forEach((testi, index) => {
                 const nombre = testi['Nombre'] || 'Mami Feliz';
-                let comentario = testi['Comentario'] || 'Excelente producto.';
+                let comentario = testi['Comentario'] || '';
                 comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
                 const estrellas = parseInt(testi['Calificación']) || 5;
                 const fecha = testi['Fecha'] || '';
@@ -1080,7 +1136,7 @@
             setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
 
-        // Lógica del Chatbot
+        // Chatbot Lógica
         let chatOpen = false;
         const chatWindow = document.getElementById('chatbot-window');
         const chatMessages = document.getElementById('chatbot-messages');
@@ -1088,13 +1144,14 @@
         const quickReplies = document.getElementById('quick-replies');
 
         const botKnowledge = {
-            'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias enviamos por agencias seguras.',
+            'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias, el tiempo depende de la agencia (Shalom o Marvisur).',
             'pagos': 'Aceptamos Yape, Plin, y transferencias bancarias (BCP, BBVA, Interbank). Todo pago es 100% seguro.',
             'garantia': '¡Claro que sí! Todos nuestros extractores cuentan con garantía por defectos de fábrica.',
-            'precio': 'Nuestros precios varían según el modelo. ¡Te invito a revisar el catálogo en la web!',
+            'precio': 'Nuestros precios varían según el modelo. ¡Te invito a revisar el catálogo aquí mismo en la web para ver los detalles!',
             'hola': '¡Hola de nuevo, mami! 🌸 ¿En qué te puedo ayudar hoy?',
-            'asesor': 'Con gusto te comunicaré con una asesora. <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>',
-            'fallback': 'Mmm, no estoy muy segura. ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí</a>.'
+            'gracias': '¡De nada! Aquí estoy si necesitas algo más.',
+            'asesor': 'Con gusto te comunicaré con una asesora. Por favor, haz clic aquí para hablar por WhatsApp: <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>',
+            'fallback': 'Mmm, no estoy muy segura de eso. 🤔 ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí para chatear</a>.'
         };
 
         function toggleChatbot() {
@@ -1130,7 +1187,7 @@
         function removeTypingIndicator(id) { const el = document.getElementById(id); if (el) el.remove(); }
 
         function sendQuickReply(type) {
-            const labels = { 'envios': 'Información de envíos', 'pagos': 'Métodos de pago', 'garantia': '¿Tienen garantía?', 'asesor': 'Hablar con un humano' };
+            const labels = { 'envios': 'Información de envíos', 'pagos': 'Métodos de pago', 'garantia': '¿Tienen garantía?', 'asesor': 'Quiero hablar con un humano' };
             appendMessage(labels[type], true);
             const typingId = showTypingIndicator();
             setTimeout(() => { removeTypingIndicator(typingId); appendMessage(botKnowledge[type]); }, 1000);
@@ -1150,6 +1207,7 @@
                 else if (lText.includes('garantia') || lText.includes('falla')) appendMessage(botKnowledge['garantia']);
                 else if (lText.includes('precio') || lText.includes('cuesta')) appendMessage(botKnowledge['precio']);
                 else if (lText.includes('hola') || lText.includes('buenos')) appendMessage(botKnowledge['hola']);
+                else if (lText.includes('gracias')) appendMessage(botKnowledge['gracias']);
                 else if (lText.includes('humano') || lText.includes('whatsapp') || lText.includes('asesor')) appendMessage(botKnowledge['asesor']);
                 else appendMessage(botKnowledge['fallback']);
             }, 1200);
@@ -1157,11 +1215,14 @@
 
         function handleChatEnter(e) { if (e.key === 'Enter') handleUserMessage(); }
 
+        // Inicializar Todo
         document.addEventListener('DOMContentLoaded', () => {
             fetchGoogleSheetsData();
             fetchTestimoniosData(); 
-            document.getElementById('searchInput').addEventListener('input', filterProducts);
-            document.getElementById('sortOrder').addEventListener('change', filterProducts);
+            const searchEl = document.getElementById('searchInput');
+            const sortEl = document.getElementById('sortOrder');
+            if (searchEl) searchEl.addEventListener('input', filterProducts);
+            if (sortEl) sortEl.addEventListener('change', filterProducts);
         });
     </script>
 </body>
