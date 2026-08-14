@@ -51,10 +51,14 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #db2777; }
+        /* Ocultar barra scroll en slider horizontal para que se vea como app */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
 
+    <!-- HEADER -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#inicio" class="flex items-center gap-3 group cursor-pointer transition-transform duration-300">
@@ -80,6 +84,7 @@
     </header>
 
     <main class="flex-grow" id="inicio">
+        <!-- HERO SECTION -->
         <section class="relative pt-12 pb-16 px-4 sm:px-6 lg:px-8 border-b border-pink-100 overflow-hidden bg-gradient-to-b from-pink-50/50 to-white">
             <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-pink-100 opacity-50 blur-3xl pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-purple-100 opacity-50 blur-3xl pointer-events-none"></div>
@@ -109,6 +114,7 @@
             </div>
         </section>
 
+        <!-- BENEFICIOS SECTION -->
         <section id="beneficios" class="py-16 bg-white border-b border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -141,6 +147,7 @@
             </div>
         </section>
 
+        <!-- CATALOGO SECTION -->
         <section id="catalogo" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div class="mb-10 flex flex-col gap-6">
                 <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -170,18 +177,6 @@
                 </div>
             </div>
 
-            <!-- Contenedor de Error (Oculto por defecto) -->
-            <div id="error-message" class="hidden col-span-full mb-8 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl shadow-sm">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-yellow-700"><strong>No se pudo conectar a Google Sheets.</strong> Mostrando productos de demostración.</p>
-                    </div>
-                </div>
-            </div>
-
             <!-- Contenedor Principal de Productos -->
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 <!-- Indicador de carga -->
@@ -192,6 +187,7 @@
             </div>
         </section>
 
+        <!-- TESTIMONIOS SECTION -->
         <section id="testimonios" class="py-16 bg-gradient-to-b from-pink-50/30 to-white border-t border-pink-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -201,9 +197,7 @@
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Lo que dicen las mamis</h2>
                     <p class="text-gray-500 max-w-2xl mx-auto text-lg">Más de cientos de familias confían en nosotros para hacer su etapa de lactancia más cómoda y feliz.</p>
                 </div>
-                
                 <div id="testimonios-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Los testimonios se cargarán aquí por JS -->
                     <div id="loading-testimonios" class="col-span-full py-10 flex flex-col items-center justify-center">
                         <div class="animate-spin rounded-full h-10 w-10 border-4 border-purple-200 border-t-purple-500 mb-4"></div>
                         <p class="text-gray-500 font-medium">Cargando experiencias...</p>
@@ -212,13 +206,13 @@
             </div>
         </section>
 
+        <!-- NOSOTROS SECTION -->
         <section id="nosotros" class="py-16 bg-white border-t border-pink-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">Conoce Wawachay</h2>
                     <p class="text-gray-500 max-w-2xl mx-auto">Estamos comprometidos con el bienestar de mamá y bebé, brindando productos de calidad, confianza y atención personalizada.</p>
                 </div>
-                
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
                     <div class="flex flex-col gap-6 justify-center">
                         <div class="bg-pink-50 p-6 md:p-8 rounded-3xl border border-pink-100 shadow-sm relative overflow-hidden transition-transform duration-300 hover:-translate-y-1">
@@ -233,7 +227,6 @@
                                 Acompañar a las madres en su hermosa etapa de lactancia, ofreciendo extractores de leche materna y accesorios de la más alta calidad, totalmente seguros y cómodos.
                             </p>
                         </div>
-                        
                         <div class="bg-purple-50 p-6 md:p-8 rounded-3xl border border-purple-100 shadow-sm relative overflow-hidden transition-transform duration-300 hover:-translate-y-1">
                             <div class="absolute -right-6 -top-6 text-purple-200 opacity-40">
                                  <svg class="w-32 h-32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -247,7 +240,6 @@
                             </p>
                         </div>
                     </div>
-
                     <div class="h-full flex flex-col bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                         <h3 class="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
                             <svg class="w-7 h-7 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -269,6 +261,7 @@
             </div>
         </section>
 
+        <!-- POLITICA DE CALIDAD -->
         <section class="py-16 bg-gradient-to-b from-white to-pink-50/50 border-t border-pink-50 relative overflow-hidden">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 text-pink-500 shadow-sm">
@@ -281,6 +274,7 @@
             </div>
         </section>
 
+        <!-- CONTACTO SECTION -->
         <section id="contacto" class="py-16 bg-white border-t border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -314,7 +308,7 @@
         </section>
     </main>
 
-    <!-- Modal Producto -->
+    <!-- MODAL PRODUCTO -->
     <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="productModalContent">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
@@ -339,7 +333,6 @@
                         <div id="modalCategory" class="inline-block bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full mb-3 self-start"></div>
                         <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-2 leading-tight"></h3>
                         <p id="modalPrice" class="text-3xl font-extrabold text-purple-600 mb-6"></p>
-                        <!-- BOTÓN MODIFICADO PARA EL CARRITO -->
                         <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"></button>
                     </div>
                 </div>
@@ -359,7 +352,7 @@
         </div>
     </div>
 
-    <!-- Modal del Carrito de Compras -->
+    <!-- MODAL DEL CARRITO DE COMPRAS -->
     <div id="cartModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="cartModalContent">
             <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
@@ -369,11 +362,23 @@
                 <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 Mi Pedido
             </h3>
+            
             <div id="cartItemsList" class="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-grow mb-4 pr-2"></div>
             
             <div id="cartSuggestions" class="hidden border-t border-gray-100 pt-4 mb-4">
                 <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" /></svg> Completa tu pedido:</h4>
-                <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto custom-scrollbar pb-2"></div>
+                <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto hide-scroll pb-2 scroll-smooth snap-x"></div>
+            </div>
+
+            <!-- NUEVO FORMULARIO PARA DATOS DEL CLIENTE -->
+            <div class="mb-4 space-y-3 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                <h4 class="font-bold text-gray-700 text-sm">Tus datos para el pedido:</h4>
+                <div>
+                    <input type="text" id="cartCustomerName" placeholder="Tu Nombre o Apellido *" class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-purple-500 outline-none text-sm" required>
+                </div>
+                <div>
+                    <input type="text" id="cartCustomerAddress" placeholder="Distrito o Dirección (Opcional)" class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-purple-500 outline-none text-sm">
+                </div>
             </div>
 
             <div class="border-t border-gray-200 pt-4 mt-auto">
@@ -389,7 +394,7 @@
         </div>
     </div>
 
-    <!-- Modal Testimonio -->
+    <!-- MODAL TESTIMONIO -->
     <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
             <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
@@ -413,7 +418,7 @@
         </div>
     </div>
     
-    <!-- Lightbox -->
+    <!-- LIGHTBOX IMAGENES -->
     <div id="imageLightbox" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
         <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 z-[80]">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -445,6 +450,7 @@
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer class="bg-white border-t border-gray-200 mt-12 py-10 pb-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <a href="#inicio" class="flex items-center gap-3 group cursor-pointer">
@@ -463,6 +469,7 @@
         </div>
     </footer>
 
+    <!-- CHATBOT -->
     <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-24 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
     </button>
@@ -500,9 +507,10 @@
         </div>
     </div>
 
+    <!-- SCRIPTS JAVASCRIPT -->
     <script>
         const WHATSAPP_NUMBER = '51970551728'; 
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT21LHXXbPNxOqSAEgbJoPO98RHVKt4uXsfRb_TubMeybnLhJcVPpsVsikzZks7N79F_xz1FsB24cC/pub?output=csv';
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Hy8U1--yR3KJfxoD7bDz2IDR4fwthJWI4-KwayweqL8/export?format=csv';
         const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
 
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -516,7 +524,6 @@
         let shoppingCart = []; 
         let currentCategoryTab = 'all';
 
-        // LÓGICA CORREGIDA DE PRECIOS
         function parsePrice(priceStr) {
             if (!priceStr) return 0;
             const clean = priceStr.toString().replace(/s\/\.?\s*/i, '').replace(/,/g, '');
@@ -526,13 +533,23 @@
 
         function generateCartWhatsAppLink() {
             if(shoppingCart.length === 0) return `https://wa.me/${WHATSAPP_NUMBER}`;
-            let message = `¡Hola Wawachay! 🌸 Deseo pedir los siguientes productos:\n\n`;
+            
+            // Extracción de datos del formulario del carrito
+            const nameInput = document.getElementById('cartCustomerName');
+            const addressInput = document.getElementById('cartCustomerAddress');
+            const name = nameInput ? nameInput.value.trim() : '';
+            const address = addressInput ? addressInput.value.trim() : '';
+            
+            let message = `¡Hola Wawachay! 🌸 Soy *${name || 'una mami'}* y deseo pedir los siguientes productos:\n\n`;
             let total = 0;
             shoppingCart.forEach((item, index) => {
                 message += `${index + 1}. *${item.name}* (${item.priceStr})\n`;
                 total += item.priceNum;
             });
-            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n\n¿Me indican cómo procedemos para el pago y envío?`;
+            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n`;
+            if(address) message += `\n*Mi distrito o dirección es:* ${address}\n`;
+            message += `\n¿Me indican cómo procedemos para el pago y envío?`;
+            
             return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         }
 
@@ -664,7 +681,8 @@
                 }
             });
 
-            recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 3);
+            // Mostramos hasta 10 recomendaciones para activar el scroll horizontal
+            recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 10);
 
             if (recommendations.length > 0) {
                 suggestionsContainer.classList.remove('hidden');
@@ -674,7 +692,8 @@
                     const recPrice = rec['Precio'] || rec['Price'] || '';
                     const recImgs = extractImagesFromProduct(rec);
                     const recCard = document.createElement('div');
-                    recCard.className = 'flex flex-col min-w-[140px] max-w-[140px] bg-white p-3 rounded-xl border border-pink-100 shadow-sm relative shrink-0';
+                    // 'snap-start' para detenerse suavemente en cada tarjeta al deslizar
+                    recCard.className = 'flex flex-col min-w-[140px] max-w-[140px] bg-white p-3 rounded-xl border border-pink-100 shadow-sm relative shrink-0 snap-start';
                     recCard.innerHTML = `
                         <img src="${recImgs[0]}" class="w-full h-20 object-contain mb-2 rounded-lg bg-gray-50 p-1">
                         <h6 class="text-[10px] font-bold text-gray-700 line-clamp-2 leading-tight flex-grow mb-1">${recName}</h6>
@@ -690,7 +709,18 @@
             }
 
             totalText.textContent = `S/ ${total.toFixed(2)}`;
-            btnCheckout.href = generateCartWhatsAppLink();
+            
+            // Validación de Formulario en Carrito
+            btnCheckout.onclick = function(e) {
+                const nameInput = document.getElementById('cartCustomerName');
+                if (nameInput && nameInput.value.trim() === '') {
+                    e.preventDefault();
+                    alert("Por favor, ingresa tu nombre para continuar con el pedido.");
+                    nameInput.focus();
+                    return false;
+                }
+                this.href = generateCartWhatsAppLink();
+            };
         }
 
         function getDriveImageUrl(url) {
@@ -727,7 +757,7 @@
                 complete: function(results) {
                     try {
                         let data = results.data;
-                        if (data.length === 0) { showErrorAndLoadFallback(); return; }
+                        if (data.length === 0) return;
                         
                         allProducts = data.map(row => {
                             let cleanRow = {};
@@ -745,25 +775,29 @@
                             if (cat && cat.trim() !== '') categories.add(cat.trim());
                         });
                         
+                        // Encontrar la categoría 'extractor' sin importar mayúsculas
+                        let defaultTab = 'all';
+                        categories.forEach(c => {
+                            if (c.toLowerCase().includes('extractor')) {
+                                defaultTab = c;
+                            }
+                        });
+                        currentCategoryTab = defaultTab;
+
                         updateCategoryFilter(categories);
-                        renderProducts(allProducts);
-                        document.getElementById('loading').style.display = 'none';
+                        filterProducts();
+                        
+                        const loading = document.getElementById('loading');
+                        if(loading) loading.style.display = 'none';
+                        
                     } catch (err) {
                         console.error('Error procesando catálogo:', err);
-                        showErrorAndLoadFallback();
                     }
                 },
                 error: function(error) {
                     console.error('Error al descargar el CSV:', error);
-                    showErrorAndLoadFallback();
                 }
             });
-        }
-
-        function showErrorAndLoadFallback() {
-            document.getElementById('error-message').classList.remove('hidden');
-            const loading = document.getElementById('loading');
-            if(loading) loading.style.display = 'none';
         }
 
         // Sistema de Pestañas (Tabs)
@@ -823,7 +857,7 @@
             currentRenderedProducts = products; 
             
             if (products.length === 0) {
-                container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10 text-lg">No se encontraron productos con esa búsqueda.</p>';
+                container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10 text-lg">No se encontraron productos con esa búsqueda o categoría.</p>';
                 return;
             }
 
@@ -836,6 +870,20 @@
                 const name = product['Nombre'] || product['Name'] || 'Producto sin nombre';
                 const price = product['Precio'] || product['Price'] || 'S/ 0.00';
                 const inCart = shoppingCart.some(item => item.name === name);
+                
+                // Tipo de Ingreso Badge (Nuevo Ingreso, Renovamos Stock, etc.)
+                let tipoIngreso = '';
+                for (let k in product) if (k.toLowerCase().includes('ingreso')) tipoIngreso = String(product[k] || '').trim();
+                
+                let tipoIngresoHTML = '';
+                if (tipoIngreso !== '') {
+                    tipoIngresoHTML = `
+                        <div class="absolute -top-3 -right-3 z-40 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg transform rotate-3 flex items-center gap-1 animate-pulse border border-white/50">
+                            <svg class="w-3 h-3 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            ${tipoIngreso}
+                        </div>
+                    `;
+                }
 
                 let stockBadgeHTML = '';
                 if (stockNum === 0) stockBadgeHTML = '<span class="absolute top-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>';
@@ -850,10 +898,11 @@
                 for (let k in product) if (k.toLowerCase().includes('categor')) category = product[k].trim();
 
                 const card = document.createElement('div');
-                card.className = `bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border flex flex-col h-full ${inCart ? 'border-purple-400 ring-2 ring-purple-100' : 'border-pink-50'}`;
+                card.className = `bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-visible border flex flex-col h-full relative ${inCart ? 'border-purple-400 ring-2 ring-purple-100' : 'border-pink-50'}`;
                 
                 card.innerHTML = `
-                    <div class="relative aspect-square w-full overflow-hidden bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50" onclick="showDetails(${index})">
+                    ${tipoIngresoHTML}
+                    <div class="relative aspect-square w-full overflow-hidden bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50 rounded-t-2xl" onclick="showDetails(${index})">
                         <img src="${driveImages[0]}" alt="${name}" loading="lazy" class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10" onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
                         <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6">
                             <img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25">
@@ -861,7 +910,7 @@
                         ${stockBadgeHTML}
                         <span class="absolute top-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase">${category}</span>
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
+                    <div class="p-5 flex flex-col flex-grow relative z-10 bg-white rounded-b-2xl">
                         <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight uppercase">${name}</h3>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">${formattedDesc}</p>
                         <div class="mt-auto">
@@ -908,11 +957,18 @@
             document.getElementById('modalTitle').textContent = name;
             document.getElementById('modalPrice').textContent = price;
             
+            let tipoIngreso = '';
+            for (let k in product) if (k.toLowerCase().includes('ingreso')) tipoIngreso = String(product[k] || '').trim();
+            
             let modalStockBadge = '';
             if (stockNum === 0) modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Sin Stock</span>';
             else if (stockNum <= 5) modalStockBadge = `<span class="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
             else modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
             
+            if(tipoIngreso !== '') {
+                modalStockBadge += `<span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1"><svg class="w-3 h-3 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> ${tipoIngreso}</span>`;
+            }
+
             const modalCatEl = document.getElementById('modalCategory');
             modalCatEl.className = "flex flex-wrap gap-2 mb-3 self-start";
             modalCatEl.innerHTML = `<span class="bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full border border-pink-200">${category}</span>${modalStockBadge}`;
