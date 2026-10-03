@@ -498,7 +498,7 @@
                 <button onclick="sendQuickReply('envios')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🚚 Envíos y entregas</button>
                 <button onclick="sendQuickReply('pagos')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">💳 Métodos de pago</button>
                 <button onclick="sendQuickReply('ubicacion')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">📍 Ubicación y Horarios</button>
-                <button onclick="sendQuickReply('garantia')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🛡️ Garantía</button>
+                <button onclick="sendQuickReply('garantia')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🛡️️ Garantía</button>
                 <button onclick="sendQuickReply('asesor')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">👩‍⚕️ Hablar con asesor</button>
             </div>
         </div>
@@ -529,14 +529,28 @@
 
         // --- FUNCIONES AYUDANTES SUPER FLEXIBLES ---
         function getProdName(p) {
+            if (p['Nombre del producto']) return String(p['Nombre del producto']).trim();
             for (let k in p) if (k.toLowerCase().includes('nombre')) return String(p[k]).trim();
             return '';
         }
         function getProdDesc(p) {
-            for (let k in p) if (k.toLowerCase().includes('caracteristica') || k.toLowerCase().includes('descripc')) return String(p[k]).trim();
-            return '';
+            // 1. Busca estrictamente el texto de tu Columna M
+            if (p['Caracteristicas o Descripcion del producto']) {
+                let exacto = String(p['Caracteristicas o Descripcion del producto']).trim();
+                if (exacto !== '' && exacto !== 'undefined') return exacto;
+            }
+            // 2. Si no la encuentra, busca otra columna de descripción
+            for (let k in p) {
+                let key = k.toLowerCase();
+                if (key.includes('caracteristica') || key.includes('descripc')) {
+                    let val = String(p[k]).trim();
+                    if (val !== '' && val !== 'undefined') return val;
+                }
+            }
+            return ''; 
         }
         function getProdCat(p) {
+            if (p['Categoría']) return String(p['Categoría']).trim();
             for (let k in p) if (k.toLowerCase().includes('categor')) return String(p[k]).trim();
             return 'Extractores';
         }
@@ -753,19 +767,31 @@
 
         function extractImagesFromProduct(product) {
             let driveImages = [];
-            for (let key in product) {
-                const k = key.toLowerCase();
-                if (k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive') || k.includes('link')) {
-                    const val = product[key];
-                    if (val && typeof val === 'string' && val.trim() !== '') {
-                        const links = val.split(/[\n,]+/).map(s => s.trim()).filter(s => s.startsWith('http'));
-                        links.forEach(link => {
-                            const imgUrl = getDriveImageUrl(link) || link;
-                            if(imgUrl) driveImages.push(imgUrl);
-                        });
+            
+            // 1. Busca estrictamente en la columna "Link de la imagen del producto"
+            let mainLinkStr = product['Link de la imagen del producto'];
+            
+            // 2. Si no hay, busca en cualquier otra columna de imagen
+            if (!mainLinkStr) {
+                for (let key in product) {
+                    const k = key.toLowerCase();
+                    if (k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive') || k.includes('link')) {
+                        const val = product[key];
+                        if (val && typeof val === 'string' && val.trim() !== '') {
+                            mainLinkStr = (mainLinkStr ? mainLinkStr + ',' : '') + val;
+                        }
                     }
                 }
             }
+
+            if (mainLinkStr && typeof mainLinkStr === 'string' && mainLinkStr.trim() !== '') {
+                const links = mainLinkStr.split(/[\n,]+/).map(s => s.trim()).filter(s => s.startsWith('http'));
+                links.forEach(link => {
+                    const imgUrl = getDriveImageUrl(link) || link;
+                    if(imgUrl) driveImages.push(imgUrl);
+                });
+            }
+            
             if (driveImages.length === 0) driveImages.push('https://placehold.co/400x400/fce7f3/db2777?text=Wawachay');
             return [...new Set(driveImages)].slice(0, 4);
         }
