@@ -498,7 +498,7 @@
                 <button onclick="sendQuickReply('envios')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🚚 Envíos y entregas</button>
                 <button onclick="sendQuickReply('pagos')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">💳 Métodos de pago</button>
                 <button onclick="sendQuickReply('ubicacion')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">📍 Ubicación y Horarios</button>
-                <button onclick="sendQuickReply('garantia')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🛡️️ Garantía</button>
+                <button onclick="sendQuickReply('garantia')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🛡 Garantía</button>
                 <button onclick="sendQuickReply('asesor')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">👩‍⚕️ Hablar con asesor</button>
             </div>
         </div>
@@ -512,7 +512,6 @@
 
     <script>
         const WHATSAPP_NUMBER = '51970551728'; 
-        // Nuevo link de tu catálogo (formato exportación CSV)
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
         const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
 
@@ -529,20 +528,18 @@
 
         // --- FUNCIONES AYUDANTES SUPER FLEXIBLES ---
         function getProdName(p) {
-            if (p['Nombre del producto']) return String(p['Nombre del producto']).trim();
+            if (p['Nombre Producto']) return String(p['Nombre Producto']).trim();
             for (let k in p) if (k.toLowerCase().includes('nombre')) return String(p[k]).trim();
             return '';
         }
         function getProdDesc(p) {
-            // 1. Busca estrictamente el texto de tu Columna M
-            if (p['Caracteristicas o Descripcion del producto']) {
-                let exacto = String(p['Caracteristicas o Descripcion del producto']).trim();
+            if (p['Características']) {
+                let exacto = String(p['Características']).trim();
                 if (exacto !== '' && exacto !== 'undefined') return exacto;
             }
-            // 2. Si no la encuentra, busca otra columna de descripción
             for (let k in p) {
                 let key = k.toLowerCase();
-                if (key.includes('caracteristica') || key.includes('descripc')) {
+                if (key.includes('característica') || key.includes('caracteristica') || key.includes('descripc')) {
                     let val = String(p[k]).trim();
                     if (val !== '' && val !== 'undefined') return val;
                 }
@@ -555,10 +552,12 @@
             return 'Extractores';
         }
         function getProdPrice(p) {
+            if (p['Precio (S/)']) return String(p['Precio (S/)']).trim();
             for (let k in p) if (k.toLowerCase().includes('precio') || k.toLowerCase().includes('price')) return String(p[k]).trim();
             return 'S/ 0.00';
         }
         function getProdStock(p) {
+            if (p['Stock']) return String(p['Stock']).trim();
             for (let k in p) if (k.toLowerCase().includes('stock') || k.toLowerCase().includes('cantidad')) return String(p[k]).trim();
             return '0';
         }
@@ -768,14 +767,14 @@
         function extractImagesFromProduct(product) {
             let driveImages = [];
             
-            // 1. Busca estrictamente en la columna "Link de la imagen del producto"
-            let mainLinkStr = product['Link de la imagen del producto'];
+            // 1. Busca estrictamente en la columna "LINK" de tu Excel
+            let mainLinkStr = product['LINK'];
             
             // 2. Si no hay, busca en cualquier otra columna de imagen
             if (!mainLinkStr) {
                 for (let key in product) {
                     const k = key.toLowerCase();
-                    if (k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive') || k.includes('link')) {
+                    if (k === 'link' || k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive')) {
                         const val = product[key];
                         if (val && typeof val === 'string' && val.trim() !== '') {
                             mainLinkStr = (mainLinkStr ? mainLinkStr + ',' : '') + val;
