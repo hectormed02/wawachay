@@ -474,6 +474,7 @@
     <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-24 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
     </button>
+    
     <div id="chatbot-window" class="fixed bottom-40 right-6 w-[90vw] sm:w-80 bg-white rounded-2xl shadow-2xl border border-pink-100 z-50 flex-col hidden overflow-hidden transition-all duration-300 opacity-0 translate-y-4">
         <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-4 flex justify-between items-center text-white">
             <div class="flex items-center gap-2">
@@ -511,6 +512,7 @@
 
     <script>
         const WHATSAPP_NUMBER = '51970551728'; 
+        // Nuevo link de tu catálogo (formato exportación CSV)
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
         const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
 
@@ -524,6 +526,19 @@
         let allTestimonios = []; 
         let shoppingCart = []; 
         let currentCategoryTab = '';
+
+        // --- FUNCIONES AYUDANTES PARA LEER TUS COLUMNAS EXACTAS ---
+        function getProdName(p) { return p['Nombre del producto'] || p['Nombre'] || p['Name'] || ''; }
+        function getProdDesc(p) {
+            let d = p['Caracteristicas o Descripcion del producto'] || p['Descripción Corta'] || p['Descripción'] || '';
+            if (!d) for (let k in p) if (k.toLowerCase().includes('caracteristica') || k.toLowerCase().includes('descripc')) d = p[k];
+            return d;
+        }
+        function getProdCat(p) {
+            let c = p['Categoría'] || p['Categoria'] || 'Extractores';
+            if (c === 'Extractores') for (let k in p) if (k.toLowerCase().includes('categor')) c = String(p[k]).trim();
+            return c;
+        }
 
         function parsePrice(priceStr) {
             if (!priceStr) return 0;
@@ -639,13 +654,12 @@
 
             shoppingCart.forEach(item => {
                 total += item.priceNum;
-                const product = allProducts.find(p => (p['Nombre'] || p['Name']) === item.name);
+                const product = allProducts.find(p => getProdName(p) === item.name);
                 let imgUrl = 'https://placehold.co/100x100/fce7f3/db2777?text=W';
                 if (product) {
                     const imgs = extractImagesFromProduct(product);
                     if(imgs.length > 0) imgUrl = imgs[0];
-                    let cat = 'Extractores';
-                    for (let k in product) if (k.toLowerCase().includes('categor')) cat = String(product[k]).trim();
+                    let cat = getProdCat(product);
                     if(cat.toLowerCase().includes('extractor') || cat.toLowerCase().includes('eléctrico') || cat.toLowerCase().includes('manual')) {
                         hasExtractores = true;
                     }
@@ -666,9 +680,8 @@
             });
 
             let recommendations = allProducts.filter(p => {
-                const pName = p['Nombre'] || p['Name'] || '';
-                let pCat = '';
-                for (let k in p) if (k.toLowerCase().includes('categor')) pCat = String(p[k]).trim();
+                const pName = getProdName(p);
+                let pCat = getProdCat(p);
                 const stockStr = p['Stock'] || p['Cantidad'] || '0';
                 const isAvailable = parseInt(stockStr) > 0;
                 const inCart = shoppingCart.some(item => item.name === pName);
@@ -687,7 +700,7 @@
                 suggestionsList.innerHTML = '';
                 
                 recommendations.forEach(rec => {
-                    const recName = rec['Nombre'] || rec['Name'] || '';
+                    const recName = getProdName(rec);
                     const recPrice = rec['Precio'] || rec['Price'] || '';
                     const recImgs = extractImagesFromProduct(rec);
                     const recCard = document.createElement('div');
@@ -763,14 +776,13 @@
                             for (let key in row) cleanRow[key.trim()] = row[key];
                             return cleanRow;
                         }).filter(row => {
-                            const name = row['Nombre'] || row['Name'] || '';
+                            const name = getProdName(row);
                             return name.trim() !== '';
                         });
                         
                         const categories = new Set();
                         allProducts.forEach(p => {
-                            let cat = 'Extractores';
-                            for (let k in p) if (k.toLowerCase().includes('categor')) cat = String(p[k]).trim();
+                            let cat = getProdCat(p);
                             if (cat && cat !== '') categories.add(cat);
                         });
                         
@@ -825,12 +837,9 @@
             const sortOrder = document.getElementById('sortOrder').value;
 
             let filtered = allProducts.filter(product => {
-                const name = String(product['Nombre'] || product['Name'] || '').toLowerCase();
-                let desc = product['Descripción Corta'] || product['Descripción'] || '';
-                for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
-                desc = String(desc || '').toLowerCase();
-                let cat = 'Extractores';
-                for (let k in product) if (k.toLowerCase().includes('categor')) cat = String(product[k] || '').trim();
+                const name = String(getProdName(product)).toLowerCase();
+                const desc = String(getProdDesc(product)).toLowerCase();
+                const cat = getProdCat(product);
 
                 const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
                 const matchesCategory = currentCategoryTab === 'all' || cat === currentCategoryTab;
@@ -863,7 +872,7 @@
                 const stockStr = product['Stock'] || product['Cantidad'] || '0';
                 const stockNum = parseInt(stockStr) || 0;
                 const isAvailable = stockNum > 0;
-                const name = String(product['Nombre'] || product['Name'] || 'Producto sin nombre');
+                const name = String(getProdName(product) || 'Producto sin nombre');
                 const price = String(product['Precio'] || product['Price'] || 'S/ 0.00');
                 const inCart = shoppingCart.some(item => item.name === name);
 
@@ -883,12 +892,9 @@
                 else if (stockNum <= 5) stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 shadow-md flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
                 else stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>`;
 
-                let desc = product['Descripción Corta'] || product['Descripción'] || '';
-                if (!desc) for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
+                const desc = getProdDesc(product);
                 const formattedDesc = String(desc || '').replace(/\n/g, '<br>');
-                
-                let category = 'Extractores';
-                for (let k in product) if (k.toLowerCase().includes('categor')) category = String(product[k] || '').trim();
+                const category = getProdCat(product);
 
                 const card = document.createElement('div');
                 card.className = `bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border flex flex-col h-full ${inCart ? 'border-purple-400 ring-2 ring-purple-100' : 'border-pink-50'}`;
@@ -929,16 +935,15 @@
             const product = currentRenderedProducts[index];
             if (!product) return;
             
-            const name = product['Nombre'] || product['Name'] || 'Producto sin nombre';
-            let desc = product['Descripción Corta'] || product['Descripción'] || '';
-            if (!desc) for (let k in product) if (k.toLowerCase().includes('corta')) desc = product[k];
+            const name = getProdName(product);
+            const desc = getProdDesc(product);
+            
             let longDesc = product['Descripción Larga / Beneficios (Optional)'] || '';
             if (!longDesc) for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) longDesc = product[k];
             
             const price = product['Precio'] || product['Price'] || 'S/ 0.00';
             const driveImages = extractImagesFromProduct(product);
-            let category = 'Extractores';
-            for (let k in product) if (k.toLowerCase().includes('categor')) category = String(product[k] || '').trim();
+            const category = getProdCat(product);
             
             let tipoIngreso = '';
             for (let k in product) if (k.toLowerCase().includes('ingreso')) tipoIngreso = String(product[k] || '').trim();
@@ -980,8 +985,7 @@
             
             if (category.toLowerCase().includes('extractor') || category.toLowerCase().includes('eléctrico') || category.toLowerCase().includes('manual')) {
                 let recommendations = allProducts.filter(p => {
-                    let pCat = '';
-                    for (let k in p) if (k.toLowerCase().includes('categor')) pCat = String(p[k]).trim();
+                    let pCat = getProdCat(p);
                     const pStockStr = p['Stock'] || p['Cantidad'] || '0';
                     return pCat && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && parseInt(pStockStr) > 0;
                 });
@@ -991,7 +995,7 @@
                     recContainer.classList.remove('hidden');
                     recList.innerHTML = '';
                     recommendations.forEach(rec => {
-                        const recName = rec['Nombre'] || rec['Name'] || '';
+                        const recName = getProdName(rec);
                         const recPrice = rec['Precio'] || rec['Price'] || '';
                         const recImgs = extractImagesFromProduct(rec);
                         const recInCart = shoppingCart.some(item => item.name === recName);
@@ -1210,7 +1214,7 @@
         function toggleChatbot() {
             chatOpen = !chatOpen;
             const tooltip = document.getElementById('chatbot-tooltip');
-            if (tooltip) tooltip.style.opacity = '0'; // Ocultar burbuja al abrir
+            if (tooltip) tooltip.style.opacity = '0'; 
             
             if (chatOpen) {
                 chatWindow.classList.remove('hidden'); 
@@ -1231,10 +1235,7 @@
         function appendMessage(text, isUser = false) {
             const msgDiv = document.createElement('div');
             msgDiv.className = 'flex gap-2 w-full ' + (isUser ? 'justify-end' : '');
-            
-            // Parsear asteriscos para hacer negritas automáticamente
             const formattedText = text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
-            
             msgDiv.innerHTML = `<div class="p-3 rounded-2xl max-w-[85%] shadow-sm text-sm ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none whitespace-pre-line'}">${formattedText}</div>`;
             chatMessages.insertBefore(msgDiv, quickReplies);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -1260,7 +1261,6 @@
             setTimeout(() => { removeTypingIndicator(typingId); appendMessage(botKnowledge[type]); }, 1000);
         }
 
-        // Nueva función para añadir directamente desde el bot
         function botAddToCart(name, price) {
             const inCart = shoppingCart.some(item => item.name === name);
             if (!inCart) {
@@ -1280,19 +1280,17 @@
                 removeTypingIndicator(typingId);
                 const lText = text.toLowerCase();
                 
-                // NUEVO CEREBRO DE BÚSQUEDA INTELIGENTE
                 const words = lText.split(/[\s,.-]+/).filter(w => w.length > 2 && !['con', 'los', 'las', 'para', 'del', 'que', 'quiero', 'busco', 'tienen'].includes(w));
                 
                 let bestMatch = null;
                 let highestScore = 0;
 
                 allProducts.forEach(p => {
-                    const name = String(p['Nombre'] || p['Name'] || '').toLowerCase();
+                    const name = String(getProdName(p)).toLowerCase();
                     let score = 0;
                     words.forEach(w => {
                         if (name.includes(w)) {
                             score += 1;
-                            // Si la palabra contiene números (Ej: S11, MY382), es un modelo exacto, le damos puntaje altísimo
                             if (/\d/.test(w)) score += 5; 
                         }
                     });
@@ -1304,33 +1302,27 @@
                 });
 
                 if (bestMatch && highestScore > 0) {
-                    const name = bestMatch['Nombre'] || bestMatch['Name'];
+                    const name = getProdName(bestMatch);
                     const price = bestMatch['Precio'] || bestMatch['Price'];
                     const stock = parseInt(bestMatch['Stock'] || bestMatch['Cantidad'] || '0');
                     const safeName = name.replace(/'/g, "\\'");
-                    
-                    let category = 'Extractores';
-                    for (let k in bestMatch) if (k.toLowerCase().includes('categor')) category = String(bestMatch[k]).trim();
+                    let category = getProdCat(bestMatch);
 
                     if (stock > 0) {
                         const btnHTML = `<br><br><button onclick="botAddToCart('${safeName}', '${price}')" class="bg-pink-500 text-white px-4 py-2 rounded-xl font-bold text-sm mt-2 w-full shadow-md shadow-pink-200 hover:bg-pink-600 flex items-center justify-center gap-2 transition-transform active:scale-95"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Añadir al carrito</button>`;
                         appendMessage(`¡Sí tenemos! 💖 El *${name}* cuesta *${price}* y está disponible.${btnHTML}`);
                     } else {
-                        // Mensaje de Agotado y pedir datos
                         let fallbackMsg = `Uy, mami 😔. El *${name}* se encuentra temporalmente agotado.<br><br>¿Deseas que te avisemos apenas llegue?<br><a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, por favor avísenme cuando tengan stock de: ' + name)}" target="_blank" class="block text-center bg-green-500 text-white font-bold py-2 rounded-xl mt-2 mb-3 hover:bg-green-600 shadow-sm text-xs">🔔 Avisarme por WhatsApp</a>`;
 
-                        // Buscar 1 recomendación de la misma categoría que SÍ tenga stock
                         const recs = allProducts.filter(p => {
-                            let pCat = '';
-                            for (let k in p) if (k.toLowerCase().includes('categor')) pCat = String(p[k]).trim();
+                            let pCat = getProdCat(p);
                             const pStock = parseInt(p['Stock'] || p['Cantidad'] || '0');
-                            const pName = p['Nombre'] || p['Name'] || '';
+                            const pName = getProdName(p);
                             return pStock > 0 && pCat === category && pName !== name;
                         }).sort(() => 0.5 - Math.random());
 
-                        // Si encontramos al menos 1 similar, se lo mostramos
                         if (recs.length > 0) {
-                            const recName = recs[0]['Nombre'] || recs[0]['Name'];
+                            const recName = getProdName(recs[0]);
                             const recPrice = recs[0]['Precio'] || recs[0]['Price'];
                             const safeRecName = recName.replace(/'/g, "\\'");
                             
@@ -1349,7 +1341,6 @@
                     return;
                 }
 
-                // Respuestas generales si no fue una búsqueda de producto
                 if (lText.includes('envio') || lText.includes('delivery') || lText.includes('llega')) appendMessage(botKnowledge['envios']);
                 else if (lText.includes('pago') || lText.includes('yape') || lText.includes('tarjeta')) appendMessage(botKnowledge['pagos']);
                 else if (lText.includes('garantia') || lText.includes('falla')) appendMessage(botKnowledge['garantia']);
@@ -1364,7 +1355,6 @@
 
         function handleChatEnter(e) { if (e.key === 'Enter') handleUserMessage(); }
 
-        // Inicializar Todo
         document.addEventListener('DOMContentLoaded', () => {
             fetchGoogleSheetsData();
             fetchTestimoniosData(); 
@@ -1373,7 +1363,6 @@
             if (searchEl) searchEl.addEventListener('input', filterProducts);
             if (sortEl) sortEl.addEventListener('change', filterProducts);
             
-            // Ocultar tooltip de Wawi a los 15 segundos si no interactúan
             setTimeout(() => {
                 const tooltip = document.getElementById('chatbot-tooltip');
                 if (tooltip && !chatOpen) tooltip.style.opacity = '0';
