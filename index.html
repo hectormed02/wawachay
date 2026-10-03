@@ -527,17 +527,26 @@
         let shoppingCart = []; 
         let currentCategoryTab = '';
 
-        // --- FUNCIONES AYUDANTES PARA LEER TUS COLUMNAS EXACTAS ---
-        function getProdName(p) { return p['Nombre del producto'] || p['Nombre'] || p['Name'] || ''; }
+        // --- FUNCIONES AYUDANTES SUPER FLEXIBLES ---
+        function getProdName(p) {
+            for (let k in p) if (k.toLowerCase().includes('nombre')) return String(p[k]).trim();
+            return '';
+        }
         function getProdDesc(p) {
-            let d = p['Caracteristicas o Descripcion del producto'] || p['Descripción Corta'] || p['Descripción'] || '';
-            if (!d) for (let k in p) if (k.toLowerCase().includes('caracteristica') || k.toLowerCase().includes('descripc')) d = p[k];
-            return d;
+            for (let k in p) if (k.toLowerCase().includes('caracteristica') || k.toLowerCase().includes('descripc')) return String(p[k]).trim();
+            return '';
         }
         function getProdCat(p) {
-            let c = p['Categoría'] || p['Categoria'] || 'Extractores';
-            if (c === 'Extractores') for (let k in p) if (k.toLowerCase().includes('categor')) c = String(p[k]).trim();
-            return c;
+            for (let k in p) if (k.toLowerCase().includes('categor')) return String(p[k]).trim();
+            return 'Extractores';
+        }
+        function getProdPrice(p) {
+            for (let k in p) if (k.toLowerCase().includes('precio') || k.toLowerCase().includes('price')) return String(p[k]).trim();
+            return 'S/ 0.00';
+        }
+        function getProdStock(p) {
+            for (let k in p) if (k.toLowerCase().includes('stock') || k.toLowerCase().includes('cantidad')) return String(p[k]).trim();
+            return '0';
         }
 
         function parsePrice(priceStr) {
@@ -682,7 +691,7 @@
             let recommendations = allProducts.filter(p => {
                 const pName = getProdName(p);
                 let pCat = getProdCat(p);
-                const stockStr = p['Stock'] || p['Cantidad'] || '0';
+                const stockStr = getProdStock(p);
                 const isAvailable = parseInt(stockStr) > 0;
                 const inCart = shoppingCart.some(item => item.name === pName);
 
@@ -701,7 +710,7 @@
                 
                 recommendations.forEach(rec => {
                     const recName = getProdName(rec);
-                    const recPrice = rec['Precio'] || rec['Price'] || '';
+                    const recPrice = getProdPrice(rec);
                     const recImgs = extractImagesFromProduct(rec);
                     const recCard = document.createElement('div');
                     
@@ -848,8 +857,8 @@
 
             if (sortOrder !== 'default') {
                 filtered.sort((a, b) => {
-                    const priceA = parsePrice(a['Precio'] || a['Price']);
-                    const priceB = parsePrice(b['Precio'] || b['Price']);
+                    const priceA = parsePrice(getProdPrice(a));
+                    const priceB = parsePrice(getProdPrice(b));
                     return sortOrder === 'low-high' ? priceA - priceB : priceB - priceA;
                 });
             }
@@ -869,11 +878,11 @@
 
             products.forEach((product, index) => {
                 const driveImages = extractImagesFromProduct(product);
-                const stockStr = product['Stock'] || product['Cantidad'] || '0';
+                const stockStr = getProdStock(product);
                 const stockNum = parseInt(stockStr) || 0;
                 const isAvailable = stockNum > 0;
                 const name = String(getProdName(product) || 'Producto sin nombre');
-                const price = String(product['Precio'] || product['Price'] || 'S/ 0.00');
+                const price = getProdPrice(product);
                 const inCart = shoppingCart.some(item => item.name === name);
 
                 let tipoIngreso = '';
@@ -941,7 +950,7 @@
             let longDesc = product['Descripción Larga / Beneficios (Optional)'] || '';
             if (!longDesc) for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) longDesc = product[k];
             
-            const price = product['Precio'] || product['Price'] || 'S/ 0.00';
+            const price = getProdPrice(product);
             const driveImages = extractImagesFromProduct(product);
             const category = getProdCat(product);
             
@@ -959,7 +968,7 @@
             let fullDesc = desc;
             if (longDesc && longDesc.trim() !== '') fullDesc += '\n\n' + longDesc;
             
-            const stockStr = product['Stock'] || product['Cantidad'] || '0';
+            const stockStr = getProdStock(product);
             const stockNum = parseInt(stockStr) || 0;
             const isAvailable = stockNum > 0;
 
@@ -986,7 +995,7 @@
             if (category.toLowerCase().includes('extractor') || category.toLowerCase().includes('eléctrico') || category.toLowerCase().includes('manual')) {
                 let recommendations = allProducts.filter(p => {
                     let pCat = getProdCat(p);
-                    const pStockStr = p['Stock'] || p['Cantidad'] || '0';
+                    const pStockStr = getProdStock(p);
                     return pCat && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && parseInt(pStockStr) > 0;
                 });
                 recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 2);
@@ -996,7 +1005,7 @@
                     recList.innerHTML = '';
                     recommendations.forEach(rec => {
                         const recName = getProdName(rec);
-                        const recPrice = rec['Precio'] || rec['Price'] || '';
+                        const recPrice = getProdPrice(rec);
                         const recImgs = extractImagesFromProduct(rec);
                         const recInCart = shoppingCart.some(item => item.name === recName);
                         const recCard = document.createElement('div');
@@ -1303,8 +1312,8 @@
 
                 if (bestMatch && highestScore > 0) {
                     const name = getProdName(bestMatch);
-                    const price = bestMatch['Precio'] || bestMatch['Price'];
-                    const stock = parseInt(bestMatch['Stock'] || bestMatch['Cantidad'] || '0');
+                    const price = getProdPrice(bestMatch);
+                    const stock = parseInt(getProdStock(bestMatch));
                     const safeName = name.replace(/'/g, "\\'");
                     let category = getProdCat(bestMatch);
 
@@ -1316,14 +1325,14 @@
 
                         const recs = allProducts.filter(p => {
                             let pCat = getProdCat(p);
-                            const pStock = parseInt(p['Stock'] || p['Cantidad'] || '0');
+                            const pStock = parseInt(getProdStock(p));
                             const pName = getProdName(p);
                             return pStock > 0 && pCat === category && pName !== name;
                         }).sort(() => 0.5 - Math.random());
 
                         if (recs.length > 0) {
                             const recName = getProdName(recs[0]);
-                            const recPrice = recs[0]['Precio'] || recs[0]['Price'];
+                            const recPrice = getProdPrice(recs[0]);
                             const safeRecName = recName.replace(/'/g, "\\'");
                             
                             fallbackMsg += `<div class="border-t border-pink-200 pt-3 mt-2">
