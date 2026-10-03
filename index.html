@@ -51,6 +51,21 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #db2777; }
+        
+        /* Deshabilitar selección de texto para mayor protección */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
+        }
+        /* Permitir selección solo en los inputs */
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
@@ -511,14 +526,39 @@
     </div>
 
     <script>
+        // --- BLOQUE DE SEGURIDAD FRONT-END ---
+        // Prevenir clic derecho
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Prevenir teclas y atajos de desarrollador
+        document.onkeydown = function(e) {
+            // Prevenir F12
+            if (e.keyCode == 123) return false;
+            // Prevenir Ctrl+Shift+I (Herramientas de desarrollador)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
+            // Prevenir Ctrl+Shift+J (Consola)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
+            // Prevenir Ctrl+Shift+C (Inspector de elementos)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 67) return false;
+            // Prevenir Ctrl+U (Ver código fuente)
+            if (e.ctrlKey && e.keyCode == 85) return false;
+            // Prevenir Ctrl+S (Guardar página web)
+            if (e.ctrlKey && e.keyCode == 83) return false;
+        };
+
+        // Mensaje de disuasión en consola
+        console.log("%c¡Alto ahí!", "color: red; font-family: sans-serif; font-size: 4em; font-weight: bolder; text-shadow: #000 1px 1px;");
+        console.log("%cEsta es una función del navegador pensada para desarrolladores. Si alguien te indicó que copiaras y pegaras algo aquí, se trata de una estafa que puede vulnerar tu cuenta.", "font-family: sans-serif; font-size: 1.5em;");
+        
+        // --- VARIABLES DE CONFIGURACIÓN ---
         const WHATSAPP_NUMBER = '51970551728'; 
+        
+        // ¡OJO! Aquí debes poner la URL que te dará Google Apps Script cuando lo implementes (Paso 2).
+        // Si no la pones, la página seguirá funcionando, pero el stock no se descontará en automático.
+        const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
+
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
         const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
-
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) return false;
-        }
 
         let allProducts = [];
         let currentRenderedProducts = []; 
@@ -744,16 +784,53 @@
 
             totalText.textContent = `S/ ${total.toFixed(2)}`;
             
-            btnCheckout.onclick = function(e) {
+            // --- NUEVO SISTEMA DE PAGO / DESCUENTO DE STOCK ---
+            btnCheckout.onclick = async function(e) {
+                e.preventDefault(); 
+
                 const nameVal = document.getElementById('cartCustomerName').value.trim();
                 if (!nameVal) {
-                    e.preventDefault();
                     errorMsg.classList.remove('hidden');
                     document.getElementById('cartCustomerName').focus();
                     return false;
                 }
                 errorMsg.classList.add('hidden');
-                this.href = generateCartWhatsAppLink();
+
+                // Cambiar el estado del botón a "procesando"
+                const originalText = this.innerHTML;
+                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Procesando...';
+                this.style.pointerEvents = 'none';
+
+                // Llamada a Google Apps Script para descontar el stock
+                try {
+                    const cartData = {
+                        cart: shoppingCart.map(item => ({ name: item.name }))
+                    };
+
+                    await fetch(APP_SCRIPT_WEB_APP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(cartData),
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8',
+                        }
+                    });
+                } catch (error) {
+                    console.log("No se pudo descontar el stock automáticamente.", error);
+                }
+
+                // Restaurar botón y redirigir a WhatsApp
+                this.innerHTML = originalText;
+                this.style.pointerEvents = 'auto';
+                
+                const wsLink = generateCartWhatsAppLink();
+                
+                // Vaciar el carrito
+                shoppingCart = [];
+                updateCartUI();
+                closeCart();
+
+                // Abrir WhatsApp
+                window.open(wsLink, '_blank');
             };
         }
 
@@ -767,10 +844,8 @@
         function extractImagesFromProduct(product) {
             let driveImages = [];
             
-            // 1. Busca estrictamente en la columna "LINK" de tu Excel
             let mainLinkStr = product['LINK'];
             
-            // 2. Si no hay, busca en cualquier otra columna de imagen
             if (!mainLinkStr) {
                 for (let key in product) {
                     const k = key.toLowerCase();
