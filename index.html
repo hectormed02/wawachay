@@ -59,8 +59,8 @@
             -ms-user-select: none; /* IE10+/Edge */
             user-select: none; /* Standard */
         }
-        /* Permitir selección solo en los inputs */
-        input, textarea {
+        /* Permitir selección solo en los inputs y en el chat */
+        input, textarea, .chat-selectable {
             -webkit-user-select: text;
             -moz-user-select: text;
             -ms-user-select: text;
@@ -505,7 +505,7 @@
         </div>
         <div id="chatbot-messages" class="h-80 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 custom-scrollbar text-sm">
             <div class="flex gap-2 w-full">
-                <div class="bg-pink-100 text-gray-700 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm">
+                <div class="bg-pink-100 text-gray-700 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm chat-selectable">
                     ¡Hola! Soy Wawi 🌸 tu asistente virtual. ¿En qué te puedo ayudar hoy?
                 </div>
             </div>
@@ -527,34 +527,24 @@
 
     <script>
         // --- BLOQUE DE SEGURIDAD FRONT-END ---
-        // Prevenir clic derecho
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Prevenir teclas y atajos de desarrollador
         document.onkeydown = function(e) {
-            // Prevenir F12
             if (e.keyCode == 123) return false;
-            // Prevenir Ctrl+Shift+I (Herramientas de desarrollador)
             if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
-            // Prevenir Ctrl+Shift+J (Consola)
             if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
-            // Prevenir Ctrl+Shift+C (Inspector de elementos)
             if (e.ctrlKey && e.shiftKey && e.keyCode == 67) return false;
-            // Prevenir Ctrl+U (Ver código fuente)
             if (e.ctrlKey && e.keyCode == 85) return false;
-            // Prevenir Ctrl+S (Guardar página web)
             if (e.ctrlKey && e.keyCode == 83) return false;
         };
 
-        // Mensaje de disuasión en consola
         console.log("%c¡Alto ahí!", "color: red; font-family: sans-serif; font-size: 4em; font-weight: bolder; text-shadow: #000 1px 1px;");
-        console.log("%cEsta es una función del navegador pensada para desarrolladores. Si alguien te indicó que copiaras y pegaras algo aquí, se trata de una estafa que puede vulnerar tu cuenta.", "font-family: sans-serif; font-size: 1.5em;");
+        console.log("%cEsta consola es para desarrolladores. Si alguien te indicó que copiaras y pegaras algo aquí, es una estafa.", "font-family: sans-serif; font-size: 1.5em;");
         
         // --- VARIABLES DE CONFIGURACIÓN ---
         const WHATSAPP_NUMBER = '51970551728'; 
         
-        // ¡OJO! Aquí debes poner la URL que te dará Google Apps Script cuando lo implementes (Paso 2).
-        // Si no la pones, la página seguirá funcionando, pero el stock no se descontará en automático.
+        // URL DE TU GOOGLE APPS SCRIPT PARA DESCONTAR STOCK:
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
 
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
@@ -796,12 +786,10 @@
                 }
                 errorMsg.classList.add('hidden');
 
-                // Cambiar el estado del botón a "procesando"
                 const originalText = this.innerHTML;
                 this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Procesando...';
                 this.style.pointerEvents = 'none';
 
-                // Llamada a Google Apps Script para descontar el stock
                 try {
                     const cartData = {
                         cart: shoppingCart.map(item => ({ name: item.name }))
@@ -818,18 +806,15 @@
                     console.log("No se pudo descontar el stock automáticamente.", error);
                 }
 
-                // Restaurar botón y redirigir a WhatsApp
                 this.innerHTML = originalText;
                 this.style.pointerEvents = 'auto';
                 
                 const wsLink = generateCartWhatsAppLink();
                 
-                // Vaciar el carrito
                 shoppingCart = [];
                 updateCartUI();
                 closeCart();
 
-                // Abrir WhatsApp
                 window.open(wsLink, '_blank');
             };
         }
@@ -1301,7 +1286,7 @@
             setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
 
-        // Chatbot Lógica
+        // --- CHATBOT LÓGICA (Mejorada para lectura de Catálogo) ---
         let chatOpen = false;
         const chatWindow = document.getElementById('chatbot-window');
         const chatMessages = document.getElementById('chatbot-messages');
@@ -1312,12 +1297,12 @@
             'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias, el tiempo depende de la agencia (Shalom o Marvisur).',
             'pagos': 'Aceptamos Yape, Plin, y transferencias bancarias (BCP, BBVA, Interbank). Todo pago es 100% seguro.',
             'garantia': '¡Claro que sí! Todos nuestros extractores cuentan con garantía por defectos de fábrica.',
-            'precio': 'Nuestros precios varían según el modelo. ¡Te invito a revisar el catálogo aquí mismo en la web para ver los detalles!',
-            'hola': '¡Hola de nuevo, mami! 🌸 ¿En qué te puedo ayudar hoy?',
+            'precio': 'Nuestros precios varían según el modelo. ¡Dime el nombre de un modelo (ej. "S11" o "S22") o revisa el catálogo en la página web para más detalles!',
+            'hola': '¡Hola de nuevo, mami! 🌸 ¿En qué te puedo ayudar hoy? Puedes preguntarme por algún producto en específico.',
             'gracias': '¡De nada! Aquí estoy si necesitas algo más.',
             'ubicacion': '📍 Estamos en Av. Defensores del Morro 1625, C.C. Galaxy Plaza - 2do Piso, Tienda 2058.\n\n⏰ Atendemos de Lunes a Domingo de 9:00 am a 8:00 pm. ¡Te esperamos!',
-            'asesor': 'Con gusto te comunicaré con una asesora. Por favor, haz clic aquí para hablar por WhatsApp: <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>',
-            'fallback': 'Mmm, no estoy muy segura de eso. 🤔 ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/' + WHATSAPP_NUMBER + '" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí para chatear</a>.'
+            'asesor': `Con gusto te comunicaré con una asesora. Por favor, haz clic aquí para hablar por WhatsApp: <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>`,
+            'fallback': `Mmm, no estoy muy segura de eso. 🤔 ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí para chatear</a>.`
         };
 
         function toggleChatbot() {
@@ -1345,7 +1330,7 @@
             const msgDiv = document.createElement('div');
             msgDiv.className = 'flex gap-2 w-full ' + (isUser ? 'justify-end' : '');
             const formattedText = text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
-            msgDiv.innerHTML = `<div class="p-3 rounded-2xl max-w-[85%] shadow-sm text-sm ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none whitespace-pre-line'}">${formattedText}</div>`;
+            msgDiv.innerHTML = `<div class="p-3 rounded-2xl max-w-[85%] shadow-sm text-sm chat-selectable ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none whitespace-pre-line'}">${formattedText}</div>`;
             chatMessages.insertBefore(msgDiv, quickReplies);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
@@ -1372,9 +1357,7 @@
 
         function botAddToCart(name, price) {
             const inCart = shoppingCart.some(item => item.name === name);
-            if (!inCart) {
-                toggleCart(name, price, null);
-            }
+            if (!inCart) toggleCart(name, price, null);
             openCart();
         }
 
@@ -1389,19 +1372,24 @@
                 removeTypingIndicator(typingId);
                 const lText = text.toLowerCase();
                 
-                const words = lText.split(/[\s,.-]+/).filter(w => w.length > 2 && !['con', 'los', 'las', 'para', 'del', 'que', 'quiero', 'busco', 'tienen'].includes(w));
+                // Buscar producto exacto en el catálogo
+                const words = lText.split(/[\s,.-]+/).filter(w => w.length > 2 && !['con', 'los', 'las', 'para', 'del', 'que', 'quiero', 'busco', 'tienen', 'precio', 'cuesta'].includes(w));
                 
                 let bestMatch = null;
                 let highestScore = 0;
 
                 allProducts.forEach(p => {
                     const name = String(getProdName(p)).toLowerCase();
+                    const cat = String(getProdCat(p)).toLowerCase();
                     let score = 0;
+                    
+                    // Si el nombre completo del producto fue escrito
+                    if (lText.includes(name)) score += 10;
+                    
                     words.forEach(w => {
-                        if (name.includes(w)) {
-                            score += 1;
-                            if (/\d/.test(w)) score += 5; 
-                        }
+                        if (name.includes(w)) score += 2;
+                        if (cat.includes(w)) score += 1;
+                        if (/\d/.test(w) && name.includes(w)) score += 5; // Códigos como S11, S22
                     });
 
                     if (score > highestScore) {
@@ -1410,19 +1398,27 @@
                     }
                 });
 
-                if (bestMatch && highestScore > 0) {
+                if (bestMatch && highestScore > 1) {
                     const name = getProdName(bestMatch);
                     const price = getProdPrice(bestMatch);
                     const stock = parseInt(getProdStock(bestMatch));
                     const safeName = name.replace(/'/g, "\\'");
-                    let category = getProdCat(bestMatch);
+                    const desc = getProdDesc(bestMatch);
+                    const shortDesc = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
 
                     if (stock > 0) {
-                        const btnHTML = `<br><br><button onclick="botAddToCart('${safeName}', '${price}')" class="bg-pink-500 text-white px-4 py-2 rounded-xl font-bold text-sm mt-2 w-full shadow-md shadow-pink-200 hover:bg-pink-600 flex items-center justify-center gap-2 transition-transform active:scale-95"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Añadir al carrito</button>`;
+                        const wameLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, deseo consultar sobre el ' + name)}`;
+                        const btnHTML = `
+                            <div class="mt-2 text-[11px] text-gray-500 italic bg-white/50 p-2 rounded">"${shortDesc}"</div>
+                            <div class="flex flex-col gap-2 mt-3">
+                                <button onclick="botAddToCart('${safeName}', '${price}')" class="bg-pink-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-pink-600 flex items-center justify-center gap-1 transition-transform active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Añadir al carrito</button>
+                                <a href="${wameLink}" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-green-600 flex items-center justify-center gap-1 text-center transition-transform active:scale-95"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84z"/></svg> Consultar a Ventas</a>
+                            </div>`;
                         appendMessage(`¡Sí tenemos! 💖 El *${name}* cuesta *${price}* y está disponible.${btnHTML}`);
                     } else {
                         let fallbackMsg = `Uy, mami 😔. El *${name}* se encuentra temporalmente agotado.<br><br>¿Deseas que te avisemos apenas llegue?<br><a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, por favor avísenme cuando tengan stock de: ' + name)}" target="_blank" class="block text-center bg-green-500 text-white font-bold py-2 rounded-xl mt-2 mb-3 hover:bg-green-600 shadow-sm text-xs">🔔 Avisarme por WhatsApp</a>`;
-
+                        
+                        let category = getProdCat(bestMatch);
                         const recs = allProducts.filter(p => {
                             let pCat = getProdCat(p);
                             const pStock = parseInt(getProdStock(p));
@@ -1434,9 +1430,8 @@
                             const recName = getProdName(recs[0]);
                             const recPrice = getProdPrice(recs[0]);
                             const safeRecName = recName.replace(/'/g, "\\'");
-                            
                             fallbackMsg += `<div class="border-t border-pink-200 pt-3 mt-2">
-                                <span class="text-xs font-bold text-purple-600">✨ Te recomendamos esta alternativa:</span>
+                                <span class="text-[10px] font-bold text-purple-600 uppercase">✨ Alternativa Disponible:</span>
                                 <div class="mt-1 text-sm font-bold text-gray-700">${recName}</div>
                                 <div class="text-pink-500 font-extrabold text-sm mb-2">${recPrice}</div>
                                 <button onclick="botAddToCart('${safeRecName}', '${recPrice}')" class="bg-purple-100 text-purple-700 border border-purple-200 px-3 py-2 rounded-xl font-bold text-xs w-full hover:bg-purple-200 transition-colors flex items-center justify-center gap-1">
@@ -1444,12 +1439,12 @@
                                 </button>
                             </div>`;
                         }
-
                         appendMessage(fallbackMsg);
                     }
                     return;
                 }
 
+                // Palabras clave normales
                 if (lText.includes('envio') || lText.includes('delivery') || lText.includes('llega')) appendMessage(botKnowledge['envios']);
                 else if (lText.includes('pago') || lText.includes('yape') || lText.includes('tarjeta')) appendMessage(botKnowledge['pagos']);
                 else if (lText.includes('garantia') || lText.includes('falla')) appendMessage(botKnowledge['garantia']);
