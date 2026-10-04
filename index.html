@@ -305,7 +305,6 @@
                         <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
-                        <!-- HORARIO CORREGIDO AQUÍ -->
                         <h4 class="font-bold text-gray-800 mb-1">Horario de Atención</h4>
                         <p class="text-pink-600 font-bold text-sm">Lunes a Viernes: 9:00 am - 6:00 pm<br>Sábados: 9:00 am - 1:00 pm</p>
                     </div>
@@ -341,7 +340,7 @@
                     <div class="w-full md:w-1/2 flex flex-col justify-center">
                         <div id="modalCategory" class="flex flex-wrap gap-2 mb-3 self-start"></div>
                         <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-2 leading-tight"></h3>
-                        <p id="modalPrice" class="text-3xl font-extrabold text-purple-600 mb-6"></p>
+                        <div id="modalPrice" class="mb-6 flex items-end flex-wrap gap-2"></div>
                         <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"></button>
                     </div>
                 </div>
@@ -373,7 +372,7 @@
             <div id="cartItemsList" class="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-grow pr-2"></div>
             
             <div id="cartSuggestions" class="hidden border-t border-gray-100 pt-4 mt-4">
-                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" /></svg> Completa tu pedido:</h4>
+                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" /></svg> Completa tu pedido:</h4>
                 <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto custom-scrollbar pb-2 scroll-smooth snap-x"></div>
             </div>
 
@@ -619,6 +618,11 @@
             for (let k in p) if (k.toLowerCase().includes('estado')) return String(p[k]).trim();
             return 'Disponible'; 
         }
+        function getProdDiscount(p) {
+            if (p['Descuento (%)']) return parseFloat(String(p['Descuento (%)']).replace('%', '')) || 0;
+            for (let k in p) if (k.toLowerCase().includes('descuento')) return parseFloat(String(p[k]).replace('%', '')) || 0;
+            return 0; 
+        }
 
         function parsePrice(priceStr) {
             if (!priceStr) return 0;
@@ -780,7 +784,24 @@
                 
                 recommendations.forEach(rec => {
                     const recName = getProdName(rec);
-                    const recPrice = getProdPrice(rec);
+                    const recOriginalPriceStr = getProdPrice(rec);
+                    const recOriginalPriceNum = parsePrice(recOriginalPriceStr);
+                    const recDiscount = getProdDiscount(rec);
+                    
+                    let recFinalPriceStr = recOriginalPriceStr;
+                    let recPriceHTML = `<p class="text-xs font-extrabold text-pink-500">${recFinalPriceStr}</p>`;
+
+                    if (recDiscount > 0) {
+                        const finalP = recOriginalPriceNum - (recOriginalPriceNum * (recDiscount / 100));
+                        recFinalPriceStr = "S/ " + finalP.toFixed(2);
+                        recPriceHTML = `
+                            <div class="mt-0.5 flex items-center gap-1">
+                                <span class="text-xs font-extrabold text-pink-500">${recFinalPriceStr}</span>
+                                <span class="text-[10px] text-gray-400 line-through">${recOriginalPriceStr}</span>
+                            </div>
+                        `;
+                    }
+
                     const recImgs = extractImagesFromProduct(rec);
                     const recCard = document.createElement('div');
                     
@@ -788,8 +809,8 @@
                     recCard.innerHTML = `
                         <img src="${recImgs[0]}" class="w-full h-20 object-contain mb-2 rounded-lg bg-gray-50 p-1">
                         <h6 class="text-[10px] font-bold text-gray-700 line-clamp-2 leading-tight flex-grow mb-1">${recName}</h6>
-                        <p class="text-xs font-extrabold text-pink-500">${recPrice}</p>
-                        <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recPrice}', event); renderCartModal();" class="absolute top-2 right-2 bg-pink-100 text-pink-600 hover:bg-pink-200 w-7 h-7 rounded-full flex items-center justify-center transition-colors shadow-sm" title="Agregar">
+                        ${recPriceHTML}
+                        <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recFinalPriceStr}', event); renderCartModal();" class="absolute top-2 right-2 bg-pink-100 text-pink-600 hover:bg-pink-200 w-7 h-7 rounded-full flex items-center justify-center transition-colors shadow-sm" title="Agregar">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </button>
                     `;
@@ -969,9 +990,16 @@
 
             if (sortOrder !== 'default') {
                 filtered.sort((a, b) => {
+                    // Calculamos el precio real final para ordenar correctamente
                     const priceA = parsePrice(getProdPrice(a));
+                    const descA = getProdDiscount(a);
+                    const finalA = priceA - (priceA * (descA/100));
+
                     const priceB = parsePrice(getProdPrice(b));
-                    return sortOrder === 'low-high' ? priceA - priceB : priceB - priceA;
+                    const descB = getProdDiscount(b);
+                    const finalB = priceB - (priceB * (descB/100));
+
+                    return sortOrder === 'low-high' ? finalA - finalB : finalB - finalA;
                 });
             }
             renderProducts(filtered);
@@ -993,7 +1021,27 @@
                 const estado = getProdStatus(product);
                 const isAvailable = estado.toLowerCase() === 'disponible';
                 const name = String(getProdName(product) || 'Producto sin nombre');
-                const price = getProdPrice(product);
+                
+                const originalPriceStr = getProdPrice(product);
+                const originalPriceNum = parsePrice(originalPriceStr);
+                const discountPct = getProdDiscount(product);
+                
+                let finalPriceNum = originalPriceNum;
+                let finalPriceStr = originalPriceStr;
+                let priceHTML = `<p class="text-2xl font-extrabold text-purple-700 mb-4">${originalPriceStr}</p>`;
+                let discountBadgeHTML = '';
+
+                if (discountPct > 0) {
+                    finalPriceNum = originalPriceNum - (originalPriceNum * (discountPct / 100));
+                    finalPriceStr = "S/ " + finalPriceNum.toFixed(2);
+                    priceHTML = `
+                        <div class="mb-4 flex items-end gap-2">
+                            <span class="text-2xl font-extrabold text-purple-700">${finalPriceStr}</span>
+                            <span class="text-sm text-gray-400 line-through mb-1">${originalPriceStr}</span>
+                        </div>
+                    `;
+                }
+
                 const inCart = shoppingCart.some(item => item.name === name);
 
                 let tipoIngreso = '';
@@ -1005,6 +1053,11 @@
                         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         ${tipoIngreso}
                     </div>`;
+                }
+
+                if (discountPct > 0) {
+                    let discountClass = tipoIngreso !== "" ? "top-10 right-3" : "top-3 right-3";
+                    discountBadgeHTML = `<span class="absolute ${discountClass} z-30 bg-pink-500 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg shadow-md animate-pulse">-${discountPct}%</span>`;
                 }
 
                 let stockBadgeHTML = '';
@@ -1026,6 +1079,7 @@
                 card.innerHTML = `
                     <div class="relative aspect-square w-full bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50 pt-6" onclick="showDetails(${index})">
                         ${tipoIngresoHTML}
+                        ${discountBadgeHTML}
                         <img src="${driveImages[0]}" alt="${name}" loading="lazy" class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10" onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
                         <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6">
                             <img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25">
@@ -1037,11 +1091,11 @@
                         <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight uppercase">${name}</h3>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">${formattedDesc}</p>
                         <div class="mt-auto">
-                            <p class="text-2xl font-extrabold text-purple-700 mb-4">${price}</p>
+                            ${priceHTML}
                             <div class="grid grid-cols-2 gap-2">
                                 <button onclick="showDetails(${index})" class="w-full bg-pink-50 text-pink-700 font-semibold py-2 rounded-xl hover:bg-pink-100 transition-colors text-sm border border-pink-100">Ver Detalle</button>
                                 ${isAvailable ? 
-                                    `<button onclick="toggleCart('${name.replace(/'/g, "\\'")}', '${price}', event)" class="w-full ${inCart ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' : 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm'} font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm">
+                                    `<button onclick="toggleCart('${name.replace(/'/g, "\\'")}', '${finalPriceStr}', event)" class="w-full ${inCart ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' : 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm'} font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm">
                                         ${inCart ? 'Quitar' : '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Agregar'}
                                     </button>` 
                                     : 
@@ -1065,7 +1119,13 @@
             let longDesc = product['Descripción Larga / Beneficios (Optional)'] || '';
             if (!longDesc) for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) longDesc = product[k];
             
-            const price = getProdPrice(product);
+            const originalPriceStr = getProdPrice(product);
+            const originalPriceNum = parsePrice(originalPriceStr);
+            const discountPct = getProdDiscount(product);
+            
+            let finalPriceNum = originalPriceNum;
+            let finalPriceStr = originalPriceStr;
+
             const driveImages = extractImagesFromProduct(product);
             const category = getProdCat(product);
             
@@ -1087,7 +1147,19 @@
             const isAvailable = estado.toLowerCase() === 'disponible';
 
             document.getElementById('modalTitle').textContent = name;
-            document.getElementById('modalPrice').textContent = price;
+            
+            const modalPriceEl = document.getElementById('modalPrice');
+            if (discountPct > 0) {
+                finalPriceNum = originalPriceNum - (originalPriceNum * (discountPct / 100));
+                finalPriceStr = "S/ " + finalPriceNum.toFixed(2);
+                modalPriceEl.innerHTML = `
+                    <span class="text-3xl font-extrabold text-purple-600">${finalPriceStr}</span>
+                    <span class="text-lg text-gray-400 line-through ml-2 font-normal">${originalPriceStr}</span>
+                    <span class="bg-pink-100 text-pink-600 text-sm font-bold px-2 py-1 rounded-lg ml-2 align-middle">Ahorras ${discountPct}%</span>
+                `;
+            } else {
+                modalPriceEl.innerHTML = `<span class="text-3xl font-extrabold text-purple-600">${finalPriceStr}</span>`;
+            }
             
             let modalStockBadge = '';
             if (estado.toLowerCase() === 'agotado') modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Agotado</span>';
@@ -1119,7 +1191,24 @@
                     recList.innerHTML = '';
                     recommendations.forEach(rec => {
                         const recName = getProdName(rec);
-                        const recPrice = getProdPrice(rec);
+                        const recOriginalPriceStr = getProdPrice(rec);
+                        const recOriginalPriceNum = parsePrice(recOriginalPriceStr);
+                        const recDiscount = getProdDiscount(rec);
+                        
+                        let recFinalPriceStr = recOriginalPriceStr;
+                        let recPriceHTML = `<p class="text-sm font-extrabold text-pink-500 mt-1">${recOriginalPriceStr}</p>`;
+
+                        if (recDiscount > 0) {
+                            const finalP = recOriginalPriceNum - (recOriginalPriceNum * (recDiscount / 100));
+                            recFinalPriceStr = "S/ " + finalP.toFixed(2);
+                            recPriceHTML = `
+                                <div class="mt-1 flex items-center gap-1">
+                                    <span class="text-sm font-extrabold text-pink-500">${recFinalPriceStr}</span>
+                                    <span class="text-[10px] text-gray-400 line-through">${recOriginalPriceStr}</span>
+                                </div>
+                            `;
+                        }
+
                         const recImgs = extractImagesFromProduct(rec);
                         const recInCart = shoppingCart.some(item => item.name === recName);
                         const recCard = document.createElement('div');
@@ -1127,9 +1216,9 @@
                         recCard.innerHTML = `
                             <div class="flex items-center gap-3">
                                 <img src="${recImgs[0]}" alt="${recName}" class="w-14 h-14 object-contain bg-gray-50 rounded-lg border border-gray-100 p-1">
-                                <div><h5 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${recName}</h5><p class="text-sm font-extrabold text-pink-500 mt-1">${recPrice}</p></div>
+                                <div><h5 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${recName}</h5>${recPriceHTML}</div>
                             </div>
-                            <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recPrice}', event); this.classList.toggle('bg-pink-100'); this.classList.toggle('bg-red-100'); this.classList.toggle('text-pink-600'); this.classList.toggle('text-red-600');" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 shadow-sm ${recInCart ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600 hover:bg-pink-200'}" title="Añadir a mi selección">
+                            <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recFinalPriceStr}', event); this.classList.toggle('bg-pink-100'); this.classList.toggle('bg-red-100'); this.classList.toggle('text-pink-600'); this.classList.toggle('text-red-600');" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 shadow-sm ${recInCart ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600 hover:bg-pink-200'}" title="Añadir a mi selección">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             </button>
                         `;
@@ -1165,7 +1254,7 @@
             const inCart = shoppingCart.some(item => item.name === name);
             
             if (isAvailable) {
-                modalBtnCart.onclick = (e) => { e.preventDefault(); toggleCart(name, price, null); };
+                modalBtnCart.onclick = (e) => { e.preventDefault(); toggleCart(name, finalPriceStr, null); };
                 if (inCart) {
                     modalBtnCart.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
                     modalBtnCart.innerHTML = 'Quitar de mi selección';
@@ -1401,7 +1490,6 @@
                 removeTypingIndicator(typingId);
                 const lText = text.toLowerCase();
                 
-                // Buscar producto exacto en el catálogo
                 const words = lText.split(/[\s,.-]+/).filter(w => w.length > 2 && !['con', 'los', 'las', 'para', 'del', 'que', 'quiero', 'busco', 'tienen', 'precio', 'cuesta'].includes(w));
                 
                 let bestMatch = null;
@@ -1412,13 +1500,12 @@
                     const cat = String(getProdCat(p)).toLowerCase();
                     let score = 0;
                     
-                    // Si el nombre completo del producto fue escrito
                     if (lText.includes(name)) score += 10;
                     
                     words.forEach(w => {
                         if (name.includes(w)) score += 2;
                         if (cat.includes(w)) score += 1;
-                        if (/\d/.test(w) && name.includes(w)) score += 5; // Códigos como S11, S22
+                        if (/\d/.test(w) && name.includes(w)) score += 5; 
                     });
 
                     if (score > highestScore) {
@@ -1429,22 +1516,33 @@
 
                 if (bestMatch && highestScore > 1) {
                     const name = getProdName(bestMatch);
-                    const price = getProdPrice(bestMatch);
+                    const originalPriceStr = getProdPrice(bestMatch);
+                    const originalPriceNum = parsePrice(originalPriceStr);
+                    const discountPct = getProdDiscount(bestMatch);
                     const estado = getProdStatus(bestMatch);
                     const isAvailable = estado.toLowerCase() === 'disponible';
                     const safeName = name.replace(/'/g, "\\'");
                     const desc = getProdDesc(bestMatch);
                     const shortDesc = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
 
+                    let finalPriceStr = originalPriceStr;
+                    let priceText = `*${originalPriceStr}*`;
+
+                    if (discountPct > 0) {
+                        const finalP = originalPriceNum - (originalPriceNum * (discountPct / 100));
+                        finalPriceStr = "S/ " + finalP.toFixed(2);
+                        priceText = `~${originalPriceStr}~ *${finalPriceStr}* (¡con ${discountPct}% de dscto!)`;
+                    }
+
                     if (isAvailable) {
                         const wameLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, deseo consultar sobre el ' + name)}`;
                         const btnHTML = `
                             <div class="mt-2 text-[11px] text-gray-500 italic bg-white/50 p-2 rounded">"${shortDesc}"</div>
                             <div class="flex flex-col gap-2 mt-3">
-                                <button onclick="botAddToCart('${safeName}', '${price}')" class="bg-pink-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-pink-600 flex items-center justify-center gap-1 transition-transform active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Añadir al carrito</button>
+                                <button onclick="botAddToCart('${safeName}', '${finalPriceStr}')" class="bg-pink-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-pink-600 flex items-center justify-center gap-1 transition-transform active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Añadir al carrito</button>
                                 <a href="${wameLink}" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-green-600 flex items-center justify-center gap-1 text-center transition-transform active:scale-95"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar a Ventas</a>
                             </div>`;
-                        appendMessage(`¡Sí tenemos! 💖 El *${name}* cuesta *${price}* y está disponible.${btnHTML}`);
+                        appendMessage(`¡Sí tenemos! 💖 El *${name}* cuesta ${priceText} y está disponible.${btnHTML}`);
                     } else {
                         let fallbackMsg = `Uy, mami 😔. El *${name}* se encuentra temporalmente agotado.<br><br>¿Deseas que te avisemos apenas llegue?<br><a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, por favor avísenme cuando tengan stock de: ' + name)}" target="_blank" class="block text-center bg-green-500 text-white font-bold py-2 rounded-xl mt-2 mb-3 hover:bg-green-600 shadow-sm text-xs">🔔 Avisarme por WhatsApp</a>`;
                         
@@ -1458,13 +1556,23 @@
 
                         if (recs.length > 0) {
                             const recName = getProdName(recs[0]);
-                            const recPrice = getProdPrice(recs[0]);
+                            
+                            const recOriginalPriceStr = getProdPrice(recs[0]);
+                            const recOriginalPriceNum = parsePrice(recOriginalPriceStr);
+                            const recDiscount = getProdDiscount(recs[0]);
+                            
+                            let recFinalPriceStr = recOriginalPriceStr;
+                            if (recDiscount > 0) {
+                                const finalP = recOriginalPriceNum - (recOriginalPriceNum * (recDiscount / 100));
+                                recFinalPriceStr = "S/ " + finalP.toFixed(2);
+                            }
+
                             const safeRecName = recName.replace(/'/g, "\\'");
                             fallbackMsg += `<div class="border-t border-pink-200 pt-3 mt-2">
                                 <span class="text-[10px] font-bold text-purple-600 uppercase">✨ Alternativa Disponible:</span>
                                 <div class="mt-1 text-sm font-bold text-gray-700">${recName}</div>
-                                <div class="text-pink-500 font-extrabold text-sm mb-2">${recPrice}</div>
-                                <button onclick="botAddToCart('${safeRecName}', '${recPrice}')" class="bg-purple-100 text-purple-700 border border-purple-200 px-3 py-2 rounded-xl font-bold text-xs w-full hover:bg-purple-200 transition-colors flex items-center justify-center gap-1">
+                                <div class="text-pink-500 font-extrabold text-sm mb-2">${recFinalPriceStr}</div>
+                                <button onclick="botAddToCart('${safeRecName}', '${recFinalPriceStr}')" class="bg-purple-100 text-purple-700 border border-purple-200 px-3 py-2 rounded-xl font-bold text-xs w-full hover:bg-purple-200 transition-colors flex items-center justify-center gap-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Añadir recomendación
                                 </button>
                             </div>`;
@@ -1474,7 +1582,6 @@
                     return;
                 }
 
-                // Palabras clave normales
                 if (lText.includes('envio') || lText.includes('delivery') || lText.includes('llega')) appendMessage(botKnowledge['envios']);
                 else if (lText.includes('pago') || lText.includes('yape') || lText.includes('tarjeta')) appendMessage(botKnowledge['pagos']);
                 else if (lText.includes('garantia') || lText.includes('falla')) appendMessage(botKnowledge['garantia']);
