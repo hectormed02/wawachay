@@ -543,8 +543,6 @@
         
         // --- VARIABLES DE CONFIGURACIÓN ---
         const WHATSAPP_NUMBER = '51970551728'; 
-        
-        // URL DE TU GOOGLE APPS SCRIPT PARA DESCONTAR STOCK:
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
 
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
@@ -586,10 +584,10 @@
             for (let k in p) if (k.toLowerCase().includes('precio') || k.toLowerCase().includes('price')) return String(p[k]).trim();
             return 'S/ 0.00';
         }
-        function getProdStock(p) {
-            if (p['Stock']) return String(p['Stock']).trim();
-            for (let k in p) if (k.toLowerCase().includes('stock') || k.toLowerCase().includes('cantidad')) return String(p[k]).trim();
-            return '0';
+        function getProdStatus(p) {
+            if (p['Estado']) return String(p['Estado']).trim();
+            for (let k in p) if (k.toLowerCase().includes('estado')) return String(p[k]).trim();
+            return 'Disponible'; 
         }
 
         function parsePrice(priceStr) {
@@ -734,8 +732,7 @@
             let recommendations = allProducts.filter(p => {
                 const pName = getProdName(p);
                 let pCat = getProdCat(p);
-                const stockStr = getProdStock(p);
-                const isAvailable = parseInt(stockStr) > 0;
+                const isAvailable = getProdStatus(p).toLowerCase() === 'disponible';
                 const inCart = shoppingCart.some(item => item.name === pName);
 
                 if (hasExtractores) {
@@ -774,7 +771,6 @@
 
             totalText.textContent = `S/ ${total.toFixed(2)}`;
             
-            // --- NUEVO SISTEMA DE PAGO / DESCUENTO DE STOCK ---
             btnCheckout.onclick = async function(e) {
                 e.preventDefault(); 
 
@@ -963,9 +959,8 @@
 
             products.forEach((product, index) => {
                 const driveImages = extractImagesFromProduct(product);
-                const stockStr = getProdStock(product);
-                const stockNum = parseInt(stockStr) || 0;
-                const isAvailable = stockNum > 0;
+                const estado = getProdStatus(product);
+                const isAvailable = estado.toLowerCase() === 'disponible';
                 const name = String(getProdName(product) || 'Producto sin nombre');
                 const price = getProdPrice(product);
                 const inCart = shoppingCart.some(item => item.name === name);
@@ -982,9 +977,13 @@
                 }
 
                 let stockBadgeHTML = '';
-                if (stockNum === 0) stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Sin Stock</span>`;
-                else if (stockNum <= 5) stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 shadow-md flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
-                else stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>`;
+                if (estado.toLowerCase() === 'agotado') {
+                    stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Agotado</span>`;
+                } else if (estado.toLowerCase() === 'disponible') {
+                    stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>`;
+                } else {
+                    stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 shadow-sm">${estado}</span>`;
+                }
 
                 const desc = getProdDesc(product);
                 const formattedDesc = String(desc || '').replace(/\n/g, '<br>');
@@ -1053,17 +1052,16 @@
             let fullDesc = desc;
             if (longDesc && longDesc.trim() !== '') fullDesc += '\n\n' + longDesc;
             
-            const stockStr = getProdStock(product);
-            const stockNum = parseInt(stockStr) || 0;
-            const isAvailable = stockNum > 0;
+            const estado = getProdStatus(product);
+            const isAvailable = estado.toLowerCase() === 'disponible';
 
             document.getElementById('modalTitle').textContent = name;
             document.getElementById('modalPrice').textContent = price;
             
             let modalStockBadge = '';
-            if (stockNum === 0) modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Sin Stock</span>';
-            else if (stockNum <= 5) modalStockBadge = `<span class="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full border border-orange-300 flex items-center gap-1 animate-pulse"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg> ¡Últimas ${stockNum}!</span>`;
-            else modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
+            if (estado.toLowerCase() === 'agotado') modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Agotado</span>';
+            else if (estado.toLowerCase() === 'disponible') modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
+            else modalStockBadge = `<span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">${estado}</span>`;
             
             const modalCatEl = document.getElementById('modalCategory');
             modalCatEl.className = "flex flex-wrap gap-2 mb-3 self-start";
@@ -1080,8 +1078,8 @@
             if (category.toLowerCase().includes('extractor') || category.toLowerCase().includes('eléctrico') || category.toLowerCase().includes('manual')) {
                 let recommendations = allProducts.filter(p => {
                     let pCat = getProdCat(p);
-                    const pStockStr = getProdStock(p);
-                    return pCat && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && parseInt(pStockStr) > 0;
+                    const pIsAvailable = getProdStatus(p).toLowerCase() === 'disponible';
+                    return pCat && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && pIsAvailable;
                 });
                 recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 2);
                 
@@ -1401,18 +1399,19 @@
                 if (bestMatch && highestScore > 1) {
                     const name = getProdName(bestMatch);
                     const price = getProdPrice(bestMatch);
-                    const stock = parseInt(getProdStock(bestMatch));
+                    const estado = getProdStatus(bestMatch);
+                    const isAvailable = estado.toLowerCase() === 'disponible';
                     const safeName = name.replace(/'/g, "\\'");
                     const desc = getProdDesc(bestMatch);
                     const shortDesc = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
 
-                    if (stock > 0) {
+                    if (isAvailable) {
                         const wameLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, deseo consultar sobre el ' + name)}`;
                         const btnHTML = `
                             <div class="mt-2 text-[11px] text-gray-500 italic bg-white/50 p-2 rounded">"${shortDesc}"</div>
                             <div class="flex flex-col gap-2 mt-3">
                                 <button onclick="botAddToCart('${safeName}', '${price}')" class="bg-pink-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-pink-600 flex items-center justify-center gap-1 transition-transform active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Añadir al carrito</button>
-                                <a href="${wameLink}" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-green-600 flex items-center justify-center gap-1 text-center transition-transform active:scale-95"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84z"/></svg> Consultar a Ventas</a>
+                                <a href="${wameLink}" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-green-600 flex items-center justify-center gap-1 text-center transition-transform active:scale-95"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar a Ventas</a>
                             </div>`;
                         appendMessage(`¡Sí tenemos! 💖 El *${name}* cuesta *${price}* y está disponible.${btnHTML}`);
                     } else {
@@ -1421,9 +1420,9 @@
                         let category = getProdCat(bestMatch);
                         const recs = allProducts.filter(p => {
                             let pCat = getProdCat(p);
-                            const pStock = parseInt(getProdStock(p));
+                            const pIsAvailable = getProdStatus(p).toLowerCase() === 'disponible';
                             const pName = getProdName(p);
-                            return pStock > 0 && pCat === category && pName !== name;
+                            return pIsAvailable && pCat === category && pName !== name;
                         }).sort(() => 0.5 - Math.random());
 
                         if (recs.length > 0) {
