@@ -71,14 +71,12 @@
 <body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
 
     <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#inicio" class="flex items-center gap-3 group cursor-pointer transition-transform duration-300">
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-14 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/fce7f3/db2777?text=W'">
-                <div class="flex flex-col justify-center">
-                    <h1 class="text-4xl font-logo tracking-wide text-purple-700 group-hover:text-pink-500 transition-colors duration-300 leading-none pt-2">Wawachay</h1>
-                    <p class="text-[10px] sm:text-xs text-pink-500 font-semibold font-montserrat uppercase tracking-wider -mt-1">Extractores y Accesorios</p>
-                </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+            <!-- LOGO CORREGIDO PARA VERSE MÁS GRANDE -->
+            <a href="#inicio" class="flex items-center group cursor-pointer transition-transform duration-300">
+                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-20 sm:h-24 w-auto object-contain drop-shadow-sm transform scale-150 ml-6 group-hover:scale-[1.6] transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/fce7f3/db2777?text=W'">
             </a>
+            
             <nav class="hidden md:flex gap-6">
                 <a href="#inicio" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Inicio</a>
                 <a href="#catalogo" class="text-gray-600 hover:text-pink-500 font-semibold transition-colors">Catálogo</a>
@@ -464,9 +462,9 @@
 
     <footer class="bg-white border-t border-gray-200 mt-12 py-10 pb-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <a href="#inicio" class="flex items-center gap-3 group cursor-pointer">
-                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
-                <span class="text-4xl font-logo text-purple-700 group-hover:text-pink-500 transition-colors duration-300 pt-1">Wawachay</span>
+            <a href="#inicio" class="flex items-center group cursor-pointer">
+                <!-- LOGO CORREGIDO EN FOOTER -->
+                <img src="./Logo_1.png" alt="Logo Wawachay" class="h-16 w-auto object-contain transform scale-150 group-hover:scale-[1.6] transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/fce7f3/db2777?text=W'">
             </a>
             <div class="text-center md:text-left flex flex-col gap-1">
                 <p class="text-gray-500 text-sm">© 2024 Wawachay - Tienda Especializada en Extractores de Leche Materna y Accesorios.</p>
@@ -771,6 +769,7 @@
 
             totalText.textContent = `S/ ${total.toFixed(2)}`;
             
+            // --- NUEVO SISTEMA DE PAGO / DESCUENTO DE STOCK ---
             btnCheckout.onclick = async function(e) {
                 e.preventDefault(); 
 
