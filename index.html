@@ -72,7 +72,6 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
-            <!-- LOGO CORREGIDO PARA VERSE MÁS GRANDE -->
             <a href="#inicio" class="flex items-center group cursor-pointer transition-transform duration-300">
                 <img src="./Logo_1.png" alt="Logo Wawachay" class="h-20 sm:h-24 w-auto object-contain drop-shadow-sm transform scale-150 ml-6 group-hover:scale-[1.6] transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/fce7f3/db2777?text=W'">
             </a>
@@ -442,6 +441,17 @@
         </div>
     </div>
 
+    <!-- Banner de Cookies -->
+    <div id="cookieConsentBanner" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-10px_25px_-10px_rgba(0,0,0,0.15)] z-[100] transform translate-y-full transition-transform duration-500 border-t border-pink-100 flex flex-col sm:flex-row justify-center items-center p-4 sm:p-6 gap-4">
+        <div class="text-sm text-gray-600 max-w-4xl text-center sm:text-left">
+            🍪 <strong>¡Valoramos tu privacidad!</strong> Utilizamos cookies propias y de terceros para mejorar tu experiencia de navegación, analizar nuestro tráfico y personalizar el contenido. Al hacer clic en "Aceptar", consientes el uso de todas las cookies. <a href="#" class="text-pink-500 font-bold hover:underline">Ver política de cookies</a>.
+        </div>
+        <div class="flex gap-3 shrink-0">
+            <button onclick="acceptCookies()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2.5 px-6 rounded-xl transition-colors shadow-md shadow-pink-200">Aceptar todas</button>
+            <button onclick="hideCookieBanner()" class="bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 px-4 rounded-xl transition-colors">Solo necesarias</button>
+        </div>
+    </div>
+
     <div id="floatingCart" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-10px_25px_-10px_rgba(0,0,0,0.15)] z-[45] transform translate-y-full transition-transform duration-500 p-4 border-t border-pink-100 flex justify-center items-center">
         <div class="max-w-7xl w-full px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4 w-full sm:w-auto cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors" onclick="openCart()">
@@ -539,6 +549,27 @@
         console.log("%c¡Alto ahí!", "color: red; font-family: sans-serif; font-size: 4em; font-weight: bolder; text-shadow: #000 1px 1px;");
         console.log("%cEsta consola es para desarrolladores. Si alguien te indicó que copiaras y pegaras algo aquí, es una estafa.", "font-family: sans-serif; font-size: 1.5em;");
         
+        // --- SISTEMA DE COOKIES ---
+        function checkCookieConsent() {
+            if (!localStorage.getItem('wawachay_cookie_consent')) {
+                setTimeout(() => {
+                    const banner = document.getElementById('cookieConsentBanner');
+                    if (banner) banner.classList.remove('translate-y-full');
+                }, 1500); // Aparece suavemente tras 1.5 segundos
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('wawachay_cookie_consent', 'true');
+            hideCookieBanner();
+            // Aquí a futuro puedes activar el Píxel de Meta o Analytics
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookieConsentBanner');
+            if (banner) banner.classList.add('translate-y-full');
+        }
+
         // --- VARIABLES DE CONFIGURACIÓN ---
         const WHATSAPP_NUMBER = '51970551728'; 
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
@@ -1469,6 +1500,9 @@
                 const tooltip = document.getElementById('chatbot-tooltip');
                 if (tooltip && !chatOpen) tooltip.style.opacity = '0';
             }, 15000);
+
+            // Iniciar comprobación de cookies
+            checkCookieConsent();
         });
     </script>
 </body>
