@@ -68,7 +68,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen relative">
 
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
@@ -320,18 +320,13 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow">
-                <!-- Ribbon Nuevo Ingreso Modal -->
                 <div id="modalIngresoRibbon" class="hidden mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-extrabold px-3 py-1.5 rounded flex items-center gap-1 uppercase tracking-wider shadow-sm self-start inline-flex"></div>
-                
                 <div class="flex flex-col md:flex-row gap-6 mt-2">
                     <div class="w-full md:w-1/2 flex flex-col gap-4">
                         <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden group">
-                            <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" title="Clic para expandir" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
+                            <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
                             <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4">
                                 <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-25">
-                            </div>
-                            <div class="absolute bottom-4 right-4 bg-white/80 backdrop-blur-sm text-gray-600 p-2 rounded-full shadow-sm z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                             </div>
                             <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30 bg-white/80 backdrop-blur-sm text-gray-500 text-[10px] italic px-2 py-0.5 rounded shadow-sm pointer-events-none">Imágenes referenciales</span>
                         </div>
@@ -359,7 +354,7 @@
         </div>
     </div>
 
-    <!-- Modal del Carrito de Compras -->
+    <!-- Modal del Carrito Normal -->
     <div id="cartModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="cartModalContent">
             <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
@@ -372,22 +367,21 @@
             <div id="cartItemsList" class="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-grow pr-2"></div>
             
             <div id="cartSuggestions" class="hidden border-t border-gray-100 pt-4 mt-4">
-                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" /></svg> Completa tu pedido:</h4>
+                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1">Completa tu pedido:</h4>
                 <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto custom-scrollbar pb-2 scroll-smooth snap-x"></div>
             </div>
 
-            <!-- Formulario de Datos del Cliente -->
+            <!-- Formulario de Datos -->
             <div class="border-t border-gray-200 pt-4 mt-4 mb-4 shrink-0">
                 <h4 class="font-bold text-gray-700 mb-3 text-sm flex items-center gap-1">
-                    <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     Mis Datos para el Pedido:
                 </h4>
                 <div class="flex flex-col gap-3">
                     <div>
-                        <input type="text" id="cartCustomerName" placeholder="Tu Nombre y Apellido *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all">
+                        <input type="text" id="cartCustomerName" placeholder="Tu Nombre y Apellido *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
                         <p id="cartErrorMsg" class="text-red-500 text-xs font-bold mt-1 ml-1 hidden">Por favor, ingresa tu nombre 🌸</p>
                     </div>
-                    <input type="text" id="cartCustomerAddress" placeholder="Dirección o Distrito de entrega (Opcional)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all">
+                    <input type="text" id="cartCustomerAddress" placeholder="Dirección o Distrito de entrega (Opcional)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
                 </div>
             </div>
 
@@ -407,32 +401,22 @@
     <!-- Modal Testimonio -->
     <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
-            <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+            <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow flex flex-col items-center text-center">
                 <div class="relative w-32 h-32 mb-6 group cursor-zoom-in" onclick="openTestimonioLightbox(document.getElementById('modalTestiFoto').src)">
                     <img id="modalTestiFoto" src="" alt="Foto de Testimonio" class="w-full h-full object-cover rounded-full border-4 border-pink-100 shadow-lg transition-transform group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                    </div>
                 </div>
                 <h3 id="modalTestiNombre" class="text-2xl font-bold text-gray-800 mb-1"></h3>
                 <p id="modalTestiFecha" class="text-sm text-gray-400 mb-4"></p>
                 <div id="modalTestiEstrellas" class="flex gap-1 mb-6 justify-center"></div>
-                <div class="relative w-full">
-                    <svg class="absolute top-0 left-0 transform -translate-x-4 -translate-y-4 w-12 h-12 text-pink-100 z-0" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed relative z-10 italic"></p>
-                </div>
+                <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed italic"></p>
             </div>
         </div>
     </div>
     
     <!-- Lightbox -->
     <div id="imageLightbox" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
-        <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 z-[80]">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
+        <button class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 z-[80]"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         <div class="relative max-w-5xl w-full h-full flex items-center justify-center">
             <img id="lightboxImg" src="" alt="Producto Expandido" class="max-w-full max-h-[90vh] object-contain relative z-[75] cursor-zoom-out" onclick="event.stopPropagation(); closeLightbox();">
             <div class="absolute inset-0 z-[76] flex items-center justify-center pointer-events-none p-10">
@@ -470,15 +454,22 @@
         </div>
     </div>
 
+    <!-- FOOTER Y ACCESO A POS -->
     <footer class="bg-white border-t border-gray-200 mt-12 py-10 pb-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <a href="#inicio" class="flex items-center group cursor-pointer">
-                <!-- LOGO CORREGIDO EN FOOTER -->
                 <img src="./Logo_1.png" alt="Logo Wawachay" class="h-16 w-auto object-contain transform scale-150 group-hover:scale-[1.6] transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/fce7f3/db2777?text=W'">
             </a>
-            <div class="text-center md:text-left flex flex-col gap-1">
+            <div class="text-center md:text-left flex flex-col gap-1 items-center md:items-start">
                 <p class="text-gray-500 text-sm">© 2024 Wawachay - Tienda Especializada en Extractores de Leche Materna y Accesorios.</p>
-                <p class="text-xs text-gray-400 font-medium mt-1">Diseñado y desarrollado por <a href="#" class="font-bold text-purple-600 hover:text-pink-500 transition-colors">hsoluciones</a> 💻</p>
+                <div class="flex items-center gap-2 text-xs text-gray-400 font-medium mt-1">
+                    <span>Diseñado y desarrollado por <a href="#" class="font-bold text-purple-600 hover:text-pink-500 transition-colors">hsoluciones</a> 💻</span>
+                    <span>|</span>
+                    <!-- BOTÓN OCULTO PARA ABRIR EL PANEL DE VENTAS (POS) -->
+                    <a href="#" onclick="openPosLogin(event)" class="hover:text-pink-500 transition-colors flex items-center gap-1 font-bold">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg> Panel Live
+                    </a>
+                </div>
             </div>
             <div class="flex gap-4">
                 <a href="https://web.facebook.com/Wawachay.Extractordelechematerna" target="_blank" class="text-gray-400 hover:text-[#1877F2] transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
@@ -494,10 +485,12 @@
         <div class="absolute -bottom-2 right-8 w-4 h-4 bg-white border-b border-r border-pink-100 transform rotate-45"></div>
     </div>
 
+    <!-- Wawibot Icon -->
     <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-24 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
     </button>
     
+    <!-- Wawibot Window -->
     <div id="chatbot-window" class="fixed bottom-40 right-6 w-[90vw] sm:w-80 bg-white rounded-2xl shadow-2xl border border-pink-100 z-50 flex-col hidden overflow-hidden transition-all duration-300 opacity-0 translate-y-4">
         <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-4 flex justify-between items-center text-white">
             <div class="flex items-center gap-2">
@@ -533,6 +526,123 @@
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- INTERFAZ DE ADMINISTRACIÓN Y VENTAS (POS)  -->
+    <!-- ========================================== -->
+    
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" class="fixed inset-0 bg-white/95 backdrop-blur-md z-[100] hidden flex-col items-center justify-center p-4 transition-opacity duration-300 opacity-0">
+        <button onclick="closePosLogin()" class="absolute top-6 right-6 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        <div class="bg-white p-8 rounded-3xl shadow-xl border border-pink-100 w-full max-w-sm text-center">
+            <img src="./Logo_1.png" alt="Logo" class="h-20 mx-auto mb-4" onerror="this.style.display='none'">
+            <h2 class="text-2xl font-bold text-purple-700 mb-2">Panel TikTok Live</h2>
+            <p class="text-sm text-gray-500 mb-6">Inicia sesión con tus credenciales</p>
+            
+            <input type="email" id="loginUser" placeholder="Correo (Ej. marleny...)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 mb-3 focus:ring-2 focus:ring-pink-300 outline-none text-sm">
+            <input type="password" id="loginPass" placeholder="Contraseña" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 mb-4 focus:ring-2 focus:ring-pink-300 outline-none text-sm" onkeypress="if(event.key === 'Enter') doPosLogin()">
+            
+            <button id="btnLogin" onclick="doPosLogin()" class="w-full bg-pink-500 text-white font-bold py-3 rounded-xl hover:bg-pink-600 transition-colors shadow-md">Ingresar al POS</button>
+            <p id="loginError" class="text-red-500 text-sm mt-3 hidden font-bold">Credenciales incorrectas</p>
+        </div>
+    </div>
+
+    <!-- PANTALLA PRINCIPAL POS -->
+    <div id="posInterface" class="fixed inset-0 bg-gray-50 z-[90] hidden flex-col transition-opacity duration-300 opacity-0">
+        <header class="bg-white shadow-sm shrink-0">
+            <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="./Logo_1.png" alt="Logo" class="h-14 w-auto object-contain transform scale-150 ml-4" onerror="this.src='https://placehold.co/100x100/fce7f3/db2777?text=W'">
+                    <div class="flex flex-col justify-center ml-4">
+                        <h1 class="text-2xl sm:text-3xl font-logo tracking-wide text-purple-700 leading-none pt-2">Ventas en Vivo</h1>
+                    </div>
+                </div>
+                <button onclick="closePosInterface()" class="bg-red-50 hover:bg-red-100 text-red-600 font-bold py-2 px-4 rounded-xl text-sm transition-colors shadow-sm">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <main class="flex-grow max-w-7xl mx-auto px-4 w-full py-8 overflow-y-auto pb-32 custom-scrollbar">
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                <input type="text" id="posSearchInput" placeholder="Buscar producto rápido..." class="w-full pl-4 pr-4 py-3 rounded-xl border border-gray-200 focus:border-pink-500 outline-none shadow-sm">
+                <div id="posCategoryTabs" class="flex gap-2 overflow-x-auto custom-scrollbar pb-2 w-full sm:w-auto"></div>
+            </div>
+            
+            <div id="pos-products-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <div class="col-span-full py-20 flex flex-col items-center justify-center">
+                    <div class="animate-spin rounded-full h-10 w-10 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- POS FLOATING CART -->
+        <div id="posFloatingCart" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-10px_25px_-10px_rgba(0,0,0,0.15)] z-[95] transform translate-y-full transition-transform duration-500 p-4 border-t border-pink-100">
+            <div class="max-w-7xl mx-auto flex justify-between items-center gap-4">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="openPosCart()">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 relative">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span id="posCartCountBadge" class="absolute -top-1 -right-1 bg-purple-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 font-bold uppercase">Subtotal TKTK</p>
+                        <p id="posCartTotalText" class="text-xl font-extrabold text-gray-800">S/ 0.00</p>
+                    </div>
+                </div>
+                <button onclick="openPosCart()" class="bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 shadow-md">Cobrar Pedido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CARRITO (POS) -->
+    <div id="posCartModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[95vh]" id="posCartModalContent">
+            <button onclick="closePosCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 bg-gray-100 rounded-full p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">🛒 Resumen de Compra Live</h3>
+            
+            <div id="posCartItemsList" class="flex flex-col gap-2 overflow-y-auto custom-scrollbar flex-grow pr-2"></div>
+            
+            <!-- SECCIÓN ESPECIAL DE DESCUENTO MANUAL -->
+            <div class="border-t border-dashed border-gray-300 pt-4 mt-4 bg-purple-50 p-4 rounded-xl shrink-0">
+                <label class="block text-xs font-bold text-purple-700 mb-2 uppercase tracking-wide">Descuento Especial (Live)</label>
+                <div class="flex gap-2">
+                    <select id="posDiscountType" class="bg-white border border-purple-200 rounded-lg px-3 py-2 text-sm font-bold outline-none text-purple-700" onchange="calculatePosTotal()">
+                        <option value="none">Sin Dscto</option>
+                        <option value="percent">Porcentaje (%)</option>
+                        <option value="amount">Monto (S/)</option>
+                    </select>
+                    <input type="number" id="posDiscountValue" value="0" min="0" class="w-full bg-white border border-purple-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="0" oninput="calculatePosTotal()">
+                </div>
+            </div>
+
+            <!-- Datos del Cliente -->
+            <div class="border-t border-gray-200 pt-4 mt-4 shrink-0">
+                <input type="text" id="posCustomerName" placeholder="Nombre del Cliente (TikTok) *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 mb-2">
+                <p id="posCartErrorMsg" class="text-red-500 text-xs font-bold ml-1 hidden mb-2">Falta el nombre del cliente</p>
+                <input type="text" id="posCustomerAddress" placeholder="Dirección / Agencia (Opcional)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
+            </div>
+
+            <div class="border-t border-gray-200 pt-4 mt-4 shrink-0">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-gray-500 text-sm">Subtotal:</span>
+                    <span id="posSummarySubtotal" class="font-bold text-gray-700">S/ 0.00</span>
+                </div>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-pink-500 text-sm font-bold">Descuento:</span>
+                    <span id="posSummaryDiscountAmount" class="font-bold text-pink-500">- S/ 0.00</span>
+                </div>
+                <div class="flex justify-between items-end mb-4">
+                    <span class="font-bold text-gray-800 text-lg">Total a cobrar:</span>
+                    <span id="posSummaryTotal" class="text-3xl font-extrabold text-purple-600">S/ 0.00</span>
+                </div>
+                <button id="posBtnCheckout" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 shadow-md flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
+                    Confirmar Venta y Enviar a WA
+                </button>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         // --- BLOQUE DE SEGURIDAD FRONT-END ---
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -555,14 +665,13 @@
                 setTimeout(() => {
                     const banner = document.getElementById('cookieConsentBanner');
                     if (banner) banner.classList.remove('translate-y-full');
-                }, 1500); // Aparece suavemente tras 1.5 segundos
+                }, 1500);
             }
         }
 
         function acceptCookies() {
             localStorage.setItem('wawachay_cookie_consent', 'true');
             hideCookieBanner();
-            // Aquí a futuro puedes activar el Píxel de Meta o Analytics
         }
 
         function hideCookieBanner() {
@@ -573,15 +682,20 @@
         // --- VARIABLES DE CONFIGURACIÓN ---
         const WHATSAPP_NUMBER = '51970551728'; 
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
-
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
         const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
 
         let allProducts = [];
         let currentRenderedProducts = []; 
         let allTestimonios = []; 
+        
+        // Carrito de Clientes (Web principal)
         let shoppingCart = []; 
-        let currentCategoryTab = '';
+        let currentCategoryTab = 'all';
+
+        // Carrito de Vendedor (POS)
+        let posShoppingCart = [];
+        let posCurrentCategoryTab = 'all';
 
         // --- FUNCIONES AYUDANTES SUPER FLEXIBLES ---
         function getProdName(p) {
@@ -623,6 +737,11 @@
             for (let k in p) if (k.toLowerCase().includes('descuento')) return parseFloat(String(p[k]).replace('%', '')) || 0;
             return 0; 
         }
+        function getProdStock(p) {
+            if (p['Stock']) return String(p['Stock']).trim();
+            for (let k in p) if (k.toLowerCase().includes('stock') || k.toLowerCase().includes('cantidad')) return String(p[k]).trim();
+            return '0';
+        }
 
         function parsePrice(priceStr) {
             if (!priceStr) return 0;
@@ -630,6 +749,10 @@
             const match = clean.match(/\d+(\.\d+)?/);
             return match ? parseFloat(match[0]) : 0;
         }
+
+        // ==========================================
+        // LÓGICA DE USUARIOS NORMALES (WEB)
+        // ==========================================
 
         function generateCartWhatsAppLink() {
             if(shoppingCart.length === 0) return `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -822,7 +945,6 @@
 
             totalText.textContent = `S/ ${total.toFixed(2)}`;
             
-            // --- NUEVO SISTEMA DE PAGO / DESCUENTO DE STOCK ---
             btnCheckout.onclick = async function(e) {
                 e.preventDefault(); 
 
@@ -839,24 +961,16 @@
                 this.style.pointerEvents = 'none';
 
                 try {
-                    const cartData = {
-                        cart: shoppingCart.map(item => ({ name: item.name }))
-                    };
-
+                    const cartData = { cart: shoppingCart.map(item => ({ name: item.name })) };
                     await fetch(APP_SCRIPT_WEB_APP_URL, {
                         method: 'POST',
                         body: JSON.stringify(cartData),
-                        headers: {
-                            'Content-Type': 'text/plain;charset=utf-8',
-                        }
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                     });
-                } catch (error) {
-                    console.log("No se pudo descontar el stock automáticamente.", error);
-                }
+                } catch (error) { console.log("No se pudo descontar el stock", error); }
 
                 this.innerHTML = originalText;
                 this.style.pointerEvents = 'auto';
-                
                 const wsLink = generateCartWhatsAppLink();
                 
                 shoppingCart = [];
@@ -867,6 +981,273 @@
             };
         }
 
+        // ==========================================
+        // LÓGICA DEL PANEL POS (VENTAS EN VIVO)
+        // ==========================================
+
+        function openPosLogin(e) {
+            e.preventDefault();
+            const login = document.getElementById('loginScreen');
+            login.classList.remove('hidden');
+            login.classList.add('flex');
+            setTimeout(() => { login.classList.remove('opacity-0'); }, 10);
+        }
+
+        function closePosLogin() {
+            const login = document.getElementById('loginScreen');
+            login.classList.add('opacity-0');
+            setTimeout(() => { login.classList.add('hidden'); login.classList.remove('flex'); }, 300);
+        }
+
+        async function doPosLogin() {
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            const btn = document.getElementById('btnLogin');
+            const errorMsg = document.getElementById('loginError');
+
+            if(!user || !pass) return;
+
+            btn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mx-auto"></div>';
+            btn.disabled = true;
+            errorMsg.classList.add('hidden');
+
+            try {
+                const response = await fetch(APP_SCRIPT_WEB_APP_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: "login", user: user, pass: pass }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+                const result = await response.json();
+
+                if (result.status === "success") {
+                    closePosLogin();
+                    openPosInterface();
+                } else {
+                    errorMsg.textContent = result.message;
+                    errorMsg.classList.remove('hidden');
+                    btn.innerHTML = 'Ingresar al POS';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                errorMsg.textContent = "Error de conexión.";
+                errorMsg.classList.remove('hidden');
+                btn.innerHTML = 'Ingresar al POS';
+                btn.disabled = false;
+            }
+        }
+
+        function openPosInterface() {
+            const pos = document.getElementById('posInterface');
+            pos.classList.remove('hidden');
+            pos.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => { 
+                pos.classList.remove('opacity-0'); 
+                filterPosProducts(); // Cargar productos de POS al abrir
+            }, 10);
+        }
+
+        function closePosInterface() {
+            const pos = document.getElementById('posInterface');
+            pos.classList.add('opacity-0');
+            document.body.style.overflow = '';
+            setTimeout(() => { pos.classList.add('hidden'); pos.classList.remove('flex'); }, 300);
+            document.getElementById('btnLogin').innerHTML = 'Ingresar al POS';
+            document.getElementById('btnLogin').disabled = false;
+        }
+
+        function filterPosProducts() {
+            const term = document.getElementById('posSearchInput').value.toLowerCase();
+            let filtered = allProducts.filter(p => {
+                const matchSearch = getProdName(p).toLowerCase().includes(term);
+                const matchCat = posCurrentCategoryTab === 'all' || getProdCat(p) === posCurrentCategoryTab;
+                return matchSearch && matchCat;
+            });
+            renderPosProducts(filtered);
+        }
+
+        document.getElementById('posSearchInput').addEventListener('input', filterPosProducts);
+
+        function updatePosCategoryFilter(categories) {
+            const tabs = document.getElementById('posCategoryTabs');
+            tabs.innerHTML = '';
+            const createTab = (catName, label) => {
+                const btn = document.createElement('button');
+                btn.textContent = label;
+                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${posCurrentCategoryTab === catName ? 'bg-pink-500 text-white border-pink-500' : 'bg-white text-gray-600 border-gray-200'}`;
+                btn.onclick = () => { posCurrentCategoryTab = catName; updatePosCategoryFilter(categories); filterPosProducts(); };
+                return btn;
+            };
+            tabs.appendChild(createTab('all', 'Todos'));
+            categories.forEach(cat => tabs.appendChild(createTab(cat, cat)));
+        }
+
+        function renderPosProducts(products) {
+            const container = document.getElementById('pos-products-container');
+            container.innerHTML = ''; 
+
+            products.forEach((product) => {
+                const name = getProdName(product);
+                const originalPriceStr = getProdPrice(product);
+                const originalPriceNum = parsePrice(originalPriceStr);
+                const discountPct = getProdDiscount(product);
+                const isAvailable = getProdStatus(product).toLowerCase() === 'disponible';
+                const stockNum = parseInt(getProdStock(product));
+                const img = extractImagesFromProduct(product)[0];
+                const inCart = posShoppingCart.some(item => item.name === name);
+
+                let finalPriceNum = originalPriceNum;
+                let finalPriceStr = originalPriceStr;
+                let priceHTML = `<p class="font-extrabold text-purple-700 text-sm mt-1">${originalPriceStr}</p>`;
+
+                if (discountPct > 0) {
+                    finalPriceNum = originalPriceNum - (originalPriceNum * (discountPct / 100));
+                    finalPriceStr = "S/ " + finalPriceNum.toFixed(2);
+                    priceHTML = `<div class="flex items-center gap-1 mt-1"><span class="font-extrabold text-purple-700 text-sm">${finalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${originalPriceStr}</span></div>`;
+                }
+
+                let badge = isAvailable ? `<span class="absolute top-2 left-2 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">Stk: ${stockNum}</span>` : `<span class="absolute top-2 left-2 bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">Agotado</span>`;
+
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-xl shadow-sm border p-3 flex flex-col relative ${inCart ? 'border-purple-500 ring-1 ring-purple-200' : 'border-gray-100'}`;
+                
+                card.innerHTML = `
+                    ${badge}
+                    <img src="${img}" alt="${name}" class="w-full h-24 object-contain mb-2 bg-gray-50 rounded-lg p-1">
+                    <h3 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight flex-grow">${name}</h3>
+                    ${priceHTML}
+                    <button onclick="togglePosCart('${name.replace(/'/g, "\\'")}', '${finalPriceStr}', event)" class="mt-3 w-full py-1.5 rounded-lg text-xs font-bold transition-colors ${inCart ? 'bg-red-100 text-red-600' : 'bg-pink-500 text-white hover:bg-pink-600 shadow-sm'} ${!isAvailable && !inCart ? 'opacity-50 cursor-not-allowed bg-gray-300 text-gray-600' : ''}" ${!isAvailable && !inCart ? 'disabled' : ''}>
+                        ${inCart ? 'Quitar' : 'Añadir al Ticket'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function togglePosCart(name, priceStr, event) {
+            if(event) event.stopPropagation();
+            const index = posShoppingCart.findIndex(item => item.name === name);
+            if (index > -1) posShoppingCart.splice(index, 1);
+            else posShoppingCart.push({ name: name, priceStr: priceStr, priceNum: parsePrice(priceStr) });
+            
+            updatePosCartUI();
+            filterPosProducts(); 
+            if(!document.getElementById('posCartModal').classList.contains('hidden')) renderPosCartModal();
+        }
+
+        function updatePosCartUI() {
+            let total = posShoppingCart.reduce((s, i) => s + i.priceNum, 0);
+            document.getElementById('posCartCountBadge').textContent = posShoppingCart.length;
+            document.getElementById('posCartTotalText').textContent = `S/ ${total.toFixed(2)}`;
+            
+            if (posShoppingCart.length > 0) document.getElementById('posFloatingCart').classList.remove('translate-y-full');
+            else document.getElementById('posFloatingCart').classList.add('translate-y-full');
+        }
+
+        function openPosCart() {
+            if (posShoppingCart.length === 0) return;
+            renderPosCartModal();
+            const modal = document.getElementById('posCartModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('posCartModalContent').classList.remove('scale-95'); }, 10);
+        }
+
+        function closePosCart() {
+            const modal = document.getElementById('posCartModal');
+            modal.classList.add('opacity-0');
+            document.getElementById('posCartModalContent').classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+        }
+
+        function calculatePosTotal() {
+            const type = document.getElementById('posDiscountType').value;
+            const val = parseFloat(document.getElementById('posDiscountValue').value) || 0;
+            let subtotal = posShoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
+            let discountAmount = 0;
+
+            if (type === 'percent' && val > 0) discountAmount = subtotal * (val / 100);
+            else if (type === 'amount' && val > 0) discountAmount = val;
+
+            let finalTotal = subtotal - discountAmount;
+            if (finalTotal < 0) finalTotal = 0;
+
+            document.getElementById('posSummarySubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+            document.getElementById('posSummaryDiscountAmount').textContent = `- S/ ${discountAmount.toFixed(2)}`;
+            document.getElementById('posSummaryTotal').textContent = `S/ ${finalTotal.toFixed(2)}`;
+
+            return { subtotal, discountAmount, finalTotal, type, val };
+        }
+
+        function renderPosCartModal() {
+            const list = document.getElementById('posCartItemsList');
+            list.innerHTML = '';
+
+            posShoppingCart.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100';
+                div.innerHTML = `
+                    <div class="pr-2"><h5 class="text-xs font-bold text-gray-800 leading-tight">${item.name}</h5><p class="text-purple-600 font-extrabold text-sm">${item.priceStr}</p></div>
+                    <button onclick="togglePosCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', null);" class="text-red-500 hover:text-red-700 p-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                `;
+                list.appendChild(div);
+            });
+
+            calculatePosTotal();
+
+            document.getElementById('posBtnCheckout').onclick = async function(e) {
+                e.preventDefault();
+                const cName = document.getElementById('posCustomerName').value.trim();
+                const cAdd = document.getElementById('posCustomerAddress').value.trim();
+                
+                if (!cName) {
+                    document.getElementById('posCartErrorMsg').classList.remove('hidden');
+                    document.getElementById('posCustomerName').focus();
+                    return;
+                }
+                document.getElementById('posCartErrorMsg').classList.add('hidden');
+
+                const totals = calculatePosTotal();
+                let message = `*Venta desde TikTok Live* 🎥\n\n*Cliente:* ${cName}\n`;
+                if(cAdd) message += `*Dirección:* ${cAdd}\n`;
+                message += `\n*Pedido:*\n`;
+                
+                posShoppingCart.forEach((item, index) => { message += `${index + 1}. ${item.name} (${item.priceStr})\n`; });
+                
+                message += `\n*Subtotal:* S/ ${totals.subtotal.toFixed(2)}`;
+                if (totals.discountAmount > 0) {
+                    let descText = totals.type === 'percent' ? `(${totals.val}%)` : `Manual`;
+                    message += `\n*Descuento ${descText}:* - S/ ${totals.discountAmount.toFixed(2)}`;
+                }
+                message += `\n*Total Final:* *S/ ${totals.finalTotal.toFixed(2)}*`;
+                
+                const originalText = this.innerHTML;
+                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Descontando...';
+                this.style.pointerEvents = 'none';
+
+                try {
+                    await fetch(APP_SCRIPT_WEB_APP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ cart: posShoppingCart.map(item => ({ name: item.name })) }),
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                    });
+                } catch (err) { console.log("Aviso: No se descontó el stock", err); }
+
+                posShoppingCart = [];
+                updatePosCartUI();
+                closePosCart();
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+                
+                this.innerHTML = originalText;
+                this.style.pointerEvents = 'auto';
+            };
+        }
+
+        // ==========================================
+        // CARGA GLOBAL (Sheets e Imágenes)
+        // ==========================================
+
         function getDriveImageUrl(url) {
             if (!url || url.trim() === '') return '';
             const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -876,7 +1257,6 @@
 
         function extractImagesFromProduct(product) {
             let driveImages = [];
-            
             let mainLinkStr = product['LINK'];
             
             if (!mainLinkStr) {
@@ -930,24 +1310,18 @@
                         
                         let defaultTab = 'all';
                         categories.forEach(c => {
-                            if (c.toLowerCase().includes('extractor')) {
-                                defaultTab = c;
-                            }
+                            if (c.toLowerCase().includes('extractor')) { defaultTab = c; }
                         });
                         currentCategoryTab = defaultTab;
 
                         updateCategoryFilter(categories);
+                        updatePosCategoryFilter(categories); // Llenar las categorías del POS
                         filterProducts(); 
                         
                         const loading = document.getElementById('loading');
                         if(loading) loading.style.display = 'none';
                         
-                    } catch (err) {
-                        console.error('Error procesando catálogo:', err);
-                    }
-                },
-                error: function(error) {
-                    console.error('Error al descargar el CSV:', error);
+                    } catch (err) { console.error('Error:', err); }
                 }
             });
         }
@@ -969,7 +1343,6 @@
                 };
                 return btn;
             };
-
             tabsContainer.appendChild(createTab('all', '🌟 Todo'));
             categories.forEach(cat => tabsContainer.appendChild(createTab(cat, cat)));
         }
@@ -982,7 +1355,6 @@
                 const name = String(getProdName(product)).toLowerCase();
                 const desc = String(getProdDesc(product)).toLowerCase();
                 const cat = getProdCat(product);
-
                 const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
                 const matchesCategory = currentCategoryTab === 'all' || cat === currentCategoryTab;
                 return matchesSearch && matchesCategory;
@@ -990,15 +1362,12 @@
 
             if (sortOrder !== 'default') {
                 filtered.sort((a, b) => {
-                    // Calculamos el precio real final para ordenar correctamente
                     const priceA = parsePrice(getProdPrice(a));
                     const descA = getProdDiscount(a);
                     const finalA = priceA - (priceA * (descA/100));
-
                     const priceB = parsePrice(getProdPrice(b));
                     const descB = getProdDiscount(b);
                     const finalB = priceB - (priceB * (descB/100));
-
                     return sortOrder === 'low-high' ? finalA - finalB : finalB - finalA;
                 });
             }
@@ -1012,7 +1381,7 @@
             currentRenderedProducts = products; 
             
             if (products.length === 0) {
-                container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10 text-lg">No se encontraron productos con esa búsqueda o categoría.</p>';
+                container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10 text-lg">No se encontraron productos.</p>';
                 return;
             }
 
