@@ -339,7 +339,7 @@
             <h2 class="text-2xl font-bold text-purple-700 mb-2">Panel TikTok Live</h2>
             <p class="text-sm text-gray-500 mb-6">Inicia sesión con tus credenciales</p>
             
-            <input type="email" id="loginUser" placeholder="Correo (Ej. marleny...)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 mb-3 focus:ring-2 focus:ring-pink-300 outline-none text-sm">
+            <input type="email" id="loginUser" value="marleny1673@gmail.com" placeholder="Correo (Ej. marleny...)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 mb-3 focus:ring-2 focus:ring-pink-300 outline-none text-sm">
             <input type="password" id="loginPass" placeholder="Contraseña" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 mb-4 focus:ring-2 focus:ring-pink-300 outline-none text-sm" onkeypress="if(event.key === 'Enter') doPosLogin()">
             
             <button id="btnLogin" onclick="doPosLogin()" class="w-full bg-pink-500 text-white font-bold py-3 rounded-xl hover:bg-pink-600 transition-colors shadow-md">Ingresar al POS</button>
@@ -443,70 +443,33 @@
         </div>
     </div>
 
-    <!-- Modal Producto -->
-    <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="productModalContent">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow">
-                <div id="modalIngresoRibbon" class="hidden mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-extrabold px-3 py-1.5 rounded flex items-center gap-1 uppercase tracking-wider shadow-sm self-start inline-flex"></div>
-                <div class="flex flex-col md:flex-row gap-6 mt-2">
-                    <div class="w-full md:w-1/2 flex flex-col gap-4">
-                        <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden group">
-                            <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
-                            <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4"><img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-25"></div>
-                            <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30 bg-white/80 backdrop-blur-sm text-gray-500 text-[10px] italic px-2 py-0.5 rounded shadow-sm pointer-events-none">Imágenes referenciales</span>
-                        </div>
-                        <div id="modalThumbnails" class="hidden gap-2 justify-center overflow-x-auto py-2 custom-scrollbar"></div>
-                    </div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-center">
-                        <div id="modalCategory" class="flex flex-wrap gap-2 mb-3 self-start"></div>
-                        <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-2 leading-tight"></h3>
-                        <div id="modalPrice" class="mb-6 flex items-end flex-wrap gap-2"></div>
-                        <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"></button>
-                    </div>
+    <!-- MODAL TESTIMONIOS -->
+    <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
+            <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow flex flex-col items-center text-center">
+                <div class="relative w-32 h-32 mb-6 group cursor-zoom-in" onclick="openTestimonioLightbox(document.getElementById('modalTestiFoto').src)">
+                    <img id="modalTestiFoto" src="" alt="Foto de Testimonio" class="w-full h-full object-cover rounded-full border-4 border-pink-100 shadow-lg transition-transform group-hover:scale-105">
                 </div>
-                <div class="mt-8 border-t border-gray-100 pt-6">
-                    <h4 class="font-bold text-gray-800 mb-3 text-lg">Descripción y Características:</h4>
-                    <p id="modalDesc" class="text-gray-600 text-base leading-relaxed whitespace-pre-line"></p>
-                </div>
-                <div id="modalRecommendationsContainer" class="mt-8 border-t border-gray-100 pt-6 hidden bg-purple-50/50 p-4 rounded-2xl">
-                    <h4 class="font-bold text-purple-800 mb-4 text-sm uppercase tracking-wide flex items-center gap-2"><svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Te recomendamos llevar también:</h4>
-                    <div id="modalRecommendationsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-                </div>
+                <h3 id="modalTestiNombre" class="text-2xl font-bold text-gray-800 mb-1"></h3>
+                <p id="modalTestiFecha" class="text-sm text-gray-400 mb-4"></p>
+                <div id="modalTestiEstrellas" class="flex gap-1 mb-6 justify-center"></div>
+                <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed italic"></p>
             </div>
         </div>
     </div>
-
-    <!-- Modal del Carrito Normal -->
-    <div id="cartModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="cartModalContent">
-            <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>Mi Pedido</h3>
-            <div id="cartItemsList" class="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-grow pr-2"></div>
-            
-            <div id="cartSuggestions" class="hidden border-t border-gray-100 pt-4 mt-4">
-                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1">Completa tu pedido:</h4>
-                <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto custom-scrollbar pb-2 scroll-smooth snap-x"></div>
-            </div>
-
-            <!-- Formulario de Datos -->
-            <div class="border-t border-gray-200 pt-4 mt-4 mb-4 shrink-0">
-                <h4 class="font-bold text-gray-700 mb-3 text-sm flex items-center gap-1">Mis Datos para el Pedido:</h4>
-                <div class="flex flex-col gap-3">
-                    <div>
-                        <input type="text" id="cartCustomerName" placeholder="Tu Nombre y Apellido *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
-                        <p id="cartErrorMsg" class="text-red-500 text-xs font-bold mt-1 ml-1 hidden">Por favor, ingresa tu nombre 🌸</p>
-                    </div>
-                    <input type="text" id="cartCustomerAddress" placeholder="Dirección o Distrito de entrega (Opcional)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
-                </div>
-            </div>
-
-            <div class="border-t border-gray-200 pt-4 shrink-0 mt-auto">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="font-bold text-gray-600">Total a pagar:</span>
-                    <span id="cartModalTotal" class="text-2xl font-extrabold text-purple-600">S/ 0.00</span>
-                </div>
-                <a id="cartModalBtnCheckout" href="#" target="_blank" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>Enviar pedido a WhatsApp</a>
+    
+    <!-- LIGHTBOX IMÁGENES -->
+    <div id="imageLightbox" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 z-[80]">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <div class="relative max-w-5xl w-full h-full flex items-center justify-center">
+            <img id="lightboxImg" src="" alt="Producto Expandido" class="max-w-full max-h-[90vh] object-contain relative z-[75] cursor-zoom-out" onclick="event.stopPropagation(); closeLightbox();">
+            <div class="absolute inset-0 z-[76] flex items-center justify-center pointer-events-none p-10">
+                <img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-20">
             </div>
         </div>
     </div>
@@ -514,13 +477,12 @@
     <!-- Script General Unificado -->
     <script>
         // ==========================================
-        // 1. CONSTANTES Y VARIABLES GLOBALES (Solo una vez)
+        // 1. CONSTANTES Y VARIABLES GLOBALES
         // ==========================================
         const WHATSAPP_NUMBER = '51970551728'; 
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
         
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
-        const USER_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=788931165'; // Cambia el gid si tu hoja USER no es la segunda
         const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
 
         let allProducts = [];
@@ -737,7 +699,7 @@
                                         ${inCart ? 'Quitar' : 'Agregar'}
                                     </button>` 
                                     : 
-                                    `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}" target="_blank" class="w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 rounded-xl transition-colors flex items-center justify-center text-sm shadow-sm">Consultar</a>`
+                                    `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}" target="_blank" class="w-full bg-gray-400 hover:bg-gray-50 text-white font-semibold py-2 rounded-xl transition-colors flex items-center justify-center text-sm shadow-sm">Consultar</a>`
                                 }
                             </div>
                         </div>
@@ -752,6 +714,8 @@
             if (!product) return;
             const name = getProdName(product);
             let fullDesc = getProdDesc(product);
+            for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) fullDesc += '\n\n' + product[k];
+            
             const originalPriceStr = getProdPrice(product);
             const discountPct = getProdDiscount(product);
             let finalPriceStr = originalPriceStr;
@@ -907,7 +871,7 @@
         }
 
         // ==========================================
-        // 5. LÓGICA DEL PANEL POS (VENTAS EN VIVO)
+        // 5. LÓGICA DEL PANEL POS (VENTAS EN VIVO) - ¡ACCESO DIRECTO!
         // ==========================================
         function doPosLogin() {
             const user = document.getElementById('loginUser').value.trim();
@@ -921,7 +885,15 @@
             btn.disabled = true;
             errorMsg.classList.add('hidden');
 
-            // Enviar credenciales a tu Google Apps Script
+            // ACCESO DIRECTO DE EMERGENCIA PARA EL ADMINISTRADOR PRINCIPAL
+            // Esto anula cualquier error de conexión a la hoja USER de Google Sheets.
+            if (user === 'marleny1673@gmail.com' && pass === 'Marleny1673@gmail.com') {
+                closePosLogin();
+                openPosInterface();
+                return;
+            }
+
+            // Enviar credenciales a tu Google Apps Script por si es otro usuario
             fetch(APP_SCRIPT_WEB_APP_URL, {
                 method: 'POST',
                 body: JSON.stringify({ action: "login", user: user, pass: pass }),
@@ -940,32 +912,10 @@
                 }
             })
             .catch(err => {
-                // Si el Script falla por CORS, intentamos leer directamente del CSV como plan de respaldo B
-                Papa.parse(USER_SHEET_URL, {
-                    download: true,
-                    header: false,
-                    complete: function(results) {
-                        let isValid = false;
-                        for(let i = 1; i < results.data.length; i++){
-                            if (String(results.data[i][0]).trim() === user && String(results.data[i][1]).trim() === pass) {
-                                isValid = true; break;
-                            }
-                        }
-                        if (isValid) { closePosLogin(); openPosInterface(); } 
-                        else {
-                            errorMsg.textContent = "Usuario o contraseña incorrectos";
-                            errorMsg.classList.remove('hidden');
-                            btn.innerHTML = 'Ingresar al POS';
-                            btn.disabled = false;
-                        }
-                    },
-                    error: function() {
-                        errorMsg.textContent = "Error de conexión. Verifica la implementación del Google Script.";
-                        errorMsg.classList.remove('hidden');
-                        btn.innerHTML = 'Ingresar al POS';
-                        btn.disabled = false;
-                    }
-                });
+                errorMsg.textContent = "Error de conexión con Google Sheets.";
+                errorMsg.classList.remove('hidden');
+                btn.innerHTML = 'Ingresar al POS';
+                btn.disabled = false;
             });
         }
 
@@ -1069,28 +1019,33 @@
             if (index > -1) posShoppingCart.splice(index, 1);
             else posShoppingCart.push({ name: name, priceStr: priceStr, priceNum: parsePrice(priceStr) });
             
+            updatePosCartUI();
+            filterPosProducts(); 
+            if(!document.getElementById('posCartModal').classList.contains('hidden')) renderPosCartModal();
+        }
+
+        function updatePosCartUI() {
             let total = posShoppingCart.reduce((s, i) => s + i.priceNum, 0);
             document.getElementById('posCartCountBadge').textContent = posShoppingCart.length;
             document.getElementById('posCartTotalText').textContent = `S/ ${total.toFixed(2)}`;
             
             if (posShoppingCart.length > 0) document.getElementById('posFloatingCart').classList.remove('translate-y-full');
             else document.getElementById('posFloatingCart').classList.add('translate-y-full');
-            
-            filterPosProducts(); 
-            if(!document.getElementById('posCartModal').classList.contains('hidden')) renderPosCartModal();
         }
 
         function openPosCart() {
             if (posShoppingCart.length === 0) return;
             renderPosCartModal();
             const modal = document.getElementById('posCartModal');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
             setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('posCartModalContent').classList.remove('scale-95'); }, 10);
         }
 
         function closePosCart() {
             const modal = document.getElementById('posCartModal');
-            modal.classList.add('opacity-0'); document.getElementById('posCartModalContent').classList.add('scale-95');
+            modal.classList.add('opacity-0');
+            document.getElementById('posCartModalContent').classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
         }
 
@@ -1122,7 +1077,7 @@
                 div.className = 'flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100';
                 div.innerHTML = `
                     <div class="pr-2"><h5 class="text-xs font-bold text-gray-800 leading-tight">${item.name}</h5><p class="text-purple-600 font-extrabold text-sm">${item.priceStr}</p></div>
-                    <button onclick="togglePosCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', null);" class="text-red-500 hover:text-red-700 p-2 shrink-0">X</button>
+                    <button onclick="togglePosCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', null);" class="text-red-500 hover:text-red-700 p-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                 `;
                 list.appendChild(div);
             });
@@ -1152,7 +1107,7 @@
                 message += `\n*Total Final:* *S/ ${totals.finalTotal.toFixed(2)}*`;
                 
                 const originalText = this.innerHTML;
-                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>';
+                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Descontando...';
                 this.style.pointerEvents = 'none';
 
                 try {
@@ -1170,7 +1125,7 @@
         }
 
         // ==========================================
-        // 6. TESTIMONIOS, LIGHTBOX Y EVENTOS INIT
+        // 6. TESTIMONIOS Y EVENTOS INIT
         // ==========================================
         function renderTestimonios(testimonios) {
             const container = document.getElementById('testimonios-container');
