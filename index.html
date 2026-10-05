@@ -451,75 +451,6 @@
             </div>
         </div>
     </div>
-    
-    <!-- MODALES (PRODUCTO, CARRITO NORMAL, TESTIMONIO) -->
-    <!-- Modal Producto -->
-    <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="productModalContent">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow">
-                <div id="modalIngresoRibbon" class="hidden mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-extrabold px-3 py-1.5 rounded flex items-center gap-1 uppercase tracking-wider shadow-sm self-start inline-flex"></div>
-                <div class="flex flex-col md:flex-row gap-6 mt-2">
-                    <div class="w-full md:w-1/2 flex flex-col gap-4">
-                        <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden group">
-                            <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
-                            <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4"><img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-25"></div>
-                            <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30 bg-white/80 backdrop-blur-sm text-gray-500 text-[10px] italic px-2 py-0.5 rounded shadow-sm pointer-events-none">Imágenes referenciales</span>
-                        </div>
-                        <div id="modalThumbnails" class="hidden gap-2 justify-center overflow-x-auto py-2 custom-scrollbar"></div>
-                    </div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-center">
-                        <div id="modalCategory" class="flex flex-wrap gap-2 mb-3 self-start"></div>
-                        <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-2 leading-tight"></h3>
-                        <div id="modalPrice" class="mb-6 flex items-end flex-wrap gap-2"></div>
-                        <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"></button>
-                    </div>
-                </div>
-                <div class="mt-8 border-t border-gray-100 pt-6">
-                    <h4 class="font-bold text-gray-800 mb-3 text-lg">Descripción y Características:</h4>
-                    <p id="modalDesc" class="text-gray-600 text-base leading-relaxed whitespace-pre-line"></p>
-                </div>
-                <div id="modalRecommendationsContainer" class="mt-8 border-t border-gray-100 pt-6 hidden bg-purple-50/50 p-4 rounded-2xl">
-                    <h4 class="font-bold text-purple-800 mb-4 text-sm uppercase tracking-wide flex items-center gap-2"><svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Te recomendamos llevar también:</h4>
-                    <div id="modalRecommendationsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal del Carrito Normal -->
-    <div id="cartModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="cartModalContent">
-            <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>Mi Pedido</h3>
-            <div id="cartItemsList" class="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-grow pr-2"></div>
-            
-            <div id="cartSuggestions" class="hidden border-t border-gray-100 pt-4 mt-4">
-                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1">Completa tu pedido:</h4>
-                <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto custom-scrollbar pb-2 scroll-smooth snap-x"></div>
-            </div>
-
-            <!-- Formulario de Datos -->
-            <div class="border-t border-gray-200 pt-4 mt-4 mb-4 shrink-0">
-                <h4 class="font-bold text-gray-700 mb-3 text-sm flex items-center gap-1">Mis Datos para el Pedido:</h4>
-                <div class="flex flex-col gap-3">
-                    <div>
-                        <input type="text" id="cartCustomerName" placeholder="Tu Nombre y Apellido *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
-                        <p id="cartErrorMsg" class="text-red-500 text-xs font-bold mt-1 ml-1 hidden">Por favor, ingresa tu nombre 🌸</p>
-                    </div>
-                    <input type="text" id="cartCustomerAddress" placeholder="Dirección o Distrito de entrega (Opcional)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
-                </div>
-            </div>
-
-            <div class="border-t border-gray-200 pt-4 shrink-0 mt-auto">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="font-bold text-gray-600">Total a pagar:</span>
-                    <span id="cartModalTotal" class="text-2xl font-extrabold text-purple-600">S/ 0.00</span>
-                </div>
-                <a id="cartModalBtnCheckout" href="#" target="_blank" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>Enviar pedido a WhatsApp</a>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal Testimonio -->
     <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
@@ -578,7 +509,7 @@
                 <button onclick="sendQuickReply('pagos')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">💳 Métodos de pago</button>
                 <button onclick="sendQuickReply('ubicacion')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">📍 Ubicación y Horarios</button>
                 <button onclick="sendQuickReply('garantia')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🛡 Garantía</button>
-                <button onclick="sendQuickReply('asesor')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">👩‍⚕️️ Hablar con asesor</button>
+                <button onclick="sendQuickReply('asesor')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">👩‍⚕ Hablar con asesor</button>
             </div>
         </div>
         <div class="p-3 border-t border-gray-100 bg-white flex gap-2">
@@ -589,8 +520,23 @@
 
 
     <script>
-        // ¡OJO! Reemplaza esto con el Link de tu App Script implementado
+        // ¡OJO! Reemplaza esto con el Link de tu App Script ya que lo usaremos SOLO para descontar stock
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
+        
+        // ==========================================
+        // LA SOLUCIÓN DEFINITIVA A LA CARGA Y EL LOGIN:
+        // Usamos la API de visualización de Google (gviz)
+        // ==========================================
+        // Aquí va el ID de tu Google Sheet (Ese código largo en la URL de tu Excel)
+        const GOOGLE_SHEET_ID = '1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg';
+        
+        // URL estable para el Catálogo
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Catalogo`;
+        // URL estable para los Testimonios
+        const SHEET_URL_TESTIMONIOS = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Testimonios`;
+        // URL estable para validar Usuarios
+        const USER_SHEET_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=USER`;
+
 
         // LÓGICA DE USUARIOS NORMALES Y POS LOGIN
         async function doPosLogin() {
@@ -605,29 +551,43 @@
             btn.disabled = true;
             errorMsg.classList.add('hidden');
 
-            try {
-                const response = await fetch(APP_SCRIPT_WEB_APP_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: "login", user: user, pass: pass }),
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                });
-                const result = await response.json();
+            // Leer credenciales directamente mediante GVIZ (No falla nunca si el excel es público)
+            Papa.parse(USER_SHEET_URL, {
+                download: true,
+                header: false,
+                complete: function(results) {
+                    let isValid = false;
+                    
+                    // Empezamos desde i=1 para omitir la fila 1 (los títulos USUARIO y CONTRASEÑA)
+                    for(let i = 1; i < results.data.length; i++){
+                        let row = results.data[i];
+                        if (row && row.length >= 2) {
+                            let u = String(row[0]).trim();
+                            let p = String(row[1]).trim();
+                            if (u === user && p === pass) {
+                                isValid = true;
+                                break;
+                            }
+                        }
+                    }
 
-                if (result.status === "success") {
-                    closePosLogin();
-                    openPosInterface();
-                } else {
-                    errorMsg.textContent = result.message || "Usuario o contraseña incorrectos";
+                    if (isValid) {
+                        closePosLogin();
+                        openPosInterface();
+                    } else {
+                        errorMsg.textContent = "Usuario o contraseña incorrectos";
+                        errorMsg.classList.remove('hidden');
+                        btn.innerHTML = 'Ingresar al POS';
+                        btn.disabled = false;
+                    }
+                },
+                error: function() {
+                    errorMsg.textContent = "Error de lectura. Tu archivo de Google Sheets DEBE ser público (Cualquier persona con el enlace).";
                     errorMsg.classList.remove('hidden');
                     btn.innerHTML = 'Ingresar al POS';
                     btn.disabled = false;
                 }
-            } catch (err) {
-                errorMsg.textContent = "Error de conexión. Asegúrate de implementar la Nueva Versión en Google Script.";
-                errorMsg.classList.remove('hidden');
-                btn.innerHTML = 'Ingresar al POS';
-                btn.disabled = false;
-            }
+            });
         }
 
         function openPosLogin(e) {
@@ -662,7 +622,7 @@
             setTimeout(() => { pos.classList.add('hidden'); pos.classList.remove('flex'); }, 300);
             document.getElementById('btnLogin').innerHTML = 'Ingresar al POS';
             document.getElementById('btnLogin').disabled = false;
-            // Limpiar inputs
+            // Limpiar los inputs
             document.getElementById('loginUser').value = '';
             document.getElementById('loginPass').value = '';
         }
@@ -843,7 +803,7 @@
                         body: JSON.stringify({ cart: posShoppingCart.map(item => ({ name: item.name })) }),
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                     });
-                } catch (err) { console.log("Aviso: No se pudo descontar stock", err); }
+                } catch (err) { console.log("Aviso: No se descontó el stock", err); }
 
                 posShoppingCart = [];
                 updatePosCartUI();
@@ -857,7 +817,7 @@
         }
 
         // ==========================================
-        // SEGURIDAD FRONT-END
+        // SEGURIDAD FRONT-END Y COOKIES
         // ==========================================
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
@@ -869,9 +829,6 @@
             if (e.ctrlKey && e.keyCode == 83) return false;
         };
 
-        // ==========================================
-        // SISTEMA DE COOKIES
-        // ==========================================
         function checkCookieConsent() {
             if (!localStorage.getItem('wawachay_cookie_consent')) {
                 setTimeout(() => {
@@ -890,7 +847,186 @@
         }
 
         // ==========================================
-        // CARGA GLOBAL (Sheets e Imágenes)
+        // FUNCIONES DE CATÁLOGO PRINCIPAL Y CHATBOT
+        // ==========================================
+        
+        let shoppingCart = []; 
+        let currentCategoryTab = 'all';
+
+        function getProdName(p) { return p['Nombre Producto'] || p['Nombre'] || p['Name'] || ''; }
+        function getProdDesc(p) { return p['Características'] || p['Caracteristicas'] || p['Descripción'] || p['Descripcion'] || ''; }
+        function getProdCat(p) { return p['Categoría'] || p['Categoria'] || 'Extractores'; }
+        function getProdPrice(p) { return p['Precio (S/)'] || p['Precio'] || 'S/ 0.00'; }
+        function getProdStatus(p) { return p['Estado'] || 'Disponible'; }
+        function getProdDiscount(p) { return parseFloat(String(p['Descuento (%)'] || p['Descuento'] || '0').replace('%', '')) || 0; }
+        function getProdStock(p) { return p['Stock'] || p['Cantidad'] || '0'; }
+        function parsePrice(priceStr) { const match = (priceStr||'').toString().replace(/s\/\.?\s*/i, '').replace(/,/g, '').match(/\d+(\.\d+)?/); return match ? parseFloat(match[0]) : 0; }
+
+        function generateCartWhatsAppLink() {
+            if(shoppingCart.length === 0) return `https://wa.me/${WHATSAPP_NUMBER}`;
+            const nameInput = document.getElementById('cartCustomerName').value.trim();
+            const addressInput = document.getElementById('cartCustomerAddress').value.trim();
+            let message = `¡Hola Wawachay! 🌸 Soy *${nameInput || 'un cliente'}* y deseo pedir:\n\n`;
+            let total = 0;
+            shoppingCart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}* (${item.priceStr})\n`;
+                total += item.priceNum;
+            });
+            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n`;
+            if (addressInput) message += `*Dirección/Distrito:* ${addressInput}\n`;
+            message += `\n¿Me indican cómo procedemos con el pago?`;
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        }
+
+        function toggleCart(productName, priceStr, event) {
+            if(event) event.stopPropagation(); 
+            const index = shoppingCart.findIndex(item => item.name === productName);
+            if (index > -1) shoppingCart.splice(index, 1);
+            else shoppingCart.push({ name: productName, priceStr: priceStr, priceNum: parsePrice(priceStr) });
+            updateCartUI();
+            renderProducts(currentRenderedProducts);
+            
+            const modal = document.getElementById('productModal');
+            if(!modal.classList.contains('hidden')){
+                const btn = document.getElementById('modalBtnCart');
+                if (btn) {
+                    const inCart = shoppingCart.some(item => item.name === productName);
+                    if(inCart){
+                        btn.innerHTML = 'Quitar de mi selección';
+                        btn.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
+                    } else {
+                        btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
+                        btn.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200";
+                    }
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const cartBar = document.getElementById('floatingCart');
+            if (shoppingCart.length > 0) {
+                cartBar.classList.remove('translate-y-full');
+                document.getElementById('cartCountBadge').textContent = shoppingCart.length;
+                let total = shoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
+                document.getElementById('cartTotalText').textContent = `S/ ${total.toFixed(2)}`;
+            } else {
+                cartBar.classList.add('translate-y-full');
+                if(!document.getElementById('cartModal').classList.contains('hidden')) closeCart();
+            }
+        }
+
+        function openCart() {
+            if (shoppingCart.length === 0) return;
+            renderCartModal();
+            const modal = document.getElementById('cartModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('cartModalContent').classList.remove('scale-95'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.add('opacity-0');
+            document.getElementById('cartModalContent').classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
+        }
+
+        function renderCartModal() {
+            const list = document.getElementById('cartItemsList');
+            const totalText = document.getElementById('cartModalTotal');
+            const btnCheckout = document.getElementById('cartModalBtnCheckout');
+            const suggestionsContainer = document.getElementById('cartSuggestions');
+            const suggestionsList = document.getElementById('cartSuggestionsList');
+            const errorMsg = document.getElementById('cartErrorMsg');
+
+            list.innerHTML = '';
+            errorMsg.classList.add('hidden');
+            let total = 0;
+            let hasExtractores = false;
+
+            shoppingCart.forEach(item => {
+                total += item.priceNum;
+                const product = allProducts.find(p => getProdName(p) === item.name);
+                let imgUrl = 'https://placehold.co/100x100/fce7f3/db2777?text=W';
+                if (product) {
+                    imgUrl = extractImagesFromProduct(product)[0];
+                    if(getProdCat(product).toLowerCase().includes('extractor') || getProdCat(product).toLowerCase().includes('eléctrico') || getProdCat(product).toLowerCase().includes('manual')) hasExtractores = true;
+                }
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-4 bg-gray-50 p-3 rounded-2xl border border-gray-100';
+                div.innerHTML = `
+                    <img src="${imgUrl}" alt="${item.name}" class="w-16 h-16 object-contain bg-white rounded-xl p-1 border border-gray-200 shrink-0">
+                    <div class="flex-grow"><h5 class="text-sm font-bold text-gray-800 line-clamp-2 leading-tight">${item.name}</h5><p class="text-purple-600 font-extrabold mt-1">${item.priceStr}</p></div>
+                    <button onclick="toggleCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', event); renderCartModal();" class="w-8 h-8 rounded-full bg-red-100 text-red-500 hover:bg-red-200 flex items-center justify-center shrink-0 transition-colors" title="Quitar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                `;
+                list.appendChild(div);
+            });
+
+            let recommendations = allProducts.filter(p => {
+                const isAvailable = getProdStatus(p).toLowerCase() === 'disponible';
+                const inCart = shoppingCart.some(item => item.name === getProdName(p));
+                if (hasExtractores) return isAvailable && !inCart && !getProdCat(p).toLowerCase().includes('extractor') && !getProdCat(p).toLowerCase().includes('eléctrico') && !getProdCat(p).toLowerCase().includes('manual');
+                else return isAvailable && !inCart;
+            });
+            recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+            if (recommendations.length > 0) {
+                suggestionsContainer.classList.remove('hidden');
+                suggestionsList.innerHTML = '';
+                recommendations.forEach(rec => {
+                    const recName = getProdName(rec);
+                    const recOriginalPriceStr = getProdPrice(rec);
+                    const recDiscount = getProdDiscount(rec);
+                    let recFinalPriceStr = recOriginalPriceStr;
+                    let recPriceHTML = `<p class="text-xs font-extrabold text-pink-500">${recFinalPriceStr}</p>`;
+                    if (recDiscount > 0) {
+                        recFinalPriceStr = "S/ " + (parsePrice(recOriginalPriceStr) - (parsePrice(recOriginalPriceStr) * (recDiscount / 100))).toFixed(2);
+                        recPriceHTML = `<div class="mt-0.5 flex items-center gap-1"><span class="text-xs font-extrabold text-pink-500">${recFinalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${recOriginalPriceStr}</span></div>`;
+                    }
+                    const recCard = document.createElement('div');
+                    recCard.className = 'flex flex-col min-w-[140px] max-w-[140px] bg-white p-3 rounded-xl border border-pink-100 shadow-sm relative shrink-0 snap-start';
+                    recCard.innerHTML = `
+                        <img src="${extractImagesFromProduct(rec)[0]}" class="w-full h-20 object-contain mb-2 rounded-lg bg-gray-50 p-1">
+                        <h6 class="text-[10px] font-bold text-gray-700 line-clamp-2 leading-tight flex-grow mb-1">${recName}</h6>
+                        ${recPriceHTML}
+                        <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recFinalPriceStr}', event); renderCartModal();" class="absolute top-2 right-2 bg-pink-100 text-pink-600 hover:bg-pink-200 w-7 h-7 rounded-full flex items-center justify-center transition-colors shadow-sm" title="Agregar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button>
+                    `;
+                    suggestionsList.appendChild(recCard);
+                });
+            } else suggestionsContainer.classList.add('hidden');
+
+            totalText.textContent = `S/ ${total.toFixed(2)}`;
+            
+            btnCheckout.onclick = async function(e) {
+                e.preventDefault(); 
+                if (!document.getElementById('cartCustomerName').value.trim()) {
+                    errorMsg.classList.remove('hidden'); document.getElementById('cartCustomerName').focus(); return false;
+                }
+                errorMsg.classList.add('hidden');
+
+                const originalText = this.innerHTML;
+                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Procesando...';
+                this.style.pointerEvents = 'none';
+
+                try {
+                    await fetch(APP_SCRIPT_WEB_APP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ cart: shoppingCart.map(item => ({ name: item.name })) }),
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                    });
+                } catch (error) { console.log("Aviso: No se descontó el stock", error); }
+
+                this.innerHTML = originalText;
+                this.style.pointerEvents = 'auto';
+                const wsLink = generateCartWhatsAppLink();
+                shoppingCart = []; updateCartUI(); closeCart();
+                window.open(wsLink, '_blank');
+            };
+        }
+
+        // ==========================================
+        // Carga Principal de Catálogo vía GVIZ
         // ==========================================
         function getDriveImageUrl(url) {
             if (!url || url.trim() === '') return '';
@@ -902,27 +1038,15 @@
         function extractImagesFromProduct(product) {
             let driveImages = [];
             let mainLinkStr = product['LINK'];
-            
             if (!mainLinkStr) {
-                for (let key in product) {
-                    const k = key.toLowerCase();
-                    if (k === 'link' || k.includes('imagen') || k.includes('image') || k.includes('foto') || k.includes('drive')) {
-                        const val = product[key];
-                        if (val && typeof val === 'string' && val.trim() !== '') {
-                            mainLinkStr = (mainLinkStr ? mainLinkStr + ',' : '') + val;
-                        }
-                    }
-                }
+                for (let key in product) if (key.toLowerCase().includes('link') || key.toLowerCase().includes('imagen') || key.toLowerCase().includes('foto')) { mainLinkStr = product[key]; break; }
             }
-
-            if (mainLinkStr && typeof mainLinkStr === 'string' && mainLinkStr.trim() !== '') {
-                const links = mainLinkStr.split(/[\n,]+/).map(s => s.trim()).filter(s => s.startsWith('http'));
-                links.forEach(link => {
+            if (mainLinkStr && typeof mainLinkStr === 'string') {
+                mainLinkStr.split(/[\n,]+/).map(s => s.trim()).filter(s => s.startsWith('http')).forEach(link => {
                     const imgUrl = getDriveImageUrl(link) || link;
                     if(imgUrl) driveImages.push(imgUrl);
                 });
             }
-            
             if (driveImages.length === 0) driveImages.push('https://placehold.co/400x400/fce7f3/db2777?text=Wawachay');
             return [...new Set(driveImages)].slice(0, 4);
         }
@@ -941,21 +1065,13 @@
                             let cleanRow = {};
                             for (let key in row) cleanRow[key.trim()] = row[key];
                             return cleanRow;
-                        }).filter(row => {
-                            const name = getProdName(row);
-                            return name.trim() !== '';
-                        });
+                        }).filter(row => getProdName(row).trim() !== '');
                         
                         const categories = new Set();
-                        allProducts.forEach(p => {
-                            let cat = getProdCat(p);
-                            if (cat && cat !== '') categories.add(cat);
-                        });
+                        allProducts.forEach(p => { if (getProdCat(p)) categories.add(getProdCat(p)); });
                         
                         let defaultTab = 'all';
-                        categories.forEach(c => {
-                            if (c.toLowerCase().includes('extractor')) { defaultTab = c; }
-                        });
+                        categories.forEach(c => { if (c.toLowerCase().includes('extractor')) defaultTab = c; });
                         currentCategoryTab = defaultTab;
 
                         updateCategoryFilter(categories);
@@ -966,6 +1082,10 @@
                         if(loading) loading.style.display = 'none';
                         
                     } catch (err) { console.error('Error:', err); }
+                },
+                error: function(err) {
+                    console.error("Error al cargar Google Sheets. Verifica que sea público.", err);
+                    document.getElementById('loading').innerHTML = '<p class="text-red-500 font-bold">Error al conectar con la base de datos. Verifica que el archivo de Google Sheets sea "Cualquier persona con el enlace".</p>';
                 }
             });
         }
@@ -974,17 +1094,12 @@
             const tabsContainer = document.getElementById('categoryTabs');
             if (!tabsContainer) return;
             tabsContainer.innerHTML = '';
-            
             const createTab = (catName, label) => {
                 const btn = document.createElement('button');
                 btn.textContent = label;
                 const isActive = currentCategoryTab === catName;
                 btn.className = `whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${isActive ? 'bg-pink-500 text-white border-pink-500 shadow-md transform scale-105' : 'bg-white text-gray-600 border-gray-200 hover:bg-pink-50 hover:border-pink-300'}`;
-                btn.onclick = () => {
-                    currentCategoryTab = catName;
-                    updateCategoryFilter(categories); 
-                    filterProducts();
-                };
+                btn.onclick = () => { currentCategoryTab = catName; updateCategoryFilter(categories); filterProducts(); };
                 return btn;
             };
             tabsContainer.appendChild(createTab('all', '🌟 Todo'));
@@ -996,22 +1111,15 @@
             const sortOrder = document.getElementById('sortOrder').value;
 
             let filtered = allProducts.filter(product => {
-                const name = String(getProdName(product)).toLowerCase();
-                const desc = String(getProdDesc(product)).toLowerCase();
-                const cat = getProdCat(product);
-                const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
-                const matchesCategory = currentCategoryTab === 'all' || cat === currentCategoryTab;
-                return matchesSearch && matchesCategory;
+                const matchSearch = getProdName(product).toLowerCase().includes(searchTerm) || getProdDesc(product).toLowerCase().includes(searchTerm);
+                const matchCat = currentCategoryTab === 'all' || getProdCat(product) === currentCategoryTab;
+                return matchSearch && matchCat;
             });
 
             if (sortOrder !== 'default') {
                 filtered.sort((a, b) => {
-                    const priceA = parsePrice(getProdPrice(a));
-                    const descA = getProdDiscount(a);
-                    const finalA = priceA - (priceA * (descA/100));
-                    const priceB = parsePrice(getProdPrice(b));
-                    const descB = getProdDiscount(b);
-                    const finalB = priceB - (priceB * (descB/100));
+                    const finalA = parsePrice(getProdPrice(a)) * (1 - (getProdDiscount(a)/100));
+                    const finalB = parsePrice(getProdPrice(b)) * (1 - (getProdDiscount(b)/100));
                     return sortOrder === 'low-high' ? finalA - finalB : finalB - finalA;
                 });
             }
@@ -1039,14 +1147,12 @@
                 const originalPriceNum = parsePrice(originalPriceStr);
                 const discountPct = getProdDiscount(product);
                 
-                let finalPriceNum = originalPriceNum;
                 let finalPriceStr = originalPriceStr;
                 let priceHTML = `<p class="text-2xl font-extrabold text-purple-700 mb-4">${originalPriceStr}</p>`;
                 let discountBadgeHTML = '';
 
                 if (discountPct > 0) {
-                    finalPriceNum = originalPriceNum - (originalPriceNum * (discountPct / 100));
-                    finalPriceStr = "S/ " + finalPriceNum.toFixed(2);
+                    finalPriceStr = "S/ " + (originalPriceNum - (originalPriceNum * (discountPct / 100))).toFixed(2);
                     priceHTML = `
                         <div class="mb-4 flex items-end gap-2">
                             <span class="text-2xl font-extrabold text-purple-700">${finalPriceStr}</span>
@@ -1062,47 +1168,29 @@
 
                 let tipoIngresoHTML = '';
                 if (tipoIngreso !== "") {
-                    tipoIngresoHTML = `<div class="absolute top-0 left-0 right-0 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-[11px] font-extrabold px-2 py-1.5 text-center flex items-center justify-center gap-1 uppercase tracking-wider z-30 shadow-sm">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        ${tipoIngreso}
-                    </div>`;
+                    tipoIngresoHTML = `<div class="absolute top-0 left-0 right-0 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-[11px] font-extrabold px-2 py-1.5 text-center flex items-center justify-center gap-1 uppercase tracking-wider z-30 shadow-sm"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>${tipoIngreso}</div>`;
                 }
 
-                if (discountPct > 0) {
-                    let discountClass = tipoIngreso !== "" ? "top-10 right-3" : "top-3 right-3";
-                    discountBadgeHTML = `<span class="absolute ${discountClass} z-30 bg-pink-500 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg shadow-md animate-pulse">-${discountPct}%</span>`;
-                }
+                if (discountPct > 0) discountBadgeHTML = `<span class="absolute ${tipoIngreso !== "" ? "top-10" : "top-3"} right-3 z-30 bg-pink-500 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg shadow-md animate-pulse">-${discountPct}%</span>`;
 
                 let stockBadgeHTML = '';
-                if (estado.toLowerCase() === 'agotado') {
-                    stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Agotado</span>`;
-                } else if (estado.toLowerCase() === 'disponible') {
-                    stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>`;
-                } else {
-                    stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 shadow-sm">${estado}</span>`;
-                }
-
-                const desc = getProdDesc(product);
-                const formattedDesc = String(desc || '').replace(/\n/g, '<br>');
-                const category = getProdCat(product);
+                if (estado.toLowerCase() === 'agotado') stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm">Agotado</span>`;
+                else if (estado.toLowerCase() === 'disponible') stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm">Disponible</span>`;
+                else stockBadgeHTML = `<span class="absolute bottom-3 left-3 z-30 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 shadow-sm">${estado}</span>`;
 
                 const card = document.createElement('div');
                 card.className = `bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border flex flex-col h-full ${inCart ? 'border-purple-400 ring-2 ring-purple-100' : 'border-pink-50'}`;
-                
                 card.innerHTML = `
                     <div class="relative aspect-square w-full bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50 pt-6" onclick="showDetails(${index})">
-                        ${tipoIngresoHTML}
-                        ${discountBadgeHTML}
+                        ${tipoIngresoHTML}${discountBadgeHTML}
                         <img src="${driveImages[0]}" alt="${name}" loading="lazy" class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10" onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
-                        <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6">
-                            <img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25">
-                        </div>
+                        <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6"><img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25"></div>
                         ${stockBadgeHTML}
-                        <span class="absolute bottom-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase">${category}</span>
+                        <span class="absolute bottom-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase">${getProdCat(product)}</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight uppercase">${name}</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">${formattedDesc}</p>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">${String(getProdDesc(product) || '').replace(/\n/g, '<br>')}</p>
                         <div class="mt-auto">
                             ${priceHTML}
                             <div class="grid grid-cols-2 gap-2">
@@ -1127,20 +1215,17 @@
             if (!product) return;
             
             const name = getProdName(product);
-            const desc = getProdDesc(product);
-            
-            let longDesc = product['Descripción Larga / Beneficios (Optional)'] || '';
-            if (!longDesc) for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) longDesc = product[k];
+            let fullDesc = getProdDesc(product);
+            for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) fullDesc += '\n\n' + product[k];
             
             const originalPriceStr = getProdPrice(product);
-            const originalPriceNum = parsePrice(originalPriceStr);
             const discountPct = getProdDiscount(product);
-            
-            let finalPriceNum = originalPriceNum;
             let finalPriceStr = originalPriceStr;
 
             const driveImages = extractImagesFromProduct(product);
             const category = getProdCat(product);
+            const estado = getProdStatus(product);
+            const isAvailable = estado.toLowerCase() === 'disponible';
             
             let tipoIngreso = '';
             for (let k in product) if (k.toLowerCase().includes('ingreso')) tipoIngreso = String(product[k] || '').trim();
@@ -1149,22 +1234,13 @@
             if (tipoIngreso !== "") {
                 modalRibbon.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> ${tipoIngreso}`;
                 modalRibbon.classList.remove('hidden');
-            } else {
-                modalRibbon.classList.add('hidden');
-            }
-            
-            let fullDesc = desc;
-            if (longDesc && longDesc.trim() !== '') fullDesc += '\n\n' + longDesc;
-            
-            const estado = getProdStatus(product);
-            const isAvailable = estado.toLowerCase() === 'disponible';
+            } else modalRibbon.classList.add('hidden');
 
             document.getElementById('modalTitle').textContent = name;
             
             const modalPriceEl = document.getElementById('modalPrice');
             if (discountPct > 0) {
-                finalPriceNum = originalPriceNum - (originalPriceNum * (discountPct / 100));
-                finalPriceStr = "S/ " + finalPriceNum.toFixed(2);
+                finalPriceStr = "S/ " + (parsePrice(originalPriceStr) - (parsePrice(originalPriceStr) * (discountPct / 100))).toFixed(2);
                 modalPriceEl.innerHTML = `
                     <span class="text-3xl font-extrabold text-purple-600">${finalPriceStr}</span>
                     <span class="text-lg text-gray-400 line-through ml-2 font-normal">${originalPriceStr}</span>
@@ -1179,10 +1255,7 @@
             else if (estado.toLowerCase() === 'disponible') modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
             else modalStockBadge = `<span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">${estado}</span>`;
             
-            const modalCatEl = document.getElementById('modalCategory');
-            modalCatEl.className = "flex flex-wrap gap-2 mb-3 self-start";
-            modalCatEl.innerHTML = `<span class="bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full border border-pink-200">${category}</span>${modalStockBadge}`;
-            
+            document.getElementById('modalCategory').innerHTML = `<span class="bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full border border-pink-200">${category}</span>${modalStockBadge}`;
             document.getElementById('modalDesc').innerHTML = fullDesc.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>'); 
             
             const mainImg = document.getElementById('modalImg');
@@ -1192,12 +1265,7 @@
             const recList = document.getElementById('modalRecommendationsList');
             
             if (category.toLowerCase().includes('extractor') || category.toLowerCase().includes('eléctrico') || category.toLowerCase().includes('manual')) {
-                let recommendations = allProducts.filter(p => {
-                    let pCat = getProdCat(p);
-                    const pIsAvailable = getProdStatus(p).toLowerCase() === 'disponible';
-                    return pCat && !pCat.toLowerCase().includes('extractor') && !pCat.toLowerCase().includes('eléctrico') && pIsAvailable;
-                });
-                recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 2);
+                let recommendations = allProducts.filter(p => getProdCat(p) && !getProdCat(p).toLowerCase().includes('extractor') && !getProdCat(p).toLowerCase().includes('eléctrico') && getProdStatus(p).toLowerCase() === 'disponible').sort(() => 0.5 - Math.random()).slice(0, 2);
                 
                 if (recommendations.length > 0) {
                     recContainer.classList.remove('hidden');
@@ -1205,40 +1273,28 @@
                     recommendations.forEach(rec => {
                         const recName = getProdName(rec);
                         const recOriginalPriceStr = getProdPrice(rec);
-                        const recOriginalPriceNum = parsePrice(recOriginalPriceStr);
                         const recDiscount = getProdDiscount(rec);
-                        
                         let recFinalPriceStr = recOriginalPriceStr;
                         let recPriceHTML = `<p class="text-sm font-extrabold text-pink-500 mt-1">${recOriginalPriceStr}</p>`;
 
                         if (recDiscount > 0) {
-                            const finalP = recOriginalPriceNum - (recOriginalPriceNum * (recDiscount / 100));
-                            recFinalPriceStr = "S/ " + finalP.toFixed(2);
-                            recPriceHTML = `
-                                <div class="mt-1 flex items-center gap-1">
-                                    <span class="text-sm font-extrabold text-pink-500">${recFinalPriceStr}</span>
-                                    <span class="text-[10px] text-gray-400 line-through">${recOriginalPriceStr}</span>
-                                </div>
-                            `;
+                            recFinalPriceStr = "S/ " + (parsePrice(recOriginalPriceStr) - (parsePrice(recOriginalPriceStr) * (recDiscount / 100))).toFixed(2);
+                            recPriceHTML = `<div class="mt-1 flex items-center gap-1"><span class="text-sm font-extrabold text-pink-500">${recFinalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${recOriginalPriceStr}</span></div>`;
                         }
 
-                        const recImgs = extractImagesFromProduct(rec);
-                        const recInCart = shoppingCart.some(item => item.name === recName);
                         const recCard = document.createElement('div');
                         recCard.className = 'flex items-center justify-between gap-3 bg-white p-3 rounded-xl shadow-sm border border-pink-100';
                         recCard.innerHTML = `
                             <div class="flex items-center gap-3">
-                                <img src="${recImgs[0]}" alt="${recName}" class="w-14 h-14 object-contain bg-gray-50 rounded-lg border border-gray-100 p-1">
+                                <img src="${extractImagesFromProduct(rec)[0]}" alt="${recName}" class="w-14 h-14 object-contain bg-gray-50 rounded-lg border border-gray-100 p-1">
                                 <div><h5 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${recName}</h5>${recPriceHTML}</div>
                             </div>
-                            <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recFinalPriceStr}', event); this.classList.toggle('bg-pink-100'); this.classList.toggle('bg-red-100'); this.classList.toggle('text-pink-600'); this.classList.toggle('text-red-600');" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 shadow-sm ${recInCart ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600 hover:bg-pink-200'}" title="Añadir a mi selección">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            </button>
+                            <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recFinalPriceStr}', event); this.classList.toggle('bg-pink-100'); this.classList.toggle('bg-red-100'); this.classList.toggle('text-pink-600'); this.classList.toggle('text-red-600');" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 shadow-sm ${shoppingCart.some(item => item.name === recName) ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600 hover:bg-pink-200'}"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button>
                         `;
                         recList.appendChild(recCard);
                     });
-                } else { recContainer.classList.add('hidden'); }
-            } else { recContainer.classList.add('hidden'); }
+                } else recContainer.classList.add('hidden');
+            } else recContainer.classList.add('hidden');
 
             const thumbnailsContainer = document.getElementById('modalThumbnails');
             thumbnailsContainer.innerHTML = ''; 
@@ -1264,11 +1320,9 @@
             }
 
             const modalBtnCart = document.getElementById('modalBtnCart');
-            const inCart = shoppingCart.some(item => item.name === name);
-            
             if (isAvailable) {
                 modalBtnCart.onclick = (e) => { e.preventDefault(); toggleCart(name, finalPriceStr, null); };
-                if (inCart) {
+                if (shoppingCart.some(item => item.name === name)) {
                     modalBtnCart.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
                     modalBtnCart.innerHTML = 'Quitar de mi selección';
                 } else {
@@ -1284,37 +1338,31 @@
             }
             
             const modal = document.getElementById('productModal');
-            const content = document.getElementById('productModalContent');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('productModalContent').classList.remove('scale-95'); }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('productModal');
-            const content = document.getElementById('productModalContent');
             modal.classList.add('opacity-0');
-            content.classList.add('scale-95');
+            document.getElementById('productModalContent').classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
         }
         document.getElementById('productModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
         function fetchTestimoniosData() {
             Papa.parse(SHEET_URL_TESTIMONIOS, {
-                download: true,
-                header: true,
-                skipEmptyLines: true,
+                download: true, header: true, skipEmptyLines: true,
                 complete: function(results) {
                     try {
                         const data = results.data.filter(row => row['Nombre'] && row['Nombre'].trim() !== '');
                         if(data.length > 0) { renderTestimonios(data); } 
                         else { loadDemoTestimonios(); }
-                    } catch (err) {
-                        loadDemoTestimonios();
-                    }
+                    } catch (err) { loadDemoTestimonios(); }
                 },
-                error: function(error) { loadDemoTestimonios(); }
+                error: function() { loadDemoTestimonios(); }
             });
         }
 
@@ -1326,8 +1374,7 @@
             
             testimonios.forEach((testi, index) => {
                 const nombre = testi['Nombre'] || 'Mami Feliz';
-                let comentario = testi['Comentario'] || '';
-                comentario = comentario.replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
+                let comentario = (testi['Comentario'] || '').replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
                 const estrellas = parseInt(testi['Calificación']) || 5;
                 const fecha = testi['Fecha'] || '';
                 
@@ -1335,8 +1382,7 @@
                 for (let k in testi) if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
 
                 let estrellasHTML = '';
-                const maxStars = Math.min(Math.max(estrellas, 1), 5);
-                for(let i = 0; i < maxStars; i++) estrellasHTML += `<svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+                for(let i = 0; i < Math.min(Math.max(estrellas, 1), 5); i++) estrellasHTML += `<svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
 
                 const card = document.createElement('div');
                 card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-pink-50 hover:shadow-xl transition-all duration-300 relative group flex flex-col h-full cursor-pointer hover:-translate-y-1';
@@ -1365,41 +1411,36 @@
             const testi = allTestimonios[index];
             if (!testi) return;
             const nombre = testi['Nombre'] || 'Mami Feliz';
-            let comentario = (testi['Comentario'] || '').replace(/^""|""$/g, '"').replace(/^"|"$/g, '');
             let fotoUrl = 'https://api.dicebear.com/7.x/notionists/svg?seed=' + encodeURIComponent(nombre) + '&backgroundColor=fce7f3'; 
             for (let k in testi) if (k.toLowerCase().includes('foto') && testi[k].trim() !== '') fotoUrl = getDriveImageUrl(testi[k]) || testi[k];
 
             document.getElementById('modalTestiNombre').textContent = nombre;
             document.getElementById('modalTestiFecha').textContent = testi['Fecha'] || '';
-            document.getElementById('modalTestiComentario').textContent = `"${comentario}"`;
+            document.getElementById('modalTestiComentario').textContent = `"${(testi['Comentario'] || '').replace(/^""|""$/g, '"').replace(/^"|"$/g, '')}"`;
             document.getElementById('modalTestiFoto').src = fotoUrl;
 
             let estrellasHTML = '';
-            for(let i = 0; i < Math.min(Math.max(parseInt(testi['Calificación']) || 5, 1), 5); i++) {
-                estrellasHTML += `<svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
-            }
+            for(let i = 0; i < Math.min(Math.max(parseInt(testi['Calificación']) || 5, 1), 5); i++) estrellasHTML += `<svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
             document.getElementById('modalTestiEstrellas').innerHTML = estrellasHTML;
 
             const modal = document.getElementById('testimonioModal');
-            const content = document.getElementById('testimonioModalContent');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('testimonioModalContent').classList.remove('scale-95'); }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function closeTestimonioModal() {
             const modal = document.getElementById('testimonioModal');
-            const content = document.getElementById('testimonioModalContent');
             modal.classList.add('opacity-0');
-            content.classList.add('scale-95');
+            document.getElementById('testimonioModalContent').classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
         }
         document.getElementById('testimonioModal').addEventListener('click', function(e) { if (e.target === this) closeTestimonioModal(); });
 
         function openLightbox() {
-            const lightbox = document.getElementById('imageLightbox');
             document.getElementById('lightboxImg').src = document.getElementById('modalImg').src;
+            const lightbox = document.getElementById('imageLightbox');
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
             setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
@@ -1410,14 +1451,16 @@
             setTimeout(() => { lightbox.classList.add('hidden'); lightbox.classList.remove('flex'); }, 300);
         }
         function openTestimonioLightbox(fotoUrl) {
-            const lightbox = document.getElementById('imageLightbox');
             document.getElementById('lightboxImg').src = fotoUrl;
+            const lightbox = document.getElementById('imageLightbox');
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
             setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
 
-        // --- CHATBOT LÓGICA (Mejorada para lectura de Catálogo) ---
+        // ==========================================
+        // CHATBOT LÓGICA
+        // ==========================================
         let chatOpen = false;
         const chatWindow = document.getElementById('chatbot-window');
         const chatMessages = document.getElementById('chatbot-messages');
@@ -1444,16 +1487,10 @@
             if (chatOpen) {
                 chatWindow.classList.remove('hidden'); 
                 chatWindow.classList.add('flex');
-                setTimeout(() => { 
-                    chatWindow.classList.remove('opacity-0', 'translate-y-4'); 
-                    chatInput.focus(); 
-                }, 10);
+                setTimeout(() => { chatWindow.classList.remove('opacity-0', 'translate-y-4'); chatInput.focus(); }, 10);
             } else {
                 chatWindow.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => { 
-                    chatWindow.classList.add('hidden'); 
-                    chatWindow.classList.remove('flex'); 
-                }, 300);
+                setTimeout(() => { chatWindow.classList.add('hidden'); chatWindow.classList.remove('flex'); }, 300);
             }
         }
 
@@ -1502,9 +1539,7 @@
             setTimeout(() => {
                 removeTypingIndicator(typingId);
                 const lText = text.toLowerCase();
-                
                 const words = lText.split(/[\s,.-]+/).filter(w => w.length > 2 && !['con', 'los', 'las', 'para', 'del', 'que', 'quiero', 'busco', 'tienen', 'precio', 'cuesta'].includes(w));
-                
                 let bestMatch = null;
                 let highestScore = 0;
 
@@ -1512,19 +1547,13 @@
                     const name = String(getProdName(p)).toLowerCase();
                     const cat = String(getProdCat(p)).toLowerCase();
                     let score = 0;
-                    
                     if (lText.includes(name)) score += 10;
-                    
                     words.forEach(w => {
                         if (name.includes(w)) score += 2;
                         if (cat.includes(w)) score += 1;
                         if (/\d/.test(w) && name.includes(w)) score += 5; 
                     });
-
-                    if (score > highestScore) {
-                        highestScore = score;
-                        bestMatch = p;
-                    }
+                    if (score > highestScore) { highestScore = score; bestMatch = p; }
                 });
 
                 if (bestMatch && highestScore > 1) {
@@ -1532,8 +1561,7 @@
                     const originalPriceStr = getProdPrice(bestMatch);
                     const originalPriceNum = parsePrice(originalPriceStr);
                     const discountPct = getProdDiscount(bestMatch);
-                    const estado = getProdStatus(bestMatch);
-                    const isAvailable = estado.toLowerCase() === 'disponible';
+                    const isAvailable = getProdStatus(bestMatch).toLowerCase() === 'disponible';
                     const safeName = name.replace(/'/g, "\\'");
                     const desc = getProdDesc(bestMatch);
                     const shortDesc = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
@@ -1542,8 +1570,7 @@
                     let priceText = `*${originalPriceStr}*`;
 
                     if (discountPct > 0) {
-                        const finalP = originalPriceNum - (originalPriceNum * (discountPct / 100));
-                        finalPriceStr = "S/ " + finalP.toFixed(2);
+                        finalPriceStr = "S/ " + (originalPriceNum - (originalPriceNum * (discountPct / 100))).toFixed(2);
                         priceText = `~${originalPriceStr}~ *${finalPriceStr}* (¡con ${discountPct}% de dscto!)`;
                     }
 
@@ -1560,26 +1587,16 @@
                         let fallbackMsg = `Uy, mami 😔. El *${name}* se encuentra temporalmente agotado.<br><br>¿Deseas que te avisemos apenas llegue?<br><a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, por favor avísenme cuando tengan stock de: ' + name)}" target="_blank" class="block text-center bg-green-500 text-white font-bold py-2 rounded-xl mt-2 mb-3 hover:bg-green-600 shadow-sm text-xs">🔔 Avisarme por WhatsApp</a>`;
                         
                         let category = getProdCat(bestMatch);
-                        const recs = allProducts.filter(p => {
-                            let pCat = getProdCat(p);
-                            const pIsAvailable = getProdStatus(p).toLowerCase() === 'disponible';
-                            const pName = getProdName(p);
-                            return pIsAvailable && pCat === category && pName !== name;
-                        }).sort(() => 0.5 - Math.random());
+                        const recs = allProducts.filter(p => getProdStatus(p).toLowerCase() === 'disponible' && getProdCat(p) === category && getProdName(p) !== name).sort(() => 0.5 - Math.random());
 
                         if (recs.length > 0) {
                             const recName = getProdName(recs[0]);
-                            
                             const recOriginalPriceStr = getProdPrice(recs[0]);
-                            const recOriginalPriceNum = parsePrice(recOriginalPriceStr);
                             const recDiscount = getProdDiscount(recs[0]);
-                            
                             let recFinalPriceStr = recOriginalPriceStr;
                             if (recDiscount > 0) {
-                                const finalP = recOriginalPriceNum - (recOriginalPriceNum * (recDiscount / 100));
-                                recFinalPriceStr = "S/ " + finalP.toFixed(2);
+                                recFinalPriceStr = "S/ " + (parsePrice(recOriginalPriceStr) - (parsePrice(recOriginalPriceStr) * (recDiscount / 100))).toFixed(2);
                             }
-
                             const safeRecName = recName.replace(/'/g, "\\'");
                             fallbackMsg += `<div class="border-t border-pink-200 pt-3 mt-2">
                                 <span class="text-[10px] font-bold text-purple-600 uppercase">✨ Alternativa Disponible:</span>
@@ -1621,8 +1638,6 @@
                 const tooltip = document.getElementById('chatbot-tooltip');
                 if (tooltip && !chatOpen) tooltip.style.opacity = '0';
             }, 15000);
-
-            // Iniciar comprobación de cookies
             checkCookieConsent();
         });
     </script>
