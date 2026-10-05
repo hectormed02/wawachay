@@ -10,7 +10,7 @@
     <meta name="keywords" content="extractores de leche, lactancia materna, accesorios para bebes, Wawachay, sacaleches">
     <link rel="icon" type="image/png" href="./Logo_1.png">
     
-    <!-- Open Graph (Previsualización para WhatsApp y Facebook) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Wawachay | Tienda de Extractores de Leche">
     <meta property="og:description" content="Descubre nuestro catálogo de extractores y accesorios. Máximo confort y tecnología para tu lactancia.">
     <meta property="og:image" content="./Logo_1.png">
@@ -20,7 +20,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- PapaParse (Para leer Google Sheets de forma perfecta) -->
+    <!-- PapaParse -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <!-- Fuentes Google -->
@@ -46,25 +46,16 @@
     <style>
         .gradient-text { background: linear-gradient(to right, #ec4899, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-pattern { background-color: #fdf2f8; background-image: radial-gradient(#fce7f3 2px, transparent 2px); background-size: 30px 30px; }
-        /* Scrollbar personalizado */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #db2777; }
         
-        /* Deshabilitar selección de texto para mayor protección */
         body {
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
-            user-select: none; /* Standard */
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
         }
-        /* Permitir selección solo en los inputs y en el chat */
-        input, textarea, .chat-selectable {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
+        input, textarea, select, .chat-selectable {
+            -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
         }
     </style>
 </head>
@@ -185,7 +176,7 @@
                 <!-- Indicador de carga -->
                 <div id="loading" class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
-                    <p class="text-gray-500 font-medium">Cargando catálogo...</p>
+                    <p class="text-gray-500 font-medium" id="loadingText">Cargando catálogo...</p>
                 </div>
             </div>
         </section>
@@ -452,407 +443,99 @@
         </div>
     </div>
 
-    <!-- Modal Testimonio -->
-    <div id="testimonioModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="testimonioModalContent">
-            <button onclick="closeTestimonioModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow flex flex-col items-center text-center">
-                <div class="relative w-32 h-32 mb-6 group cursor-zoom-in" onclick="openTestimonioLightbox(document.getElementById('modalTestiFoto').src)">
-                    <img id="modalTestiFoto" src="" alt="Foto de Testimonio" class="w-full h-full object-cover rounded-full border-4 border-pink-100 shadow-lg transition-transform group-hover:scale-105">
+    <!-- Modal Producto -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="productModalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow">
+                <div id="modalIngresoRibbon" class="hidden mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-extrabold px-3 py-1.5 rounded flex items-center gap-1 uppercase tracking-wider shadow-sm self-start inline-flex"></div>
+                <div class="flex flex-col md:flex-row gap-6 mt-2">
+                    <div class="w-full md:w-1/2 flex flex-col gap-4">
+                        <div class="relative flex items-center justify-center bg-gray-50 rounded-xl p-4 border border-gray-100 flex-grow overflow-hidden group">
+                            <img id="modalImg" src="" alt="Producto" onclick="openLightbox()" class="max-h-80 sm:max-h-96 w-full object-contain transition-all duration-300 relative z-10 cursor-zoom-in group-hover:scale-105">
+                            <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4"><img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-25"></div>
+                            <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30 bg-white/80 backdrop-blur-sm text-gray-500 text-[10px] italic px-2 py-0.5 rounded shadow-sm pointer-events-none">Imágenes referenciales</span>
+                        </div>
+                        <div id="modalThumbnails" class="hidden gap-2 justify-center overflow-x-auto py-2 custom-scrollbar"></div>
+                    </div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-center">
+                        <div id="modalCategory" class="flex flex-wrap gap-2 mb-3 self-start"></div>
+                        <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-2 leading-tight"></h3>
+                        <div id="modalPrice" class="mb-6 flex items-end flex-wrap gap-2"></div>
+                        <button id="modalBtnCart" onclick="" class="w-full text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"></button>
+                    </div>
                 </div>
-                <h3 id="modalTestiNombre" class="text-2xl font-bold text-gray-800 mb-1"></h3>
-                <p id="modalTestiFecha" class="text-sm text-gray-400 mb-4"></p>
-                <div id="modalTestiEstrellas" class="flex gap-1 mb-6 justify-center"></div>
-                <p id="modalTestiComentario" class="text-gray-600 text-lg leading-relaxed italic"></p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Lightbox -->
-    <div id="imageLightbox" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
-        <button class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 z-[80]"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        <div class="relative max-w-5xl w-full h-full flex items-center justify-center">
-            <img id="lightboxImg" src="" alt="Producto Expandido" class="max-w-full max-h-[90vh] object-contain relative z-[75] cursor-zoom-out" onclick="event.stopPropagation(); closeLightbox();">
-            <div class="absolute inset-0 z-[76] flex items-center justify-center pointer-events-none p-10"><img src="./Logo_Sello_agua.webp" alt="Sello de agua" class="w-3/4 h-3/4 object-contain opacity-20"></div>
-        </div>
-    </div>
-
-    <!-- Burbuja Atracción Wawi -->
-    <div id="chatbot-tooltip" class="fixed bottom-40 right-6 bg-white px-4 py-2 rounded-2xl shadow-xl border border-pink-100 z-40 transition-opacity duration-300 font-bold text-pink-600 text-sm flex items-center gap-2 pointer-events-none">
-        ¡Hola! ¿Te ayudo a elegir? 👋
-        <div class="absolute -bottom-2 right-8 w-4 h-4 bg-white border-b border-r border-pink-100 transform rotate-45"></div>
-    </div>
-
-    <!-- Wawibot Icon -->
-    <button id="chatbot-toggle" onclick="toggleChatbot()" class="fixed bottom-24 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-40 flex items-center justify-center animate-bounce">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-    </button>
-    
-    <!-- Wawibot Window -->
-    <div id="chatbot-window" class="fixed bottom-40 right-6 w-[90vw] sm:w-80 bg-white rounded-2xl shadow-2xl border border-pink-100 z-50 flex-col hidden overflow-hidden transition-all duration-300 opacity-0 translate-y-4">
-        <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-4 flex justify-between items-center text-white">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-bold">W</div>
-                <div>
-                    <h4 class="font-bold text-sm">Wawi - Asistente</h4>
-                    <span class="text-[10px] text-pink-100 flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full inline-block animate-pulse"></span> En línea</span>
+                <div class="mt-8 border-t border-gray-100 pt-6">
+                    <h4 class="font-bold text-gray-800 mb-3 text-lg">Descripción y Características:</h4>
+                    <p id="modalDesc" class="text-gray-600 text-base leading-relaxed whitespace-pre-line"></p>
+                </div>
+                <div id="modalRecommendationsContainer" class="mt-8 border-t border-gray-100 pt-6 hidden bg-purple-50/50 p-4 rounded-2xl">
+                    <h4 class="font-bold text-purple-800 mb-4 text-sm uppercase tracking-wide flex items-center gap-2"><svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Te recomendamos llevar también:</h4>
+                    <div id="modalRecommendationsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
                 </div>
             </div>
-            <button onclick="toggleChatbot()" class="text-white hover:text-pink-200 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        </div>
-        <div id="chatbot-messages" class="h-80 overflow-y-auto p-4 bg-slate-50 flex flex-col gap-3 custom-scrollbar text-sm">
-            <div class="flex gap-2 w-full">
-                <div class="bg-pink-100 text-gray-700 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm chat-selectable">¡Hola! Soy Wawi 🌸 tu asistente virtual. ¿En qué te puedo ayudar hoy?</div>
-            </div>
-            <div class="flex flex-col gap-2 mt-1 w-full items-end" id="quick-replies">
-                <button onclick="sendQuickReply('envios')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🚚 Envíos y entregas</button>
-                <button onclick="sendQuickReply('pagos')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">💳 Métodos de pago</button>
-                <button onclick="sendQuickReply('ubicacion')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">📍 Ubicación y Horarios</button>
-                <button onclick="sendQuickReply('garantia')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">🛡 Garantía</button>
-                <button onclick="sendQuickReply('asesor')" class="bg-white border border-pink-200 text-pink-600 px-3 py-1.5 rounded-full text-xs hover:bg-pink-50 transition-colors shadow-sm text-right">👩‍⚕ Hablar con asesor</button>
-            </div>
-        </div>
-        <div class="p-3 border-t border-gray-100 bg-white flex gap-2">
-            <input type="text" id="chatbot-input" placeholder="Escribe tu duda aquí..." class="flex-grow bg-gray-100 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-200" onkeypress="handleChatEnter(event)">
-            <button onclick="handleUserMessage()" class="bg-purple-600 text-white w-9 h-9 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors shrink-0"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg></button>
         </div>
     </div>
 
+    <!-- Modal del Carrito Normal -->
+    <div id="cartModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="cartModalContent">
+            <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 rounded-full p-2 z-30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>Mi Pedido</h3>
+            <div id="cartItemsList" class="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-grow pr-2"></div>
+            
+            <div id="cartSuggestions" class="hidden border-t border-gray-100 pt-4 mt-4">
+                <h4 class="text-sm font-bold text-purple-600 mb-2 flex items-center gap-1">Completa tu pedido:</h4>
+                <div id="cartSuggestionsList" class="flex gap-3 overflow-x-auto custom-scrollbar pb-2 scroll-smooth snap-x"></div>
+            </div>
 
+            <!-- Formulario de Datos -->
+            <div class="border-t border-gray-200 pt-4 mt-4 mb-4 shrink-0">
+                <h4 class="font-bold text-gray-700 mb-3 text-sm flex items-center gap-1">Mis Datos para el Pedido:</h4>
+                <div class="flex flex-col gap-3">
+                    <div>
+                        <input type="text" id="cartCustomerName" placeholder="Tu Nombre y Apellido *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
+                        <p id="cartErrorMsg" class="text-red-500 text-xs font-bold mt-1 ml-1 hidden">Por favor, ingresa tu nombre 🌸</p>
+                    </div>
+                    <input type="text" id="cartCustomerAddress" placeholder="Dirección o Distrito de entrega (Opcional)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-4 shrink-0 mt-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="font-bold text-gray-600">Total a pagar:</span>
+                    <span id="cartModalTotal" class="text-2xl font-extrabold text-purple-600">S/ 0.00</span>
+                </div>
+                <a id="cartModalBtnCheckout" href="#" target="_blank" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-200"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>Enviar pedido a WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script General Unificado -->
     <script>
-        // ¡OJO! Reemplaza esto con el Link de tu App Script ya que lo usaremos SOLO para descontar stock
+        // ==========================================
+        // 1. CONSTANTES Y VARIABLES GLOBALES (Solo una vez)
+        // ==========================================
+        const WHATSAPP_NUMBER = '51970551728'; 
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
         
-        // ==========================================
-        // LA SOLUCIÓN DEFINITIVA A LA CARGA Y EL LOGIN:
-        // Usamos la API de visualización de Google (gviz)
-        // ==========================================
-        // Aquí va el ID de tu Google Sheet (Ese código largo en la URL de tu Excel)
-        const GOOGLE_SHEET_ID = '1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg';
-        
-        // URL estable para el Catálogo
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Catalogo`;
-        // URL estable para los Testimonios
-        const SHEET_URL_TESTIMONIOS = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Testimonios`;
-        // URL estable para validar Usuarios
-        const USER_SHEET_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=USER`;
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
+        const USER_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=788931165'; // Cambia el gid si tu hoja USER no es la segunda
+        const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
 
-
-        // LÓGICA DE USUARIOS NORMALES Y POS LOGIN
-        async function doPosLogin() {
-            const user = document.getElementById('loginUser').value.trim();
-            const pass = document.getElementById('loginPass').value.trim();
-            const btn = document.getElementById('btnLogin');
-            const errorMsg = document.getElementById('loginError');
-
-            if(!user || !pass) return;
-
-            btn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mx-auto"></div>';
-            btn.disabled = true;
-            errorMsg.classList.add('hidden');
-
-            // Leer credenciales directamente mediante GVIZ (No falla nunca si el excel es público)
-            Papa.parse(USER_SHEET_URL, {
-                download: true,
-                header: false,
-                complete: function(results) {
-                    let isValid = false;
-                    
-                    // Empezamos desde i=1 para omitir la fila 1 (los títulos USUARIO y CONTRASEÑA)
-                    for(let i = 1; i < results.data.length; i++){
-                        let row = results.data[i];
-                        if (row && row.length >= 2) {
-                            let u = String(row[0]).trim();
-                            let p = String(row[1]).trim();
-                            if (u === user && p === pass) {
-                                isValid = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (isValid) {
-                        closePosLogin();
-                        openPosInterface();
-                    } else {
-                        errorMsg.textContent = "Usuario o contraseña incorrectos";
-                        errorMsg.classList.remove('hidden');
-                        btn.innerHTML = 'Ingresar al POS';
-                        btn.disabled = false;
-                    }
-                },
-                error: function() {
-                    errorMsg.textContent = "Error de lectura. Tu archivo de Google Sheets DEBE ser público (Cualquier persona con el enlace).";
-                    errorMsg.classList.remove('hidden');
-                    btn.innerHTML = 'Ingresar al POS';
-                    btn.disabled = false;
-                }
-            });
-        }
-
-        function openPosLogin(e) {
-            e.preventDefault();
-            const login = document.getElementById('loginScreen');
-            login.classList.remove('hidden');
-            login.classList.add('flex');
-            setTimeout(() => { login.classList.remove('opacity-0'); }, 10);
-        }
-
-        function closePosLogin() {
-            const login = document.getElementById('loginScreen');
-            login.classList.add('opacity-0');
-            setTimeout(() => { login.classList.add('hidden'); login.classList.remove('flex'); }, 300);
-        }
-
-        function openPosInterface() {
-            const pos = document.getElementById('posInterface');
-            pos.classList.remove('hidden');
-            pos.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => { 
-                pos.classList.remove('opacity-0'); 
-                filterPosProducts(); 
-            }, 10);
-        }
-
-        function closePosInterface() {
-            const pos = document.getElementById('posInterface');
-            pos.classList.add('opacity-0');
-            document.body.style.overflow = '';
-            setTimeout(() => { pos.classList.add('hidden'); pos.classList.remove('flex'); }, 300);
-            document.getElementById('btnLogin').innerHTML = 'Ingresar al POS';
-            document.getElementById('btnLogin').disabled = false;
-            // Limpiar los inputs
-            document.getElementById('loginUser').value = '';
-            document.getElementById('loginPass').value = '';
-        }
-
-        function filterPosProducts() {
-            const term = document.getElementById('posSearchInput').value.toLowerCase();
-            let filtered = allProducts.filter(p => {
-                const matchSearch = getProdName(p).toLowerCase().includes(term);
-                const matchCat = posCurrentCategoryTab === 'all' || getProdCat(p) === posCurrentCategoryTab;
-                return matchSearch && matchCat;
-            });
-            renderPosProducts(filtered);
-        }
-
-        document.getElementById('posSearchInput').addEventListener('input', filterPosProducts);
-
-        function updatePosCategoryFilter(categories) {
-            const tabs = document.getElementById('posCategoryTabs');
-            tabs.innerHTML = '';
-            const createTab = (catName, label) => {
-                const btn = document.createElement('button');
-                btn.textContent = label;
-                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${posCurrentCategoryTab === catName ? 'bg-pink-500 text-white border-pink-500' : 'bg-white text-gray-600 border-gray-200'}`;
-                btn.onclick = () => { posCurrentCategoryTab = catName; updatePosCategoryFilter(categories); filterPosProducts(); };
-                return btn;
-            };
-            tabs.appendChild(createTab('all', 'Todos'));
-            categories.forEach(cat => tabs.appendChild(createTab(cat, cat)));
-        }
-
-        function renderPosProducts(products) {
-            const container = document.getElementById('pos-products-container');
-            container.innerHTML = ''; 
-
-            products.forEach((product) => {
-                const name = getProdName(product);
-                const originalPriceStr = getProdPrice(product);
-                const originalPriceNum = parsePrice(originalPriceStr);
-                const discountPct = getProdDiscount(product);
-                const isAvailable = getProdStatus(product).toLowerCase() === 'disponible';
-                const stockNum = parseInt(getProdStock(product));
-                const img = extractImagesFromProduct(product)[0];
-                const inCart = posShoppingCart.some(item => item.name === name);
-
-                let finalPriceNum = originalPriceNum;
-                let finalPriceStr = originalPriceStr;
-                let priceHTML = `<p class="font-extrabold text-purple-700 text-sm mt-1">${originalPriceStr}</p>`;
-
-                if (discountPct > 0) {
-                    finalPriceNum = originalPriceNum - (originalPriceNum * (discountPct / 100));
-                    finalPriceStr = "S/ " + finalPriceNum.toFixed(2);
-                    priceHTML = `<div class="flex items-center gap-1 mt-1"><span class="font-extrabold text-purple-700 text-sm">${finalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${originalPriceStr}</span></div>`;
-                }
-
-                let badge = isAvailable ? `<span class="absolute top-2 left-2 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">Stk: ${stockNum}</span>` : `<span class="absolute top-2 left-2 bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">Agotado</span>`;
-
-                const card = document.createElement('div');
-                card.className = `bg-white rounded-xl shadow-sm border p-3 flex flex-col relative ${inCart ? 'border-purple-500 ring-1 ring-purple-200' : 'border-gray-100'}`;
-                
-                card.innerHTML = `
-                    ${badge}
-                    <img src="${img}" alt="${name}" class="w-full h-24 object-contain mb-2 bg-gray-50 rounded-lg p-1">
-                    <h3 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight flex-grow">${name}</h3>
-                    ${priceHTML}
-                    <button onclick="togglePosCart('${name.replace(/'/g, "\\'")}', '${finalPriceStr}', event)" class="mt-3 w-full py-1.5 rounded-lg text-xs font-bold transition-colors ${inCart ? 'bg-red-100 text-red-600' : 'bg-pink-500 text-white hover:bg-pink-600 shadow-sm'} ${!isAvailable && !inCart ? 'opacity-50 cursor-not-allowed bg-gray-300 text-gray-600' : ''}" ${!isAvailable && !inCart ? 'disabled' : ''}>
-                        ${inCart ? 'Quitar' : 'Añadir al Ticket'}
-                    </button>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function togglePosCart(name, priceStr, event) {
-            if(event) event.stopPropagation();
-            const index = posShoppingCart.findIndex(item => item.name === name);
-            if (index > -1) posShoppingCart.splice(index, 1);
-            else posShoppingCart.push({ name: name, priceStr: priceStr, priceNum: parsePrice(priceStr) });
-            
-            updatePosCartUI();
-            filterPosProducts(); 
-            if(!document.getElementById('posCartModal').classList.contains('hidden')) renderPosCartModal();
-        }
-
-        function updatePosCartUI() {
-            let total = posShoppingCart.reduce((s, i) => s + i.priceNum, 0);
-            document.getElementById('posCartCountBadge').textContent = posShoppingCart.length;
-            document.getElementById('posCartTotalText').textContent = `S/ ${total.toFixed(2)}`;
-            
-            if (posShoppingCart.length > 0) document.getElementById('posFloatingCart').classList.remove('translate-y-full');
-            else document.getElementById('posFloatingCart').classList.add('translate-y-full');
-        }
-
-        function openPosCart() {
-            if (posShoppingCart.length === 0) return;
-            renderPosCartModal();
-            const modal = document.getElementById('posCartModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('posCartModalContent').classList.remove('scale-95'); }, 10);
-        }
-
-        function closePosCart() {
-            const modal = document.getElementById('posCartModal');
-            modal.classList.add('opacity-0');
-            document.getElementById('posCartModalContent').classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
-        }
-
-        function calculatePosTotal() {
-            const type = document.getElementById('posDiscountType').value;
-            const val = parseFloat(document.getElementById('posDiscountValue').value) || 0;
-            let subtotal = posShoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
-            let discountAmount = 0;
-
-            if (type === 'percent' && val > 0) discountAmount = subtotal * (val / 100);
-            else if (type === 'amount' && val > 0) discountAmount = val;
-
-            let finalTotal = subtotal - discountAmount;
-            if (finalTotal < 0) finalTotal = 0;
-
-            document.getElementById('posSummarySubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
-            document.getElementById('posSummaryDiscountAmount').textContent = `- S/ ${discountAmount.toFixed(2)}`;
-            document.getElementById('posSummaryTotal').textContent = `S/ ${finalTotal.toFixed(2)}`;
-
-            return { subtotal, discountAmount, finalTotal, type, val };
-        }
-
-        function renderPosCartModal() {
-            const list = document.getElementById('posCartItemsList');
-            list.innerHTML = '';
-
-            posShoppingCart.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100';
-                div.innerHTML = `
-                    <div class="pr-2"><h5 class="text-xs font-bold text-gray-800 leading-tight">${item.name}</h5><p class="text-purple-600 font-extrabold text-sm">${item.priceStr}</p></div>
-                    <button onclick="togglePosCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', null);" class="text-red-500 hover:text-red-700 p-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                `;
-                list.appendChild(div);
-            });
-
-            calculatePosTotal();
-
-            document.getElementById('posBtnCheckout').onclick = async function(e) {
-                e.preventDefault();
-                const cName = document.getElementById('posCustomerName').value.trim();
-                const cAdd = document.getElementById('posCustomerAddress').value.trim();
-                
-                if (!cName) {
-                    document.getElementById('posCartErrorMsg').classList.remove('hidden');
-                    document.getElementById('posCustomerName').focus();
-                    return;
-                }
-                document.getElementById('posCartErrorMsg').classList.add('hidden');
-
-                const totals = calculatePosTotal();
-                let message = `*Venta desde TikTok Live* 🎥\n\n*Cliente:* ${cName}\n`;
-                if(cAdd) message += `*Dirección:* ${cAdd}\n`;
-                message += `\n*Pedido:*\n`;
-                
-                posShoppingCart.forEach((item, index) => { message += `${index + 1}. ${item.name} (${item.priceStr})\n`; });
-                
-                message += `\n*Subtotal:* S/ ${totals.subtotal.toFixed(2)}`;
-                if (totals.discountAmount > 0) {
-                    let descText = totals.type === 'percent' ? `(${totals.val}%)` : `Manual`;
-                    message += `\n*Descuento ${descText}:* - S/ ${totals.discountAmount.toFixed(2)}`;
-                }
-                message += `\n*Total Final:* *S/ ${totals.finalTotal.toFixed(2)}*`;
-                
-                const originalText = this.innerHTML;
-                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Descontando...';
-                this.style.pointerEvents = 'none';
-
-                try {
-                    // Enviar el formato exacto que espera tu Google Script (data.cart)
-                    await fetch(APP_SCRIPT_WEB_APP_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({ cart: posShoppingCart.map(item => ({ name: item.name })) }),
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                    });
-                } catch (err) { console.log("Aviso: No se descontó el stock", err); }
-
-                posShoppingCart = [];
-                updatePosCartUI();
-                closePosCart();
-
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-                
-                this.innerHTML = originalText;
-                this.style.pointerEvents = 'auto';
-            };
-        }
-
-        // ==========================================
-        // SEGURIDAD FRONT-END Y COOKIES
-        // ==========================================
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 67) return false;
-            if (e.ctrlKey && e.keyCode == 85) return false;
-            if (e.ctrlKey && e.keyCode == 83) return false;
-        };
-
-        function checkCookieConsent() {
-            if (!localStorage.getItem('wawachay_cookie_consent')) {
-                setTimeout(() => {
-                    const banner = document.getElementById('cookieConsentBanner');
-                    if (banner) banner.classList.remove('translate-y-full');
-                }, 1500);
-            }
-        }
-        function acceptCookies() {
-            localStorage.setItem('wawachay_cookie_consent', 'true');
-            hideCookieBanner();
-        }
-        function hideCookieBanner() {
-            const banner = document.getElementById('cookieConsentBanner');
-            if (banner) banner.classList.add('translate-y-full');
-        }
-
-        // ==========================================
-        // FUNCIONES DE CATÁLOGO PRINCIPAL Y CHATBOT
-        // ==========================================
+        let allProducts = [];
+        let currentRenderedProducts = []; 
+        let allTestimonios = []; 
         
         let shoppingCart = []; 
         let currentCategoryTab = 'all';
 
+        let posShoppingCart = [];
+        let posCurrentCategoryTab = 'all';
+
+        // ==========================================
+        // 2. FUNCIONES DE LECTURA Y UTILIDADES
+        // ==========================================
         function getProdName(p) { return p['Nombre Producto'] || p['Nombre'] || p['Name'] || ''; }
         function getProdDesc(p) { return p['Características'] || p['Caracteristicas'] || p['Descripción'] || p['Descripcion'] || ''; }
         function getProdCat(p) { return p['Categoría'] || p['Categoria'] || 'Extractores'; }
@@ -862,172 +545,6 @@
         function getProdStock(p) { return p['Stock'] || p['Cantidad'] || '0'; }
         function parsePrice(priceStr) { const match = (priceStr||'').toString().replace(/s\/\.?\s*/i, '').replace(/,/g, '').match(/\d+(\.\d+)?/); return match ? parseFloat(match[0]) : 0; }
 
-        function generateCartWhatsAppLink() {
-            if(shoppingCart.length === 0) return `https://wa.me/${WHATSAPP_NUMBER}`;
-            const nameInput = document.getElementById('cartCustomerName').value.trim();
-            const addressInput = document.getElementById('cartCustomerAddress').value.trim();
-            let message = `¡Hola Wawachay! 🌸 Soy *${nameInput || 'un cliente'}* y deseo pedir:\n\n`;
-            let total = 0;
-            shoppingCart.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}* (${item.priceStr})\n`;
-                total += item.priceNum;
-            });
-            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n`;
-            if (addressInput) message += `*Dirección/Distrito:* ${addressInput}\n`;
-            message += `\n¿Me indican cómo procedemos con el pago?`;
-            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        }
-
-        function toggleCart(productName, priceStr, event) {
-            if(event) event.stopPropagation(); 
-            const index = shoppingCart.findIndex(item => item.name === productName);
-            if (index > -1) shoppingCart.splice(index, 1);
-            else shoppingCart.push({ name: productName, priceStr: priceStr, priceNum: parsePrice(priceStr) });
-            updateCartUI();
-            renderProducts(currentRenderedProducts);
-            
-            const modal = document.getElementById('productModal');
-            if(!modal.classList.contains('hidden')){
-                const btn = document.getElementById('modalBtnCart');
-                if (btn) {
-                    const inCart = shoppingCart.some(item => item.name === productName);
-                    if(inCart){
-                        btn.innerHTML = 'Quitar de mi selección';
-                        btn.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
-                    } else {
-                        btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
-                        btn.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200";
-                    }
-                }
-            }
-        }
-
-        function updateCartUI() {
-            const cartBar = document.getElementById('floatingCart');
-            if (shoppingCart.length > 0) {
-                cartBar.classList.remove('translate-y-full');
-                document.getElementById('cartCountBadge').textContent = shoppingCart.length;
-                let total = shoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
-                document.getElementById('cartTotalText').textContent = `S/ ${total.toFixed(2)}`;
-            } else {
-                cartBar.classList.add('translate-y-full');
-                if(!document.getElementById('cartModal').classList.contains('hidden')) closeCart();
-            }
-        }
-
-        function openCart() {
-            if (shoppingCart.length === 0) return;
-            renderCartModal();
-            const modal = document.getElementById('cartModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('cartModalContent').classList.remove('scale-95'); }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeCart() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.add('opacity-0');
-            document.getElementById('cartModalContent').classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
-        }
-
-        function renderCartModal() {
-            const list = document.getElementById('cartItemsList');
-            const totalText = document.getElementById('cartModalTotal');
-            const btnCheckout = document.getElementById('cartModalBtnCheckout');
-            const suggestionsContainer = document.getElementById('cartSuggestions');
-            const suggestionsList = document.getElementById('cartSuggestionsList');
-            const errorMsg = document.getElementById('cartErrorMsg');
-
-            list.innerHTML = '';
-            errorMsg.classList.add('hidden');
-            let total = 0;
-            let hasExtractores = false;
-
-            shoppingCart.forEach(item => {
-                total += item.priceNum;
-                const product = allProducts.find(p => getProdName(p) === item.name);
-                let imgUrl = 'https://placehold.co/100x100/fce7f3/db2777?text=W';
-                if (product) {
-                    imgUrl = extractImagesFromProduct(product)[0];
-                    if(getProdCat(product).toLowerCase().includes('extractor') || getProdCat(product).toLowerCase().includes('eléctrico') || getProdCat(product).toLowerCase().includes('manual')) hasExtractores = true;
-                }
-                const div = document.createElement('div');
-                div.className = 'flex items-center gap-4 bg-gray-50 p-3 rounded-2xl border border-gray-100';
-                div.innerHTML = `
-                    <img src="${imgUrl}" alt="${item.name}" class="w-16 h-16 object-contain bg-white rounded-xl p-1 border border-gray-200 shrink-0">
-                    <div class="flex-grow"><h5 class="text-sm font-bold text-gray-800 line-clamp-2 leading-tight">${item.name}</h5><p class="text-purple-600 font-extrabold mt-1">${item.priceStr}</p></div>
-                    <button onclick="toggleCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', event); renderCartModal();" class="w-8 h-8 rounded-full bg-red-100 text-red-500 hover:bg-red-200 flex items-center justify-center shrink-0 transition-colors" title="Quitar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                `;
-                list.appendChild(div);
-            });
-
-            let recommendations = allProducts.filter(p => {
-                const isAvailable = getProdStatus(p).toLowerCase() === 'disponible';
-                const inCart = shoppingCart.some(item => item.name === getProdName(p));
-                if (hasExtractores) return isAvailable && !inCart && !getProdCat(p).toLowerCase().includes('extractor') && !getProdCat(p).toLowerCase().includes('eléctrico') && !getProdCat(p).toLowerCase().includes('manual');
-                else return isAvailable && !inCart;
-            });
-            recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 10);
-
-            if (recommendations.length > 0) {
-                suggestionsContainer.classList.remove('hidden');
-                suggestionsList.innerHTML = '';
-                recommendations.forEach(rec => {
-                    const recName = getProdName(rec);
-                    const recOriginalPriceStr = getProdPrice(rec);
-                    const recDiscount = getProdDiscount(rec);
-                    let recFinalPriceStr = recOriginalPriceStr;
-                    let recPriceHTML = `<p class="text-xs font-extrabold text-pink-500">${recFinalPriceStr}</p>`;
-                    if (recDiscount > 0) {
-                        recFinalPriceStr = "S/ " + (parsePrice(recOriginalPriceStr) - (parsePrice(recOriginalPriceStr) * (recDiscount / 100))).toFixed(2);
-                        recPriceHTML = `<div class="mt-0.5 flex items-center gap-1"><span class="text-xs font-extrabold text-pink-500">${recFinalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${recOriginalPriceStr}</span></div>`;
-                    }
-                    const recCard = document.createElement('div');
-                    recCard.className = 'flex flex-col min-w-[140px] max-w-[140px] bg-white p-3 rounded-xl border border-pink-100 shadow-sm relative shrink-0 snap-start';
-                    recCard.innerHTML = `
-                        <img src="${extractImagesFromProduct(rec)[0]}" class="w-full h-20 object-contain mb-2 rounded-lg bg-gray-50 p-1">
-                        <h6 class="text-[10px] font-bold text-gray-700 line-clamp-2 leading-tight flex-grow mb-1">${recName}</h6>
-                        ${recPriceHTML}
-                        <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recFinalPriceStr}', event); renderCartModal();" class="absolute top-2 right-2 bg-pink-100 text-pink-600 hover:bg-pink-200 w-7 h-7 rounded-full flex items-center justify-center transition-colors shadow-sm" title="Agregar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button>
-                    `;
-                    suggestionsList.appendChild(recCard);
-                });
-            } else suggestionsContainer.classList.add('hidden');
-
-            totalText.textContent = `S/ ${total.toFixed(2)}`;
-            
-            btnCheckout.onclick = async function(e) {
-                e.preventDefault(); 
-                if (!document.getElementById('cartCustomerName').value.trim()) {
-                    errorMsg.classList.remove('hidden'); document.getElementById('cartCustomerName').focus(); return false;
-                }
-                errorMsg.classList.add('hidden');
-
-                const originalText = this.innerHTML;
-                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Procesando...';
-                this.style.pointerEvents = 'none';
-
-                try {
-                    await fetch(APP_SCRIPT_WEB_APP_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({ cart: shoppingCart.map(item => ({ name: item.name })) }),
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                    });
-                } catch (error) { console.log("Aviso: No se descontó el stock", error); }
-
-                this.innerHTML = originalText;
-                this.style.pointerEvents = 'auto';
-                const wsLink = generateCartWhatsAppLink();
-                shoppingCart = []; updateCartUI(); closeCart();
-                window.open(wsLink, '_blank');
-            };
-        }
-
-        // ==========================================
-        // Carga Principal de Catálogo vía GVIZ
-        // ==========================================
         function getDriveImageUrl(url) {
             if (!url || url.trim() === '') return '';
             const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -1051,6 +568,9 @@
             return [...new Set(driveImages)].slice(0, 4);
         }
 
+        // ==========================================
+        // 3. CARGA DE DATOS (CATÁLOGO Y TESTIMONIOS)
+        // ==========================================
         function fetchGoogleSheetsData() {
             Papa.parse(SHEET_URL, {
                 download: true,
@@ -1059,7 +579,7 @@
                 complete: function(results) {
                     try {
                         let data = results.data;
-                        if (data.length === 0) return;
+                        if (data.length === 0) throw "Sin datos";
                         
                         allProducts = data.map(row => {
                             let cleanRow = {};
@@ -1081,25 +601,49 @@
                         const loading = document.getElementById('loading');
                         if(loading) loading.style.display = 'none';
                         
-                    } catch (err) { console.error('Error:', err); }
+                    } catch (err) { 
+                        document.getElementById('loadingText').textContent = 'Error al cargar catálogo. Verifica la URL del Excel.';
+                        console.error('Error:', err); 
+                    }
                 },
                 error: function(err) {
-                    console.error("Error al cargar Google Sheets. Verifica que sea público.", err);
-                    document.getElementById('loading').innerHTML = '<p class="text-red-500 font-bold">Error al conectar con la base de datos. Verifica que el archivo de Google Sheets sea "Cualquier persona con el enlace".</p>';
+                    document.getElementById('loadingText').textContent = 'Error de conexión con Google Sheets.';
                 }
             });
         }
 
+        function fetchTestimoniosData() {
+            Papa.parse(SHEET_URL_TESTIMONIOS, {
+                download: true, header: true, skipEmptyLines: true,
+                complete: function(results) {
+                    try {
+                        const data = results.data.filter(row => row['Nombre'] && row['Nombre'].trim() !== '');
+                        if(data.length > 0) renderTestimonios(data);
+                        else loadDemoTestimonios();
+                    } catch (err) { loadDemoTestimonios(); }
+                },
+                error: function() { loadDemoTestimonios(); }
+            });
+        }
+
+        // ==========================================
+        // 4. LÓGICA DE USUARIOS NORMALES (CLIENTES)
+        // ==========================================
         function updateCategoryFilter(categories) {
             const tabsContainer = document.getElementById('categoryTabs');
             if (!tabsContainer) return;
             tabsContainer.innerHTML = '';
+            
             const createTab = (catName, label) => {
                 const btn = document.createElement('button');
                 btn.textContent = label;
                 const isActive = currentCategoryTab === catName;
                 btn.className = `whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${isActive ? 'bg-pink-500 text-white border-pink-500 shadow-md transform scale-105' : 'bg-white text-gray-600 border-gray-200 hover:bg-pink-50 hover:border-pink-300'}`;
-                btn.onclick = () => { currentCategoryTab = catName; updateCategoryFilter(categories); filterProducts(); };
+                btn.onclick = () => {
+                    currentCategoryTab = catName;
+                    updateCategoryFilter(categories); 
+                    filterProducts();
+                };
                 return btn;
             };
             tabsContainer.appendChild(createTab('all', '🌟 Todo'));
@@ -1138,14 +682,12 @@
             }
 
             products.forEach((product, index) => {
-                const driveImages = extractImagesFromProduct(product);
-                const estado = getProdStatus(product);
-                const isAvailable = estado.toLowerCase() === 'disponible';
-                const name = String(getProdName(product) || 'Producto sin nombre');
-                
+                const name = getProdName(product);
                 const originalPriceStr = getProdPrice(product);
                 const originalPriceNum = parsePrice(originalPriceStr);
                 const discountPct = getProdDiscount(product);
+                const estado = getProdStatus(product);
+                const isAvailable = estado.toLowerCase() === 'disponible';
                 
                 let finalPriceStr = originalPriceStr;
                 let priceHTML = `<p class="text-2xl font-extrabold text-purple-700 mb-4">${originalPriceStr}</p>`;
@@ -1153,12 +695,7 @@
 
                 if (discountPct > 0) {
                     finalPriceStr = "S/ " + (originalPriceNum - (originalPriceNum * (discountPct / 100))).toFixed(2);
-                    priceHTML = `
-                        <div class="mb-4 flex items-end gap-2">
-                            <span class="text-2xl font-extrabold text-purple-700">${finalPriceStr}</span>
-                            <span class="text-sm text-gray-400 line-through mb-1">${originalPriceStr}</span>
-                        </div>
-                    `;
+                    priceHTML = `<div class="mb-4 flex items-end gap-2"><span class="text-2xl font-extrabold text-purple-700">${finalPriceStr}</span><span class="text-sm text-gray-400 line-through mb-1">${originalPriceStr}</span></div>`;
                 }
 
                 const inCart = shoppingCart.some(item => item.name === name);
@@ -1168,7 +705,7 @@
 
                 let tipoIngresoHTML = '';
                 if (tipoIngreso !== "") {
-                    tipoIngresoHTML = `<div class="absolute top-0 left-0 right-0 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-[11px] font-extrabold px-2 py-1.5 text-center flex items-center justify-center gap-1 uppercase tracking-wider z-30 shadow-sm"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>${tipoIngreso}</div>`;
+                    tipoIngresoHTML = `<div class="absolute top-0 left-0 right-0 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-[11px] font-extrabold px-2 py-1.5 text-center flex items-center justify-center gap-1 uppercase tracking-wider z-30 shadow-sm">${tipoIngreso}</div>`;
                 }
 
                 if (discountPct > 0) discountBadgeHTML = `<span class="absolute ${tipoIngreso !== "" ? "top-10" : "top-3"} right-3 z-30 bg-pink-500 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg shadow-md animate-pulse">-${discountPct}%</span>`;
@@ -1183,8 +720,8 @@
                 card.innerHTML = `
                     <div class="relative aspect-square w-full bg-white flex items-center justify-center group cursor-pointer border-b border-gray-50 pt-6" onclick="showDetails(${index})">
                         ${tipoIngresoHTML}${discountBadgeHTML}
-                        <img src="${driveImages[0]}" alt="${name}" loading="lazy" class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10" onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
-                        <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6"><img src="./Logo_Sello_agua.webp" alt="Sello de agua" loading="lazy" class="w-full h-full object-contain opacity-25"></div>
+                        <img src="${extractImagesFromProduct(product)[0]}" alt="${name}" loading="lazy" class="w-full h-full object-contain p-2 sm:p-4 group-hover:scale-105 transition-transform duration-500 relative z-10" onerror="this.src='https://placehold.co/400x400/fce7f3/db2777?text=Wawachay'">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6"><img src="./Logo_Sello_agua.webp" loading="lazy" class="w-full h-full object-contain opacity-25"></div>
                         ${stockBadgeHTML}
                         <span class="absolute bottom-3 right-3 z-30 bg-white/90 backdrop-blur-sm text-purple-600 border border-purple-100 text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase">${getProdCat(product)}</span>
                     </div>
@@ -1196,11 +733,11 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <button onclick="showDetails(${index})" class="w-full bg-pink-50 text-pink-700 font-semibold py-2 rounded-xl hover:bg-pink-100 transition-colors text-sm border border-pink-100">Ver Detalle</button>
                                 ${isAvailable ? 
-                                    `<button onclick="toggleCart('${name.replace(/'/g, "\\'")}', '${finalPriceStr}', event)" class="w-full ${inCart ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' : 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm'} font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm">
-                                        ${inCart ? 'Quitar' : '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Agregar'}
+                                    `<button onclick="toggleCart('${name.replace(/'/g, "\\'")}', '${finalPriceStr}', event)" class="w-full ${inCart ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm'} font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm">
+                                        ${inCart ? 'Quitar' : 'Agregar'}
                                     </button>` 
                                     : 
-                                    `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}" target="_blank" class="w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 rounded-xl transition-colors flex items-center justify-center gap-1 text-sm shadow-sm">Consultar</a>`
+                                    `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}" target="_blank" class="w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 rounded-xl transition-colors flex items-center justify-center text-sm shadow-sm">Consultar</a>`
                                 }
                             </div>
                         </div>
@@ -1213,128 +750,44 @@
         function showDetails(index) {
             const product = currentRenderedProducts[index];
             if (!product) return;
-            
             const name = getProdName(product);
             let fullDesc = getProdDesc(product);
-            for (let k in product) if (k.toLowerCase().includes('larga') || k.toLowerCase().includes('beneficio')) fullDesc += '\n\n' + product[k];
-            
             const originalPriceStr = getProdPrice(product);
             const discountPct = getProdDiscount(product);
             let finalPriceStr = originalPriceStr;
 
             const driveImages = extractImagesFromProduct(product);
-            const category = getProdCat(product);
-            const estado = getProdStatus(product);
-            const isAvailable = estado.toLowerCase() === 'disponible';
+            const isAvailable = getProdStatus(product).toLowerCase() === 'disponible';
             
-            let tipoIngreso = '';
-            for (let k in product) if (k.toLowerCase().includes('ingreso')) tipoIngreso = String(product[k] || '').trim();
-            
-            const modalRibbon = document.getElementById('modalIngresoRibbon');
-            if (tipoIngreso !== "") {
-                modalRibbon.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> ${tipoIngreso}`;
-                modalRibbon.classList.remove('hidden');
-            } else modalRibbon.classList.add('hidden');
-
             document.getElementById('modalTitle').textContent = name;
             
             const modalPriceEl = document.getElementById('modalPrice');
             if (discountPct > 0) {
                 finalPriceStr = "S/ " + (parsePrice(originalPriceStr) - (parsePrice(originalPriceStr) * (discountPct / 100))).toFixed(2);
-                modalPriceEl.innerHTML = `
-                    <span class="text-3xl font-extrabold text-purple-600">${finalPriceStr}</span>
-                    <span class="text-lg text-gray-400 line-through ml-2 font-normal">${originalPriceStr}</span>
-                    <span class="bg-pink-100 text-pink-600 text-sm font-bold px-2 py-1 rounded-lg ml-2 align-middle">Ahorras ${discountPct}%</span>
-                `;
+                modalPriceEl.innerHTML = `<span class="text-3xl font-extrabold text-purple-600">${finalPriceStr}</span><span class="text-lg text-gray-400 line-through ml-2 font-normal">${originalPriceStr}</span><span class="bg-pink-100 text-pink-600 text-sm font-bold px-2 py-1 rounded-lg ml-2 align-middle">Ahorras ${discountPct}%</span>`;
             } else {
                 modalPriceEl.innerHTML = `<span class="text-3xl font-extrabold text-purple-600">${finalPriceStr}</span>`;
             }
             
-            let modalStockBadge = '';
-            if (estado.toLowerCase() === 'agotado') modalStockBadge = '<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full border border-red-200">Agotado</span>';
-            else if (estado.toLowerCase() === 'disponible') modalStockBadge = '<span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Disponible</span>';
-            else modalStockBadge = `<span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">${estado}</span>`;
-            
-            document.getElementById('modalCategory').innerHTML = `<span class="bg-pink-100 text-pink-700 text-xs font-bold px-3 py-1 rounded-full border border-pink-200">${category}</span>${modalStockBadge}`;
             document.getElementById('modalDesc').innerHTML = fullDesc.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>'); 
+            document.getElementById('modalImg').src = driveImages[0];
             
-            const mainImg = document.getElementById('modalImg');
-            mainImg.src = driveImages[0];
-            
-            const recContainer = document.getElementById('modalRecommendationsContainer');
-            const recList = document.getElementById('modalRecommendationsList');
-            
-            if (category.toLowerCase().includes('extractor') || category.toLowerCase().includes('eléctrico') || category.toLowerCase().includes('manual')) {
-                let recommendations = allProducts.filter(p => getProdCat(p) && !getProdCat(p).toLowerCase().includes('extractor') && !getProdCat(p).toLowerCase().includes('eléctrico') && getProdStatus(p).toLowerCase() === 'disponible').sort(() => 0.5 - Math.random()).slice(0, 2);
-                
-                if (recommendations.length > 0) {
-                    recContainer.classList.remove('hidden');
-                    recList.innerHTML = '';
-                    recommendations.forEach(rec => {
-                        const recName = getProdName(rec);
-                        const recOriginalPriceStr = getProdPrice(rec);
-                        const recDiscount = getProdDiscount(rec);
-                        let recFinalPriceStr = recOriginalPriceStr;
-                        let recPriceHTML = `<p class="text-sm font-extrabold text-pink-500 mt-1">${recOriginalPriceStr}</p>`;
-
-                        if (recDiscount > 0) {
-                            recFinalPriceStr = "S/ " + (parsePrice(recOriginalPriceStr) - (parsePrice(recOriginalPriceStr) * (recDiscount / 100))).toFixed(2);
-                            recPriceHTML = `<div class="mt-1 flex items-center gap-1"><span class="text-sm font-extrabold text-pink-500">${recFinalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${recOriginalPriceStr}</span></div>`;
-                        }
-
-                        const recCard = document.createElement('div');
-                        recCard.className = 'flex items-center justify-between gap-3 bg-white p-3 rounded-xl shadow-sm border border-pink-100';
-                        recCard.innerHTML = `
-                            <div class="flex items-center gap-3">
-                                <img src="${extractImagesFromProduct(rec)[0]}" alt="${recName}" class="w-14 h-14 object-contain bg-gray-50 rounded-lg border border-gray-100 p-1">
-                                <div><h5 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${recName}</h5>${recPriceHTML}</div>
-                            </div>
-                            <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${recFinalPriceStr}', event); this.classList.toggle('bg-pink-100'); this.classList.toggle('bg-red-100'); this.classList.toggle('text-pink-600'); this.classList.toggle('text-red-600');" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 shadow-sm ${shoppingCart.some(item => item.name === recName) ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600 hover:bg-pink-200'}"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button>
-                        `;
-                        recList.appendChild(recCard);
-                    });
-                } else recContainer.classList.add('hidden');
-            } else recContainer.classList.add('hidden');
-
-            const thumbnailsContainer = document.getElementById('modalThumbnails');
-            thumbnailsContainer.innerHTML = ''; 
-            if (driveImages.length > 1) {
-                thumbnailsContainer.classList.remove('hidden');
-                thumbnailsContainer.classList.add('flex');
-                driveImages.forEach((imgSrc, idx) => {
-                    const thumb = document.createElement('img');
-                    thumb.src = imgSrc;
-                    thumb.className = `w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 hover:scale-105 ${idx === 0 ? 'border-pink-500 shadow-md' : 'border-transparent hover:border-pink-300'}`;
-                    thumb.onclick = () => {
-                        mainImg.style.opacity = '0.5';
-                        setTimeout(() => { mainImg.src = imgSrc; mainImg.style.opacity = '1'; }, 150);
-                        Array.from(thumbnailsContainer.children).forEach(c => { c.classList.remove('border-pink-500', 'shadow-md'); c.classList.add('border-transparent'); });
-                        thumb.classList.remove('border-transparent');
-                        thumb.classList.add('border-pink-500', 'shadow-md');
-                    };
-                    thumbnailsContainer.appendChild(thumb);
-                });
-            } else {
-                thumbnailsContainer.classList.add('hidden');
-                thumbnailsContainer.classList.remove('flex');
-            }
-
             const modalBtnCart = document.getElementById('modalBtnCart');
             if (isAvailable) {
                 modalBtnCart.onclick = (e) => { e.preventDefault(); toggleCart(name, finalPriceStr, null); };
                 if (shoppingCart.some(item => item.name === name)) {
-                    modalBtnCart.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition-colors flex items-center justify-center gap-2";
+                    modalBtnCart.className = "w-full bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 flex items-center justify-center";
                     modalBtnCart.innerHTML = 'Quitar de mi selección';
                 } else {
-                    modalBtnCart.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200";
-                    modalBtnCart.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Agregar a mi selección';
+                    modalBtnCart.className = "w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 flex items-center justify-center shadow-lg shadow-purple-200";
+                    modalBtnCart.innerHTML = 'Agregar a mi selección';
                 }
             } else {
                 modalBtnCart.onclick = null;
-                modalBtnCart.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, ¿cuándo tendrán stock de: ' + name + '?')}`;
-                modalBtnCart.className = "w-full bg-gray-500 text-white font-bold py-3 rounded-xl hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-gray-200 block text-center";
+                modalBtnCart.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, avísenme cuando tengan: ' + name)}`;
+                modalBtnCart.className = "w-full bg-gray-500 text-white font-bold py-3 rounded-xl hover:bg-gray-600 flex items-center justify-center block text-center";
                 modalBtnCart.onclick = function() { window.open(this.href, '_blank'); return false; }; 
-                modalBtnCart.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar Reposición';
+                modalBtnCart.innerHTML = 'Consultar Reposición';
             }
             
             const modal = document.getElementById('productModal');
@@ -1350,27 +803,379 @@
             document.getElementById('productModalContent').classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
         }
-        document.getElementById('productModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-        function fetchTestimoniosData() {
-            Papa.parse(SHEET_URL_TESTIMONIOS, {
-                download: true, header: true, skipEmptyLines: true,
-                complete: function(results) {
-                    try {
-                        const data = results.data.filter(row => row['Nombre'] && row['Nombre'].trim() !== '');
-                        if(data.length > 0) { renderTestimonios(data); } 
-                        else { loadDemoTestimonios(); }
-                    } catch (err) { loadDemoTestimonios(); }
-                },
-                error: function() { loadDemoTestimonios(); }
+        function toggleCart(productName, priceStr, event) {
+            if(event) event.stopPropagation(); 
+            const index = shoppingCart.findIndex(item => item.name === productName);
+            if (index > -1) shoppingCart.splice(index, 1);
+            else shoppingCart.push({ name: productName, priceStr: priceStr, priceNum: parsePrice(priceStr) });
+            updateCartUI();
+            renderProducts(currentRenderedProducts);
+        }
+
+        function updateCartUI() {
+            const cartBar = document.getElementById('floatingCart');
+            if (shoppingCart.length > 0) {
+                cartBar.classList.remove('translate-y-full');
+                document.getElementById('cartCountBadge').textContent = shoppingCart.length;
+                let total = shoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
+                document.getElementById('cartTotalText').textContent = `S/ ${total.toFixed(2)}`;
+            } else {
+                cartBar.classList.add('translate-y-full');
+                if(!document.getElementById('cartModal').classList.contains('hidden')) closeCart();
+            }
+        }
+
+        function openCart() {
+            if (shoppingCart.length === 0) return;
+            renderCartModal();
+            const modal = document.getElementById('cartModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('cartModalContent').classList.remove('scale-95'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.add('opacity-0');
+            document.getElementById('cartModalContent').classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
+        }
+
+        function generateCartWhatsAppLink() {
+            if(shoppingCart.length === 0) return `https://wa.me/${WHATSAPP_NUMBER}`;
+            const nameInput = document.getElementById('cartCustomerName').value.trim();
+            const addressInput = document.getElementById('cartCustomerAddress').value.trim();
+            let message = `¡Hola Wawachay! 🌸 Soy *${nameInput || 'un cliente'}* y deseo pedir:\n\n`;
+            let total = 0;
+            shoppingCart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}* (${item.priceStr})\n`;
+                total += item.priceNum;
+            });
+            message += `\n*Total estimado:* S/ ${total.toFixed(2)}\n`;
+            if (addressInput) message += `*Dirección:* ${addressInput}\n`;
+            message += `\n¿Me indican cómo procedemos con el pago?`;
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        }
+
+        function renderCartModal() {
+            const list = document.getElementById('cartItemsList');
+            const totalText = document.getElementById('cartModalTotal');
+            const btnCheckout = document.getElementById('cartModalBtnCheckout');
+            list.innerHTML = '';
+            
+            let total = 0;
+            shoppingCart.forEach(item => {
+                total += item.priceNum;
+                const product = allProducts.find(p => getProdName(p) === item.name);
+                let imgUrl = product ? extractImagesFromProduct(product)[0] : 'https://placehold.co/100x100/fce7f3/db2777?text=W';
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-4 bg-gray-50 p-3 rounded-2xl border border-gray-100';
+                div.innerHTML = `
+                    <img src="${imgUrl}" class="w-16 h-16 object-contain bg-white rounded-xl p-1 border border-gray-200 shrink-0">
+                    <div class="flex-grow"><h5 class="text-sm font-bold text-gray-800 line-clamp-2">${item.name}</h5><p class="text-purple-600 font-extrabold mt-1">${item.priceStr}</p></div>
+                    <button onclick="toggleCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', event); renderCartModal();" class="w-8 h-8 rounded-full bg-red-100 text-red-500 hover:bg-red-200 flex items-center justify-center shrink-0">X</button>
+                `;
+                list.appendChild(div);
+            });
+
+            totalText.textContent = `S/ ${total.toFixed(2)}`;
+            
+            btnCheckout.onclick = async function(e) {
+                e.preventDefault(); 
+                if (!document.getElementById('cartCustomerName').value.trim()) {
+                    document.getElementById('cartErrorMsg').classList.remove('hidden'); document.getElementById('cartCustomerName').focus(); return false;
+                }
+                const originalText = this.innerHTML;
+                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Procesando...';
+                this.style.pointerEvents = 'none';
+
+                try {
+                    await fetch(APP_SCRIPT_WEB_APP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ cart: shoppingCart.map(item => ({ name: item.name })) }),
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                    });
+                } catch (error) { console.log("Error al descontar el stock", error); }
+
+                const wsLink = generateCartWhatsAppLink();
+                shoppingCart = []; updateCartUI(); closeCart();
+                this.innerHTML = originalText; this.style.pointerEvents = 'auto';
+                window.open(wsLink, '_blank');
+            };
+        }
+
+        // ==========================================
+        // 5. LÓGICA DEL PANEL POS (VENTAS EN VIVO)
+        // ==========================================
+        function doPosLogin() {
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            const btn = document.getElementById('btnLogin');
+            const errorMsg = document.getElementById('loginError');
+
+            if(!user || !pass) return;
+
+            btn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mx-auto"></div>';
+            btn.disabled = true;
+            errorMsg.classList.add('hidden');
+
+            // Enviar credenciales a tu Google Apps Script
+            fetch(APP_SCRIPT_WEB_APP_URL, {
+                method: 'POST',
+                body: JSON.stringify({ action: "login", user: user, pass: pass }),
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === "success") {
+                    closePosLogin();
+                    openPosInterface();
+                } else {
+                    errorMsg.textContent = result.message || "Usuario o contraseña incorrectos";
+                    errorMsg.classList.remove('hidden');
+                    btn.innerHTML = 'Ingresar al POS';
+                    btn.disabled = false;
+                }
+            })
+            .catch(err => {
+                // Si el Script falla por CORS, intentamos leer directamente del CSV como plan de respaldo B
+                Papa.parse(USER_SHEET_URL, {
+                    download: true,
+                    header: false,
+                    complete: function(results) {
+                        let isValid = false;
+                        for(let i = 1; i < results.data.length; i++){
+                            if (String(results.data[i][0]).trim() === user && String(results.data[i][1]).trim() === pass) {
+                                isValid = true; break;
+                            }
+                        }
+                        if (isValid) { closePosLogin(); openPosInterface(); } 
+                        else {
+                            errorMsg.textContent = "Usuario o contraseña incorrectos";
+                            errorMsg.classList.remove('hidden');
+                            btn.innerHTML = 'Ingresar al POS';
+                            btn.disabled = false;
+                        }
+                    },
+                    error: function() {
+                        errorMsg.textContent = "Error de conexión. Verifica la implementación del Google Script.";
+                        errorMsg.classList.remove('hidden');
+                        btn.innerHTML = 'Ingresar al POS';
+                        btn.disabled = false;
+                    }
+                });
             });
         }
 
+        function openPosLogin(e) {
+            e.preventDefault();
+            const login = document.getElementById('loginScreen');
+            login.classList.remove('hidden'); login.classList.add('flex');
+            setTimeout(() => { login.classList.remove('opacity-0'); }, 10);
+        }
+
+        function closePosLogin() {
+            const login = document.getElementById('loginScreen');
+            login.classList.add('opacity-0');
+            setTimeout(() => { login.classList.add('hidden'); login.classList.remove('flex'); }, 300);
+        }
+
+        function openPosInterface() {
+            const pos = document.getElementById('posInterface');
+            pos.classList.remove('hidden'); pos.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => { pos.classList.remove('opacity-0'); filterPosProducts(); }, 10);
+        }
+
+        function closePosInterface() {
+            const pos = document.getElementById('posInterface');
+            pos.classList.add('opacity-0'); document.body.style.overflow = '';
+            setTimeout(() => { pos.classList.add('hidden'); pos.classList.remove('flex'); }, 300);
+            document.getElementById('btnLogin').innerHTML = 'Ingresar al POS';
+            document.getElementById('btnLogin').disabled = false;
+        }
+
+        function updatePosCategoryFilter(categories) {
+            const tabs = document.getElementById('posCategoryTabs');
+            if(!tabs) return;
+            tabs.innerHTML = '';
+            const createTab = (catName, label) => {
+                const btn = document.createElement('button');
+                btn.textContent = label;
+                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${posCurrentCategoryTab === catName ? 'bg-pink-500 text-white border-pink-500' : 'bg-white text-gray-600 border-gray-200'}`;
+                btn.onclick = () => { posCurrentCategoryTab = catName; updatePosCategoryFilter(categories); filterPosProducts(); };
+                return btn;
+            };
+            tabs.appendChild(createTab('all', 'Todos'));
+            categories.forEach(cat => tabs.appendChild(createTab(cat, cat)));
+        }
+
+        function filterPosProducts() {
+            const term = document.getElementById('posSearchInput').value.toLowerCase();
+            let filtered = allProducts.filter(p => {
+                const matchSearch = getProdName(p).toLowerCase().includes(term);
+                const matchCat = posCurrentCategoryTab === 'all' || getProdCat(p) === posCurrentCategoryTab;
+                return matchSearch && matchCat;
+            });
+            renderPosProducts(filtered);
+        }
+
+        document.getElementById('posSearchInput').addEventListener('input', filterPosProducts);
+
+        function renderPosProducts(products) {
+            const container = document.getElementById('pos-products-container');
+            container.innerHTML = ''; 
+
+            products.forEach((product) => {
+                const name = getProdName(product);
+                const originalPriceStr = getProdPrice(product);
+                const originalPriceNum = parsePrice(originalPriceStr);
+                const discountPct = getProdDiscount(product);
+                const isAvailable = getProdStatus(product).toLowerCase() === 'disponible';
+                const stockNum = parseInt(getProdStock(product));
+                const img = extractImagesFromProduct(product)[0];
+                const inCart = posShoppingCart.some(item => item.name === name);
+
+                let finalPriceStr = originalPriceStr;
+                let priceHTML = `<p class="font-extrabold text-purple-700 text-sm mt-1">${originalPriceStr}</p>`;
+
+                if (discountPct > 0) {
+                    finalPriceStr = "S/ " + (originalPriceNum - (originalPriceNum * (discountPct / 100))).toFixed(2);
+                    priceHTML = `<div class="flex items-center gap-1 mt-1"><span class="font-extrabold text-purple-700 text-sm">${finalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${originalPriceStr}</span></div>`;
+                }
+
+                let badge = isAvailable ? `<span class="absolute top-2 left-2 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">Stk: ${stockNum}</span>` : `<span class="absolute top-2 left-2 bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">Agotado</span>`;
+
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-xl shadow-sm border p-3 flex flex-col relative ${inCart ? 'border-purple-500 ring-1 ring-purple-200' : 'border-gray-100'}`;
+                card.innerHTML = `
+                    ${badge}
+                    <img src="${img}" class="w-full h-24 object-contain mb-2 bg-gray-50 rounded-lg p-1">
+                    <h3 class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight flex-grow">${name}</h3>
+                    ${priceHTML}
+                    <button onclick="togglePosCart('${name.replace(/'/g, "\\'")}', '${finalPriceStr}', event)" class="mt-3 w-full py-1.5 rounded-lg text-xs font-bold transition-colors ${inCart ? 'bg-red-100 text-red-600' : 'bg-pink-500 text-white hover:bg-pink-600 shadow-sm'} ${!isAvailable && !inCart ? 'opacity-50 cursor-not-allowed bg-gray-300 text-gray-600' : ''}" ${!isAvailable && !inCart ? 'disabled' : ''}>
+                        ${inCart ? 'Quitar' : 'Añadir al Ticket'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function togglePosCart(name, priceStr, event) {
+            if(event) event.stopPropagation();
+            const index = posShoppingCart.findIndex(item => item.name === name);
+            if (index > -1) posShoppingCart.splice(index, 1);
+            else posShoppingCart.push({ name: name, priceStr: priceStr, priceNum: parsePrice(priceStr) });
+            
+            let total = posShoppingCart.reduce((s, i) => s + i.priceNum, 0);
+            document.getElementById('posCartCountBadge').textContent = posShoppingCart.length;
+            document.getElementById('posCartTotalText').textContent = `S/ ${total.toFixed(2)}`;
+            
+            if (posShoppingCart.length > 0) document.getElementById('posFloatingCart').classList.remove('translate-y-full');
+            else document.getElementById('posFloatingCart').classList.add('translate-y-full');
+            
+            filterPosProducts(); 
+            if(!document.getElementById('posCartModal').classList.contains('hidden')) renderPosCartModal();
+        }
+
+        function openPosCart() {
+            if (posShoppingCart.length === 0) return;
+            renderPosCartModal();
+            const modal = document.getElementById('posCartModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('posCartModalContent').classList.remove('scale-95'); }, 10);
+        }
+
+        function closePosCart() {
+            const modal = document.getElementById('posCartModal');
+            modal.classList.add('opacity-0'); document.getElementById('posCartModalContent').classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+        }
+
+        function calculatePosTotal() {
+            const type = document.getElementById('posDiscountType').value;
+            const val = parseFloat(document.getElementById('posDiscountValue').value) || 0;
+            let subtotal = posShoppingCart.reduce((sum, item) => sum + item.priceNum, 0);
+            let discountAmount = 0;
+
+            if (type === 'percent' && val > 0) discountAmount = subtotal * (val / 100);
+            else if (type === 'amount' && val > 0) discountAmount = val;
+
+            let finalTotal = subtotal - discountAmount;
+            if (finalTotal < 0) finalTotal = 0;
+
+            document.getElementById('posSummarySubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+            document.getElementById('posSummaryDiscountAmount').textContent = `- S/ ${discountAmount.toFixed(2)}`;
+            document.getElementById('posSummaryTotal').textContent = `S/ ${finalTotal.toFixed(2)}`;
+
+            return { subtotal, discountAmount, finalTotal, type, val };
+        }
+
+        function renderPosCartModal() {
+            const list = document.getElementById('posCartItemsList');
+            list.innerHTML = '';
+
+            posShoppingCart.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100';
+                div.innerHTML = `
+                    <div class="pr-2"><h5 class="text-xs font-bold text-gray-800 leading-tight">${item.name}</h5><p class="text-purple-600 font-extrabold text-sm">${item.priceStr}</p></div>
+                    <button onclick="togglePosCart('${item.name.replace(/'/g, "\\'")}', '${item.priceStr}', null);" class="text-red-500 hover:text-red-700 p-2 shrink-0">X</button>
+                `;
+                list.appendChild(div);
+            });
+
+            calculatePosTotal();
+
+            document.getElementById('posBtnCheckout').onclick = async function(e) {
+                e.preventDefault();
+                const cName = document.getElementById('posCustomerName').value.trim();
+                const cAdd = document.getElementById('posCustomerAddress').value.trim();
+                
+                if (!cName) {
+                    document.getElementById('posCartErrorMsg').classList.remove('hidden');
+                    document.getElementById('posCustomerName').focus(); return;
+                }
+                
+                const totals = calculatePosTotal();
+                let message = `*Venta desde TikTok Live* 🎥\n\n*Cliente:* ${cName}\n`;
+                if(cAdd) message += `*Dirección:* ${cAdd}\n`;
+                message += `\n*Pedido:*\n`;
+                posShoppingCart.forEach((item, i) => { message += `${i + 1}. ${item.name} (${item.priceStr})\n`; });
+                message += `\n*Subtotal:* S/ ${totals.subtotal.toFixed(2)}`;
+                if (totals.discountAmount > 0) {
+                    let descText = totals.type === 'percent' ? `(${totals.val}%)` : `Manual`;
+                    message += `\n*Descuento ${descText}:* - S/ ${totals.discountAmount.toFixed(2)}`;
+                }
+                message += `\n*Total Final:* *S/ ${totals.finalTotal.toFixed(2)}*`;
+                
+                const originalText = this.innerHTML;
+                this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>';
+                this.style.pointerEvents = 'none';
+
+                try {
+                    await fetch(APP_SCRIPT_WEB_APP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ cart: posShoppingCart.map(item => ({ name: item.name })) }),
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                    });
+                } catch (err) { console.log("Aviso: No se descontó el stock", err); }
+
+                posShoppingCart = []; updatePosCartUI(); closePosCart();
+                this.innerHTML = originalText; this.style.pointerEvents = 'auto';
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+            };
+        }
+
+        // ==========================================
+        // 6. TESTIMONIOS, LIGHTBOX Y EVENTOS INIT
+        // ==========================================
         function renderTestimonios(testimonios) {
             const container = document.getElementById('testimonios-container');
             if(!container) return;
             container.innerHTML = '';
-            allTestimonios = testimonios; 
             
             testimonios.forEach((testi, index) => {
                 const nombre = testi['Nombre'] || 'Mami Feliz';
@@ -1388,12 +1193,12 @@
                 card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-pink-50 hover:shadow-xl transition-all duration-300 relative group flex flex-col h-full cursor-pointer hover:-translate-y-1';
                 card.onclick = () => openTestimonioModal(index);
                 card.innerHTML = `
-                    <div class="absolute top-0 right-0 p-6 opacity-10 text-pink-500 group-hover:scale-110 group-hover:text-pink-600 transition-all duration-300"><svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg></div>
+                    <div class="absolute top-0 right-0 p-6 opacity-10 text-pink-500 group-hover:scale-110 transition-all duration-300"><svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg></div>
                     <div class="flex gap-1 mb-4 z-10 relative">${estrellasHTML}</div>
-                    <p class="text-gray-600 italic mb-6 flex-grow z-10 relative leading-relaxed line-clamp-4 group-hover:text-gray-800 transition-colors">"${comentario}"</p>
+                    <p class="text-gray-600 italic mb-6 flex-grow z-10 relative leading-relaxed line-clamp-4">"${comentario}"</p>
                     <div class="flex items-center gap-4 mt-auto z-10 relative border-t border-gray-50 pt-4">
-                        <img src="${fotoUrl}" alt="Foto de ${nombre}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200 relative z-20 cursor-zoom-in hover:scale-110 transition-transform" onclick="event.stopPropagation(); openTestimonioLightbox('${fotoUrl}')">
-                        <div><h4 class="font-bold text-gray-800">${nombre}</h4>${fecha ? `<p class="text-xs text-gray-400">${fecha}</p>` : ''}</div>
+                        <img src="${fotoUrl}" class="w-12 h-12 rounded-full object-cover border-2 border-pink-200" onclick="event.stopPropagation(); openTestimonioLightbox('${fotoUrl}')">
+                        <div><h4 class="font-bold text-gray-800">${nombre}</h4><p class="text-xs text-gray-400">${fecha}</p></div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1402,8 +1207,7 @@
         
         function loadDemoTestimonios() {
             renderTestimonios([
-                { 'Nombre': 'María Fernández', 'Comentario': 'El extractor S11 me salvó la lactancia. Es súper silencioso y no me duele nada.', 'Calificación': '5' },
-                { 'Nombre': 'Lucía M.', 'Comentario': 'Tenía dudas sobre comprar uno inalámbrico pero fue la mejor decisión. La batería dura bastante.', 'Calificación': '5' }
+                { 'Nombre': 'María F.', 'Comentario': 'El extractor S11 me salvó la lactancia. Silencioso y sin dolor.', 'Calificación': '5' }
             ]);
         }
 
@@ -1419,30 +1223,21 @@
             document.getElementById('modalTestiComentario').textContent = `"${(testi['Comentario'] || '').replace(/^""|""$/g, '"').replace(/^"|"$/g, '')}"`;
             document.getElementById('modalTestiFoto').src = fotoUrl;
 
-            let estrellasHTML = '';
-            for(let i = 0; i < Math.min(Math.max(parseInt(testi['Calificación']) || 5, 1), 5); i++) estrellasHTML += `<svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
-            document.getElementById('modalTestiEstrellas').innerHTML = estrellasHTML;
-
             const modal = document.getElementById('testimonioModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
             setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('testimonioModalContent').classList.remove('scale-95'); }, 10);
-            document.body.style.overflow = 'hidden';
         }
 
         function closeTestimonioModal() {
             const modal = document.getElementById('testimonioModal');
-            modal.classList.add('opacity-0');
-            document.getElementById('testimonioModalContent').classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
+            modal.classList.add('opacity-0'); document.getElementById('testimonioModalContent').classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
         }
-        document.getElementById('testimonioModal').addEventListener('click', function(e) { if (e.target === this) closeTestimonioModal(); });
 
         function openLightbox() {
             document.getElementById('lightboxImg').src = document.getElementById('modalImg').src;
             const lightbox = document.getElementById('imageLightbox');
-            lightbox.classList.remove('hidden');
-            lightbox.classList.add('flex');
+            lightbox.classList.remove('hidden'); lightbox.classList.add('flex');
             setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
         function closeLightbox() {
@@ -1453,41 +1248,22 @@
         function openTestimonioLightbox(fotoUrl) {
             document.getElementById('lightboxImg').src = fotoUrl;
             const lightbox = document.getElementById('imageLightbox');
-            lightbox.classList.remove('hidden');
-            lightbox.classList.add('flex');
+            lightbox.classList.remove('hidden'); lightbox.classList.add('flex');
             setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
         }
 
         // ==========================================
-        // CHATBOT LÓGICA
+        // 7. CHATBOT Wawibot
         // ==========================================
         let chatOpen = false;
-        const chatWindow = document.getElementById('chatbot-window');
-        const chatMessages = document.getElementById('chatbot-messages');
-        const chatInput = document.getElementById('chatbot-input');
-        const quickReplies = document.getElementById('quick-replies');
-
-        const botKnowledge = {
-            'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias, el tiempo depende de la agencia (Shalom o Marvisur).',
-            'pagos': 'Aceptamos Yape, Plin, y transferencias bancarias (BCP, BBVA, Interbank). Todo pago es 100% seguro.',
-            'garantia': '¡Claro que sí! Todos nuestros extractores cuentan con garantía por defectos de fábrica.',
-            'precio': 'Nuestros precios varían según el modelo. ¡Dime el nombre de un modelo (ej. "S11" o "S22") o revisa el catálogo en la página web para más detalles!',
-            'hola': '¡Hola de nuevo, mami! 🌸 ¿En qué te puedo ayudar hoy? Puedes preguntarme por algún producto en específico.',
-            'gracias': '¡De nada! Aquí estoy si necesitas algo más.',
-            'ubicacion': '📍 Estamos en Av. Defensores del Morro 1625, C.C. Galaxy Plaza - 2do Piso, Tienda 2058.\n\n⏰ Atendemos de Lunes a Viernes de 9:00 am a 6:00 pm, y Sábados de 9:00 am a 1:00 pm. ¡Te esperamos!',
-            'asesor': `Con gusto te comunicaré con una asesora. Por favor, haz clic aquí para hablar por WhatsApp: <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>`,
-            'fallback': `Mmm, no estoy muy segura de eso. 🤔 ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí para chatear</a>.`
-        };
-
         function toggleChatbot() {
             chatOpen = !chatOpen;
             const tooltip = document.getElementById('chatbot-tooltip');
             if (tooltip) tooltip.style.opacity = '0'; 
-            
+            const chatWindow = document.getElementById('chatbot-window');
             if (chatOpen) {
-                chatWindow.classList.remove('hidden'); 
-                chatWindow.classList.add('flex');
-                setTimeout(() => { chatWindow.classList.remove('opacity-0', 'translate-y-4'); chatInput.focus(); }, 10);
+                chatWindow.classList.remove('hidden'); chatWindow.classList.add('flex');
+                setTimeout(() => { chatWindow.classList.remove('opacity-0', 'translate-y-4'); document.getElementById('chatbot-input').focus(); }, 10);
             } else {
                 chatWindow.classList.add('opacity-0', 'translate-y-4');
                 setTimeout(() => { chatWindow.classList.add('hidden'); chatWindow.classList.remove('flex'); }, 300);
@@ -1499,8 +1275,8 @@
             msgDiv.className = 'flex gap-2 w-full ' + (isUser ? 'justify-end' : '');
             const formattedText = text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
             msgDiv.innerHTML = `<div class="p-3 rounded-2xl max-w-[85%] shadow-sm text-sm chat-selectable ${isUser ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-pink-100 text-gray-700 rounded-tl-none whitespace-pre-line'}">${formattedText}</div>`;
-            chatMessages.insertBefore(msgDiv, quickReplies);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            document.getElementById('chatbot-messages').insertBefore(msgDiv, document.getElementById('quick-replies'));
+            document.getElementById('chatbot-messages').scrollTop = document.getElementById('chatbot-messages').scrollHeight;
         }
 
         function showTypingIndicator() {
@@ -1508,9 +1284,9 @@
             const msgDiv = document.createElement('div');
             msgDiv.id = id;
             msgDiv.className = 'flex gap-2 w-full';
-            msgDiv.innerHTML = `<div class="bg-pink-100 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm flex items-center gap-1"><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0s"></span><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></span></div>`;
-            chatMessages.insertBefore(msgDiv, quickReplies);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            msgDiv.innerHTML = `<div class="bg-pink-100 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm flex items-center gap-1"><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce"></span><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span><span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></span></div>`;
+            document.getElementById('chatbot-messages').insertBefore(msgDiv, document.getElementById('quick-replies'));
+            document.getElementById('chatbot-messages').scrollTop = document.getElementById('chatbot-messages').scrollHeight;
             return id;
         }
 
@@ -1518,18 +1294,20 @@
 
         function sendQuickReply(type) {
             const labels = { 'envios': 'Información de envíos', 'pagos': 'Métodos de pago', 'ubicacion': 'Ubicación y Horarios', 'garantia': '¿Tienen garantía?', 'asesor': 'Quiero hablar con un humano' };
+            const answers = {
+                'envios': 'Realizamos envíos a todo el Perú 🇵🇪. En Lima el delivery suele tardar 24 a 48 hrs hábiles. Para provincias, el tiempo depende de la agencia.',
+                'pagos': 'Aceptamos Yape, Plin, y transferencias bancarias (BCP, BBVA, Interbank). Todo pago es 100% seguro.',
+                'ubicacion': '📍 Estamos en Av. Defensores del Morro 1625, C.C. Galaxy Plaza - 2do Piso, Tienda 2058.\n\n⏰ Atendemos de Lunes a Viernes de 9:00 am a 6:00 pm, y Sábados de 9:00 am a 1:00 pm.',
+                'garantia': '¡Claro que sí! Todos nuestros extractores cuentan con garantía por defectos de fábrica.',
+                'asesor': `Con gusto te comunicaré con una asesora. Por favor, haz clic aquí: <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">Ir a WhatsApp</a>`
+            };
             appendMessage(labels[type], true);
             const typingId = showTypingIndicator();
-            setTimeout(() => { removeTypingIndicator(typingId); appendMessage(botKnowledge[type]); }, 1000);
-        }
-
-        function botAddToCart(name, price) {
-            const inCart = shoppingCart.some(item => item.name === name);
-            if (!inCart) toggleCart(name, price, null);
-            openCart();
+            setTimeout(() => { removeTypingIndicator(typingId); appendMessage(answers[type]); }, 1000);
         }
 
         function handleUserMessage() {
+            const chatInput = document.getElementById('chatbot-input');
             const text = chatInput.value.trim();
             if (!text) return;
             appendMessage(text, true);
@@ -1540,104 +1318,51 @@
                 removeTypingIndicator(typingId);
                 const lText = text.toLowerCase();
                 const words = lText.split(/[\s,.-]+/).filter(w => w.length > 2 && !['con', 'los', 'las', 'para', 'del', 'que', 'quiero', 'busco', 'tienen', 'precio', 'cuesta'].includes(w));
+                
                 let bestMatch = null;
                 let highestScore = 0;
 
                 allProducts.forEach(p => {
                     const name = String(getProdName(p)).toLowerCase();
-                    const cat = String(getProdCat(p)).toLowerCase();
                     let score = 0;
                     if (lText.includes(name)) score += 10;
-                    words.forEach(w => {
-                        if (name.includes(w)) score += 2;
-                        if (cat.includes(w)) score += 1;
-                        if (/\d/.test(w) && name.includes(w)) score += 5; 
-                    });
+                    words.forEach(w => { if (name.includes(w)) score += 2; if (/\d/.test(w) && name.includes(w)) score += 5; });
                     if (score > highestScore) { highestScore = score; bestMatch = p; }
                 });
 
                 if (bestMatch && highestScore > 1) {
                     const name = getProdName(bestMatch);
-                    const originalPriceStr = getProdPrice(bestMatch);
-                    const originalPriceNum = parsePrice(originalPriceStr);
-                    const discountPct = getProdDiscount(bestMatch);
                     const isAvailable = getProdStatus(bestMatch).toLowerCase() === 'disponible';
-                    const safeName = name.replace(/'/g, "\\'");
-                    const desc = getProdDesc(bestMatch);
-                    const shortDesc = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
-
-                    let finalPriceStr = originalPriceStr;
-                    let priceText = `*${originalPriceStr}*`;
-
-                    if (discountPct > 0) {
-                        finalPriceStr = "S/ " + (originalPriceNum - (originalPriceNum * (discountPct / 100))).toFixed(2);
-                        priceText = `~${originalPriceStr}~ *${finalPriceStr}* (¡con ${discountPct}% de dscto!)`;
-                    }
-
+                    
                     if (isAvailable) {
-                        const wameLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, deseo consultar sobre el ' + name)}`;
-                        const btnHTML = `
-                            <div class="mt-2 text-[11px] text-gray-500 italic bg-white/50 p-2 rounded">"${shortDesc}"</div>
-                            <div class="flex flex-col gap-2 mt-3">
-                                <button onclick="botAddToCart('${safeName}', '${finalPriceStr}')" class="bg-pink-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-pink-600 flex items-center justify-center gap-1 transition-transform active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> Añadir al carrito</button>
-                                <a href="${wameLink}" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-xl font-bold text-xs w-full shadow-sm hover:bg-green-600 flex items-center justify-center gap-1 text-center transition-transform active:scale-95"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg> Consultar a Ventas</a>
-                            </div>`;
-                        appendMessage(`¡Sí tenemos! 💖 El *${name}* cuesta ${priceText} y está disponible.${btnHTML}`);
+                        appendMessage(`¡Sí tenemos! 💖 El *${name}* está disponible. Puedes encontrarlo en nuestro catálogo.`);
                     } else {
-                        let fallbackMsg = `Uy, mami 😔. El *${name}* se encuentra temporalmente agotado.<br><br>¿Deseas que te avisemos apenas llegue?<br><a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Wawachay, por favor avísenme cuando tengan stock de: ' + name)}" target="_blank" class="block text-center bg-green-500 text-white font-bold py-2 rounded-xl mt-2 mb-3 hover:bg-green-600 shadow-sm text-xs">🔔 Avisarme por WhatsApp</a>`;
-                        
-                        let category = getProdCat(bestMatch);
-                        const recs = allProducts.filter(p => getProdStatus(p).toLowerCase() === 'disponible' && getProdCat(p) === category && getProdName(p) !== name).sort(() => 0.5 - Math.random());
-
-                        if (recs.length > 0) {
-                            const recName = getProdName(recs[0]);
-                            const recOriginalPriceStr = getProdPrice(recs[0]);
-                            const recDiscount = getProdDiscount(recs[0]);
-                            let recFinalPriceStr = recOriginalPriceStr;
-                            if (recDiscount > 0) {
-                                recFinalPriceStr = "S/ " + (parsePrice(recOriginalPriceStr) - (parsePrice(recOriginalPriceStr) * (recDiscount / 100))).toFixed(2);
-                            }
-                            const safeRecName = recName.replace(/'/g, "\\'");
-                            fallbackMsg += `<div class="border-t border-pink-200 pt-3 mt-2">
-                                <span class="text-[10px] font-bold text-purple-600 uppercase">✨ Alternativa Disponible:</span>
-                                <div class="mt-1 text-sm font-bold text-gray-700">${recName}</div>
-                                <div class="text-pink-500 font-extrabold text-sm mb-2">${recFinalPriceStr}</div>
-                                <button onclick="botAddToCart('${safeRecName}', '${recFinalPriceStr}')" class="bg-purple-100 text-purple-700 border border-purple-200 px-3 py-2 rounded-xl font-bold text-xs w-full hover:bg-purple-200 transition-colors flex items-center justify-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Añadir recomendación
-                                </button>
-                            </div>`;
-                        }
-                        appendMessage(fallbackMsg);
+                        appendMessage(`Uy, mami 😔. El *${name}* se encuentra temporalmente agotado.`);
                     }
                     return;
                 }
 
-                if (lText.includes('envio') || lText.includes('delivery') || lText.includes('llega')) appendMessage(botKnowledge['envios']);
-                else if (lText.includes('pago') || lText.includes('yape') || lText.includes('tarjeta')) appendMessage(botKnowledge['pagos']);
-                else if (lText.includes('garantia') || lText.includes('falla')) appendMessage(botKnowledge['garantia']);
-                else if (lText.includes('precio') || lText.includes('cuesta')) appendMessage(botKnowledge['precio']);
-                else if (lText.includes('ubicacion') || lText.includes('tienda') || lText.includes('direccion') || lText.includes('horario')) appendMessage(botKnowledge['ubicacion']);
-                else if (lText.includes('hola') || lText.includes('buenos')) appendMessage(botKnowledge['hola']);
-                else if (lText.includes('gracias')) appendMessage(botKnowledge['gracias']);
-                else if (lText.includes('humano') || lText.includes('whatsapp') || lText.includes('asesor') || lText.includes('persona')) appendMessage(botKnowledge['asesor']);
-                else appendMessage(botKnowledge['fallback']);
+                if (lText.includes('envio') || lText.includes('delivery')) sendQuickReply('envios');
+                else if (lText.includes('pago') || lText.includes('yape')) sendQuickReply('pagos');
+                else if (lText.includes('ubicacion') || lText.includes('tienda')) sendQuickReply('ubicacion');
+                else appendMessage(`Mmm, no estoy muy segura de eso. 🤔 ¿Te gustaría hablar con una asesora humana por WhatsApp? <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="text-purple-600 font-bold underline">Haz clic aquí para chatear</a>.`);
             }, 1200);
         }
 
         function handleChatEnter(e) { if (e.key === 'Enter') handleUserMessage(); }
 
+        // ==========================================
+        // 8. INICIO DE LA APLICACIÓN
+        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
             fetchGoogleSheetsData();
             fetchTestimoniosData(); 
-            const searchEl = document.getElementById('searchInput');
-            const sortEl = document.getElementById('sortOrder');
-            if (searchEl) searchEl.addEventListener('input', filterProducts);
-            if (sortEl) sortEl.addEventListener('change', filterProducts);
             
             setTimeout(() => {
                 const tooltip = document.getElementById('chatbot-tooltip');
                 if (tooltip && !chatOpen) tooltip.style.opacity = '0';
             }, 15000);
+            
             checkCookieConsent();
         });
     </script>
