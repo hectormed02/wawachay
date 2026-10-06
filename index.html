@@ -149,12 +149,14 @@
                         </div>
                     </div>
                 </div>
+                
                 <!-- Pestañas (Tabs) -->
                 <div id="categoryTabs" class="flex gap-3 overflow-x-auto py-2 custom-scrollbar w-full"></div>
             </div>
 
-            <!-- Contenedor de Productos del Cliente -->
+            <!-- Contenedor Principal de Productos -->
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Indicador de carga -->
                 <div id="loading" class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
                     <p class="text-gray-500 font-medium" id="loadingText">Cargando catálogo...</p>
@@ -162,7 +164,7 @@
             </div>
         </section>
 
-        <!-- SECCIONES DE TESTIMONIOS, NOSOTROS Y CONTACTO IGUALES -->
+        <!-- SECCIONES DE TESTIMONIOS, NOSOTROS Y CONTACTO -->
         <section id="testimonios" class="py-16 bg-gradient-to-b from-pink-50/30 to-white border-t border-pink-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -255,10 +257,8 @@
                 <div class="flex items-center gap-2 text-xs text-gray-400 font-medium mt-1">
                     <span>Diseñado y desarrollado por <a href="#" class="font-bold text-purple-600 hover:text-pink-500 transition-colors">hsoluciones</a> 💻</span>
                     <span>|</span>
-                    <!-- BOTÓN OCULTO PARA ABRIR EL PANEL DE VENTAS (POS) -->
-                    <a href="#" onclick="openPosLogin(event)" class="hover:text-pink-500 transition-colors flex items-center gap-1 font-bold">
-                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg> Panel Live
-                    </a>
+                    <!-- BOTÓN PARA ABRIR EL PANEL DE VENTAS (POS) -->
+                    <a href="#" onclick="openPosLogin(event)" class="hover:text-pink-500 transition-colors flex items-center gap-1 font-bold"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg> Panel Live</a>
                 </div>
             </div>
             <div class="flex gap-4">
@@ -874,7 +874,7 @@
 
         function updateCartUI() {
             const cartBar = document.getElementById('floatingCart');
-            if(!cartBar) return; // Seguridad extra
+            if(!cartBar) return;
             if (shoppingCart.length > 0) {
                 cartBar.classList.remove('translate-y-full');
                 document.getElementById('cartCountBadge').textContent = shoppingCart.length;
@@ -923,13 +923,25 @@
             const list = document.getElementById('cartItemsList');
             const totalText = document.getElementById('cartModalTotal');
             const btnCheckout = document.getElementById('cartModalBtnCheckout');
+            const suggestionsContainer = document.getElementById('cartSuggestions');
+            const suggestionsList = document.getElementById('cartSuggestionsList');
+            const errorMsg = document.getElementById('cartErrorMsg');
+            
             list.innerHTML = '';
+            if(errorMsg) errorMsg.classList.add('hidden');
             
             let total = 0;
+            let hasExtractores = false;
+
             shoppingCart.forEach(item => {
                 total += item.priceNum;
                 const product = allProducts.find(p => getProdName(p) === item.name);
-                let imgUrl = product ? extractImagesFromProduct(product)[0] : 'https://placehold.co/100x100/fce7f3/db2777?text=W';
+                let imgUrl = 'https://placehold.co/100x100/fce7f3/db2777?text=W';
+                if (product) {
+                    imgUrl = extractImagesFromProduct(product)[0];
+                    let cat = getProdCat(product).toLowerCase();
+                    if(cat.includes('extractor') || cat.includes('eléctrico') || cat.includes('manual')) hasExtractores = true;
+                }
                 const div = document.createElement('div');
                 div.className = 'flex items-center gap-4 bg-gray-50 p-3 rounded-2xl border border-gray-100';
                 div.innerHTML = `
@@ -940,12 +952,56 @@
                 list.appendChild(div);
             });
 
+            // LÓGICA DE RECOMENDACIONES (CROSS-SELLING)
+            let recommendations = allProducts.filter(p => {
+                const isAvailable = getProdStatus(p).toLowerCase() === 'disponible';
+                const inCart = shoppingCart.some(item => item.name === getProdName(p));
+                let cat = getProdCat(p).toLowerCase();
+                if (hasExtractores) {
+                    return isAvailable && !inCart && !cat.includes('extractor') && !cat.includes('eléctrico') && !cat.includes('manual');
+                } else {
+                    return isAvailable && !inCart;
+                }
+            });
+
+            recommendations = recommendations.sort(() => 0.5 - Math.random()).slice(0, 8);
+
+            if (recommendations.length > 0) {
+                suggestionsContainer.classList.remove('hidden');
+                suggestionsList.innerHTML = '';
+                recommendations.forEach(rec => {
+                    const recName = getProdName(rec);
+                    const originalPriceStr = getProdPrice(rec);
+                    const discountPct = getProdDiscount(rec);
+                    let finalPriceStr = originalPriceStr;
+                    let priceHTML = `<p class="text-xs font-extrabold text-pink-500">${originalPriceStr}</p>`;
+
+                    if (discountPct > 0) {
+                        let finalNum = parsePrice(originalPriceStr) - (parsePrice(originalPriceStr) * (discountPct / 100));
+                        finalPriceStr = "S/ " + finalNum.toFixed(2);
+                        priceHTML = `<div class="mt-0.5 flex items-center gap-1"><span class="text-xs font-extrabold text-pink-500">${finalPriceStr}</span><span class="text-[10px] text-gray-400 line-through">${originalPriceStr}</span></div>`;
+                    }
+
+                    const recCard = document.createElement('div');
+                    recCard.className = 'flex flex-col min-w-[140px] max-w-[140px] bg-white p-3 rounded-xl border border-pink-100 shadow-sm relative shrink-0 snap-start';
+                    recCard.innerHTML = `
+                        <img src="${extractImagesFromProduct(rec)[0]}" class="w-full h-20 object-contain mb-2 rounded-lg bg-gray-50 p-1">
+                        <h6 class="text-[10px] font-bold text-gray-700 line-clamp-2 leading-tight flex-grow mb-1">${recName}</h6>
+                        ${priceHTML}
+                        <button onclick="toggleCart('${recName.replace(/'/g, "\\'")}', '${finalPriceStr}', event); renderCartModal();" class="absolute top-2 right-2 bg-pink-100 text-pink-600 hover:bg-pink-200 w-7 h-7 rounded-full flex items-center justify-center transition-colors shadow-sm" title="Agregar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button>
+                    `;
+                    suggestionsList.appendChild(recCard);
+                });
+            } else {
+                suggestionsContainer.classList.add('hidden');
+            }
+
             totalText.textContent = `S/ ${total.toFixed(2)}`;
             
             btnCheckout.onclick = async function(e) {
                 e.preventDefault(); 
                 if (!document.getElementById('cartCustomerName').value.trim()) {
-                    document.getElementById('cartErrorMsg').classList.remove('hidden'); document.getElementById('cartCustomerName').focus(); return false;
+                    errorMsg.classList.remove('hidden'); document.getElementById('cartCustomerName').focus(); return false;
                 }
                 const originalText = this.innerHTML;
                 this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Procesando...';
@@ -1031,7 +1087,10 @@
             const pos = document.getElementById('posInterface');
             pos.classList.remove('hidden'); pos.classList.add('flex');
             document.body.style.overflow = 'hidden';
-            setTimeout(() => { pos.classList.remove('opacity-0'); filterPosProducts(); }, 10);
+            setTimeout(() => { 
+                pos.classList.remove('opacity-0'); 
+                filterPosProducts(); 
+            }, 10);
         }
 
         function closePosInterface() {
