@@ -83,10 +83,10 @@
     </header>
 
     <main class="flex-grow" id="inicio">
-        <!-- SECCIONES DE INICIO, BENEFICIOS Y CATÁLOGO PRINCIPAL IGUALES AL ANTERIOR -->
         <section class="relative pt-12 pb-16 px-4 sm:px-6 lg:px-8 border-b border-pink-100 overflow-hidden bg-gradient-to-b from-pink-50/50 to-white">
             <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-pink-100 opacity-50 blur-3xl pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-purple-100 opacity-50 blur-3xl pointer-events-none"></div>
+            
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
                 <div class="text-center lg:text-left order-2 lg:order-1">
                     <span class="bg-purple-100 text-purple-700 text-sm font-bold px-4 py-1.5 rounded-full mb-6 inline-block shadow-sm">Para la comodidad de mamá y bebé</span>
@@ -153,6 +153,7 @@
                 <div id="categoryTabs" class="flex gap-3 overflow-x-auto py-2 custom-scrollbar w-full"></div>
             </div>
 
+            <!-- Contenedor de Productos del Cliente -->
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 <div id="loading" class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
@@ -254,8 +255,10 @@
                 <div class="flex items-center gap-2 text-xs text-gray-400 font-medium mt-1">
                     <span>Diseñado y desarrollado por <a href="#" class="font-bold text-purple-600 hover:text-pink-500 transition-colors">hsoluciones</a> 💻</span>
                     <span>|</span>
-                    <!-- BOTÓN PARA ABRIR EL PANEL DE VENTAS (POS) -->
-                    <a href="#" onclick="openPosLogin(event)" class="hover:text-pink-500 transition-colors flex items-center gap-1 font-bold"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg> Panel Live</a>
+                    <!-- BOTÓN OCULTO PARA ABRIR EL PANEL DE VENTAS (POS) -->
+                    <a href="#" onclick="openPosLogin(event)" class="hover:text-pink-500 transition-colors flex items-center gap-1 font-bold">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg> Panel Live
+                    </a>
                 </div>
             </div>
             <div class="flex gap-4">
@@ -265,6 +268,40 @@
             </div>
         </div>
     </footer>
+
+    <!-- ========================================== -->
+    <!-- COMPONENTES FLOTANTES GLOBALES             -->
+    <!-- ========================================== -->
+
+    <!-- BANNER DE COOKIES -->
+    <div id="cookieConsentBanner" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-10px_25px_-10px_rgba(0,0,0,0.15)] z-[100] transform translate-y-full transition-transform duration-500 border-t border-pink-100 flex flex-col sm:flex-row justify-center items-center p-4 sm:p-6 gap-4">
+        <div class="text-sm text-gray-600 max-w-4xl text-center sm:text-left">
+            🍪 <strong>¡Valoramos tu privacidad!</strong> Utilizamos cookies propias y de terceros para mejorar tu experiencia de navegación, analizar nuestro tráfico y personalizar el contenido. Al hacer clic en "Aceptar", consientes el uso de todas las cookies.
+        </div>
+        <div class="flex gap-3 shrink-0">
+            <button onclick="acceptCookies()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2.5 px-6 rounded-xl transition-colors shadow-md shadow-pink-200">Aceptar todas</button>
+            <button onclick="hideCookieBanner()" class="bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 px-4 rounded-xl transition-colors">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- CARRITO FLOTANTE (PARA CLIENTES NORMALES) -->
+    <div id="floatingCart" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-10px_25px_-10px_rgba(0,0,0,0.15)] z-[45] transform translate-y-full transition-transform duration-500 p-4 border-t border-pink-100 flex justify-center items-center">
+        <div class="max-w-7xl w-full px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4 w-full sm:w-auto cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors" onclick="openCart()">
+                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 relative shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-purple-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">0</span>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider flex items-center gap-1">Tu selección</p>
+                    <p id="cartTotalText" class="text-xl font-extrabold text-gray-800">S/ 0.00</p>
+                </div>
+            </div>
+            <button onclick="openCart()" class="w-full sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-full font-bold hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-purple-200 shrink-0">
+                Ver mi pedido completo
+            </button>
+        </div>
+    </div>
 
     <!-- ========================================== -->
     <!-- INTERFAZ DE ADMINISTRACIÓN Y VENTAS (POS)  -->
@@ -306,7 +343,6 @@
                 <div id="posCategoryTabs" class="flex gap-2 overflow-x-auto custom-scrollbar pb-2 w-full sm:w-auto"></div>
             </div>
             
-            <!-- EL CONTENEDOR POS AHORA TIENE TARJETAS MÁS GRANDES -->
             <div id="pos-products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                 <div class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-10 w-10 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
@@ -383,7 +419,7 @@
         </div>
     </div>
 
-    <!-- Modal Producto, Carrito Clientes, Testimonio, Lightbox -->
+    <!-- MODALES VARIOS: Producto, Carrito Clientes, Testimonio, Lightbox -->
     <!-- Modal Producto -->
     <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col" id="productModalContent">
@@ -527,8 +563,11 @@
         const WHATSAPP_NUMBER = '51970551728'; 
         const APP_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxvzVd9ZpJ4hKtc0Qy10yqhAXOVynNVsz7fKeGd4p1g952E8DKGx8i9XRgz7T0T20Pt0A/exec';
         
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg/export?format=csv&gid=0';
-        const SHEET_URL_TESTIMONIOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp2egH1wbMpfIXJPkO0zHO8TJFAhLl3_aAQCrdXC3Et99IwbFXchOTF1DIHhilr8ljKZ5yMpDDmIpz/pub?output=csv';
+        // URL PARA CONECTAR GOOGLE SHEETS
+        const GOOGLE_SHEET_ID = '1rHZnUy0zcfgyTVZekB9j-lEbUqQ5IbF2Kx1rBEU7xTg';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Catalogo`;
+        const SHEET_URL_TESTIMONIOS = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Testimonios`;
+        const USER_SHEET_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=USER`;
 
         let allProducts = [];
         let currentRenderedProducts = []; 
@@ -610,7 +649,6 @@
                         
                     } catch (err) { 
                         document.getElementById('loadingText').textContent = 'Error al cargar catálogo. Verifica la URL del Excel.';
-                        console.error('Error:', err); 
                     }
                 },
                 error: function(err) {
@@ -667,7 +705,7 @@
                 return matchSearch && matchCat;
             });
 
-            // LÓGICA DE ORDENAMIENTO (Extractores primero si estamos en 'Todos')
+            // LÓGICA DE ORDENAMIENTO WEB NORMAL
             if (sortOrder !== 'default') {
                 filtered.sort((a, b) => {
                     const finalA = parsePrice(getProdPrice(a)) * (1 - (getProdDiscount(a)/100));
@@ -680,10 +718,9 @@
                     const catB = getProdCat(b).toLowerCase();
                     const isExtA = catA.includes('extractor') || catA.includes('eléctrico') || catA.includes('manual');
                     const isExtB = catB.includes('extractor') || catB.includes('eléctrico') || catB.includes('manual');
-                    
                     if (isExtA && !isExtB) return -1;
                     if (!isExtA && isExtB) return 1;
-                    return 0; // Mantener orden de excel para el resto
+                    return 0; 
                 });
             }
 
@@ -837,6 +874,7 @@
 
         function updateCartUI() {
             const cartBar = document.getElementById('floatingCart');
+            if(!cartBar) return; // Seguridad extra
             if (shoppingCart.length > 0) {
                 cartBar.classList.remove('translate-y-full');
                 document.getElementById('cartCountBadge').textContent = shoppingCart.length;
@@ -844,7 +882,7 @@
                 document.getElementById('cartTotalText').textContent = `S/ ${total.toFixed(2)}`;
             } else {
                 cartBar.classList.add('translate-y-full');
-                if(!document.getElementById('cartModal').classList.contains('hidden')) closeCart();
+                if(document.getElementById('cartModal') && !document.getElementById('cartModal').classList.contains('hidden')) closeCart();
             }
         }
 
@@ -929,7 +967,7 @@
         }
 
         // ==========================================
-        // 5. LÓGICA DEL PANEL POS (VENTAS EN VIVO) - ¡CON UI AGRANDADA!
+        // 5. LÓGICA DEL PANEL POS (VENTAS EN VIVO)
         // ==========================================
         function doPosLogin() {
             const user = document.getElementById('loginUser').value.trim();
@@ -949,28 +987,30 @@
                 return;
             }
 
-            fetch(APP_SCRIPT_WEB_APP_URL, {
-                method: 'POST',
-                body: JSON.stringify({ action: "login", user: user, pass: pass }),
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-            })
-            .then(res => res.json())
-            .then(result => {
-                if (result.status === "success") {
-                    closePosLogin();
-                    openPosInterface();
-                } else {
-                    errorMsg.textContent = result.message || "Usuario o contraseña incorrectos";
+            Papa.parse(USER_SHEET_URL, {
+                download: true,
+                header: false,
+                complete: function(results) {
+                    let isValid = false;
+                    for(let i = 1; i < results.data.length; i++){
+                        if (String(results.data[i][0]).trim() === user && String(results.data[i][1]).trim() === pass) {
+                            isValid = true; break;
+                        }
+                    }
+                    if (isValid) { closePosLogin(); openPosInterface(); } 
+                    else {
+                        errorMsg.textContent = "Usuario o contraseña incorrectos";
+                        errorMsg.classList.remove('hidden');
+                        btn.innerHTML = 'Ingresar al POS';
+                        btn.disabled = false;
+                    }
+                },
+                error: function() {
+                    errorMsg.textContent = "Error de conexión con Google Sheets.";
                     errorMsg.classList.remove('hidden');
                     btn.innerHTML = 'Ingresar al POS';
                     btn.disabled = false;
                 }
-            })
-            .catch(err => {
-                errorMsg.textContent = "Error de conexión con Google Sheets.";
-                errorMsg.classList.remove('hidden');
-                btn.innerHTML = 'Ingresar al POS';
-                btn.disabled = false;
             });
         }
 
@@ -991,10 +1031,7 @@
             const pos = document.getElementById('posInterface');
             pos.classList.remove('hidden'); pos.classList.add('flex');
             document.body.style.overflow = 'hidden';
-            setTimeout(() => { 
-                pos.classList.remove('opacity-0'); 
-                filterPosProducts(); 
-            }, 10);
+            setTimeout(() => { pos.classList.remove('opacity-0'); filterPosProducts(); }, 10);
         }
 
         function closePosInterface() {
@@ -1012,7 +1049,7 @@
             const createTab = (catName, label) => {
                 const btn = document.createElement('button');
                 btn.textContent = label;
-                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-bold transition-all border ${posCurrentCategoryTab === catName ? 'bg-pink-500 text-white border-pink-500' : 'bg-white text-gray-600 border-gray-200'}`;
+                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${posCurrentCategoryTab === catName ? 'bg-pink-500 text-white border-pink-500' : 'bg-white text-gray-600 border-gray-200'}`;
                 btn.onclick = () => { posCurrentCategoryTab = catName; updatePosCategoryFilter(categories); filterPosProducts(); };
                 return btn;
             };
@@ -1038,7 +1075,7 @@
                     
                     if (isExtA && !isExtB) return -1;
                     if (!isExtA && isExtB) return 1;
-                    return 0; // Mantener orden original si ambos son extractores o ninguno lo es
+                    return 0; 
                 });
             }
 
@@ -1062,7 +1099,6 @@
                 const inCart = posShoppingCart.some(item => item.name === name);
 
                 let finalPriceStr = originalPriceStr;
-                // TEXTOS MÁS GRANDES
                 let priceHTML = `<p class="font-extrabold text-purple-700 text-lg sm:text-xl mt-2">${originalPriceStr}</p>`;
 
                 if (discountPct > 0) {
@@ -1076,11 +1112,9 @@
                 card.className = `bg-white rounded-2xl shadow-md border p-4 flex flex-col relative transition-all ${inCart ? 'border-purple-500 ring-2 ring-purple-200' : 'border-gray-100 hover:shadow-lg hover:border-pink-200'}`;
                 card.innerHTML = `
                     ${badge}
-                    <!-- IMAGEN MÁS GRANDE (h-36 o h-40) -->
                     <img src="${img}" class="w-full h-36 sm:h-40 object-contain mb-3 bg-gray-50 rounded-xl p-2">
                     <h3 class="text-sm sm:text-base font-bold text-gray-800 line-clamp-2 leading-tight flex-grow">${name}</h3>
                     ${priceHTML}
-                    <!-- BOTÓN MÁS GRANDE -->
                     <button onclick="togglePosCart('${name.replace(/'/g, "\\'")}', '${finalPriceStr}', event)" class="mt-4 w-full py-2.5 rounded-xl text-sm sm:text-base font-bold transition-colors ${inCart ? 'bg-red-100 text-red-600 border border-red-200' : 'bg-pink-500 text-white hover:bg-pink-600 shadow-sm'} ${!isAvailable && !inCart ? 'opacity-50 cursor-not-allowed bg-gray-300 text-gray-600' : ''}" ${!isAvailable && !inCart ? 'disabled' : ''}>
                         ${inCart ? 'Quitar del Ticket' : 'Añadir al Ticket'}
                     </button>
@@ -1097,7 +1131,7 @@
             
             updatePosCartUI();
             filterPosProducts(); 
-            if(!document.getElementById('posCartModal').classList.contains('hidden')) renderPosCartModal();
+            if(document.getElementById('posCartModal') && !document.getElementById('posCartModal').classList.contains('hidden')) renderPosCartModal();
         }
 
         function updatePosCartUI() {
@@ -1238,9 +1272,7 @@
         }
         
         function loadDemoTestimonios() {
-            renderTestimonios([
-                { 'Nombre': 'María F.', 'Comentario': 'El extractor S11 me salvó la lactancia. Silencioso y sin dolor.', 'Calificación': '5' }
-            ]);
+            renderTestimonios([{ 'Nombre': 'María F.', 'Comentario': 'El extractor S11 me salvó la lactancia. Silencioso y sin dolor.', 'Calificación': '5' }]);
         }
 
         function openTestimonioModal(index) {
