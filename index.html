@@ -149,14 +149,12 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- Pestañas (Tabs) -->
                 <div id="categoryTabs" class="flex gap-3 overflow-x-auto py-2 custom-scrollbar w-full"></div>
             </div>
 
-            <!-- Contenedor Principal de Productos -->
+            <!-- Contenedor de Productos del Cliente -->
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Indicador de carga -->
                 <div id="loading" class="col-span-full py-20 flex flex-col items-center justify-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-200 border-t-pink-500 mb-4"></div>
                     <p class="text-gray-500 font-medium" id="loadingText">Cargando catálogo...</p>
@@ -257,7 +255,6 @@
                 <div class="flex items-center gap-2 text-xs text-gray-400 font-medium mt-1">
                     <span>Diseñado y desarrollado por <a href="#" class="font-bold text-purple-600 hover:text-pink-500 transition-colors">hsoluciones</a> 💻</span>
                     <span>|</span>
-                    <!-- BOTÓN PARA ABRIR EL PANEL DE VENTAS (POS) -->
                     <a href="#" onclick="openPosLogin(event)" class="hover:text-pink-500 transition-colors flex items-center gap-1 font-bold"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg> Panel Live</a>
                 </div>
             </div>
@@ -368,7 +365,7 @@
         </div>
     </div>
 
-    <!-- MODAL CARRITO (POS) -->
+    <!-- MODAL CARRITO (POS) CON MODIFICACIONES PARA N° DE TELÉFONO -->
     <div id="posCartModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative transform scale-95 transition-transform duration-300 flex flex-col max-h-[95vh]" id="posCartModalContent">
             <button onclick="closePosCart()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-600 bg-gray-100 rounded-full p-2">
@@ -391,10 +388,17 @@
                 </div>
             </div>
 
-            <!-- Datos del Cliente -->
+            <!-- Datos del Cliente (AGREGADO N° DE TELÉFONO) -->
             <div class="border-t border-gray-200 pt-4 mt-4 shrink-0">
-                <input type="text" id="posCustomerName" placeholder="Nombre del Cliente (TikTok) *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 mb-2">
+                <!-- NÚMERO DE TELÉFONO -->
+                <input type="tel" id="posCustomerPhone" placeholder="N° de Teléfono (WhatsApp) *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 mb-2 font-bold text-purple-700">
+                <p id="posCartErrorPhoneMsg" class="text-red-500 text-xs font-bold ml-1 hidden mb-2">Falta el número de teléfono</p>
+                
+                <!-- NOMBRE -->
+                <input type="text" id="posCustomerName" placeholder="Nombre del Cliente *" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 mb-2">
                 <p id="posCartErrorMsg" class="text-red-500 text-xs font-bold ml-1 hidden mb-2">Falta el nombre del cliente</p>
+                
+                <!-- DIRECCIÓN -->
                 <input type="text" id="posCustomerAddress" placeholder="Dirección / Agencia (Opcional)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500">
             </div>
 
@@ -413,7 +417,7 @@
                 </div>
                 <button id="posBtnCheckout" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 shadow-md flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.55 4.197 1.595 6.02L.15 24l6.104-1.424c1.765.955 3.753 1.458 5.777 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.84c-1.785 0-3.535-.48-5.066-1.385l-.363-.214-3.763.878.892-3.666-.235-.374A9.8 9.8 0 0 1 2.19 12.03c0-5.424 4.417-9.841 9.84-9.841 5.424 0 9.84 4.417 9.84 9.841 0 5.424-4.416 9.84-9.84 9.84zm5.393-7.36c-.296-.148-1.753-.865-2.024-.964-.271-.1-4.686.148-.646.444s-.693.865-.964 1.161c-.271.296-.543.344-.839.196-1.532-.763-2.736-1.745-3.805-3.238-.271-.395-.029-.592.119-.74.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.1-.197.05-.37-.024-.518-.074-.148-.645-1.554-.888-2.127-.235-.555-.477-.478-.646-.487-.168-.009-.365-.009-.562-.009-.197 0-.518.074-.79.37-.271.296-1.036 1.011-1.036 2.467 0 1.455 1.06 2.861 1.209 3.058.148.197 2.083 3.181 5.048 4.463 2.146.929 2.923.865 3.447.741.602-.143 1.753-.715 1.999-1.406.246-.691.246-1.283.173-1.406-.074-.124-.271-.198-.567-.346z"/></svg>
-                    Confirmar Venta y Enviar a WA
+                    Enviar Promo al Cliente
                 </button>
             </div>
         </div>
@@ -705,7 +709,6 @@
                 return matchSearch && matchCat;
             });
 
-            // LÓGICA DE ORDENAMIENTO WEB NORMAL
             if (sortOrder !== 'default') {
                 filtered.sort((a, b) => {
                     const finalA = parsePrice(getProdPrice(a)) * (1 - (getProdDiscount(a)/100));
@@ -952,7 +955,7 @@
                 list.appendChild(div);
             });
 
-            // LÓGICA DE RECOMENDACIONES (CROSS-SELLING)
+            // LÓGICA DE RECOMENDACIONES (CROSS-SELLING) RESTAURADA
             let recommendations = allProducts.filter(p => {
                 const isAvailable = getProdStatus(p).toLowerCase() === 'disponible';
                 const inCart = shoppingCart.some(item => item.name === getProdName(p));
@@ -1023,7 +1026,7 @@
         }
 
         // ==========================================
-        // 5. LÓGICA DEL PANEL POS (VENTAS EN VIVO)
+        // 5. LÓGICA DEL PANEL POS (VENTAS EN VIVO) - CON TELÉFONO DEL CLIENTE
         // ==========================================
         function doPosLogin() {
             const user = document.getElementById('loginUser').value.trim();
@@ -1124,14 +1127,12 @@
                 return matchSearch && matchCat;
             });
 
-            // LÓGICA DE ORDENAMIENTO POS (Extractores primero si estamos en 'Todos')
             if (posCurrentCategoryTab === 'all') {
                 filtered.sort((a, b) => {
                     const catA = getProdCat(a).toLowerCase();
                     const catB = getProdCat(b).toLowerCase();
                     const isExtA = catA.includes('extractor') || catA.includes('eléctrico') || catA.includes('manual');
                     const isExtB = catB.includes('extractor') || catB.includes('eléctrico') || catB.includes('manual');
-                    
                     if (isExtA && !isExtB) return -1;
                     if (!isExtA && isExtB) return 1;
                     return 0; 
@@ -1255,26 +1256,54 @@
 
             document.getElementById('posBtnCheckout').onclick = async function(e) {
                 e.preventDefault();
+                
+                const cPhoneRaw = document.getElementById('posCustomerPhone').value.trim();
                 const cName = document.getElementById('posCustomerName').value.trim();
                 const cAdd = document.getElementById('posCustomerAddress').value.trim();
                 
+                let hasError = false;
+                
+                if (!cPhoneRaw) {
+                    document.getElementById('posCartErrorPhoneMsg').classList.remove('hidden');
+                    hasError = true;
+                } else {
+                    document.getElementById('posCartErrorPhoneMsg').classList.add('hidden');
+                }
+                
                 if (!cName) {
                     document.getElementById('posCartErrorMsg').classList.remove('hidden');
-                    document.getElementById('posCustomerName').focus();
-                    return;
+                    hasError = true;
+                } else {
+                    document.getElementById('posCartErrorMsg').classList.add('hidden');
+                }
+
+                if (hasError) return;
+
+                // Limpiar el número de teléfono (dejar solo los números)
+                let cPhone = cPhoneRaw.replace(/\D/g, ''); 
+                
+                // Si el número tiene 9 dígitos y empieza con 9, le agregamos el código de Perú (51)
+                if (cPhone.length === 9 && cPhone.startsWith('9')) {
+                    cPhone = '51' + cPhone;
                 }
                 
                 const totals = calculatePosTotal();
-                let message = `*Venta desde TikTok Live* 🎥\n\n*Cliente:* ${cName}\n`;
-                if(cAdd) message += `*Dirección:* ${cAdd}\n`;
-                message += `\n*Pedido:*\n`;
+                
+                // NUEVO MENSAJE DIRIGIDO AL CLIENTE FINAL
+                let message = `¡Hola *${cName}*! 👋\nGracias por acompañarnos en nuestro TikTok Live 🎥\n\nAquí tienes el detalle de tu pedido especial:\n\n`;
+                
                 posShoppingCart.forEach((item, i) => { message += `${i + 1}. ${item.name} (${item.priceStr})\n`; });
+                
                 message += `\n*Subtotal:* S/ ${totals.subtotal.toFixed(2)}`;
                 if (totals.discountAmount > 0) {
                     let descText = totals.type === 'percent' ? `(${totals.val}%)` : `Manual`;
-                    message += `\n*Descuento ${descText}:* - S/ ${totals.discountAmount.toFixed(2)}`;
+                    message += `\n*Descuento Live ${descText}:* - S/ ${totals.discountAmount.toFixed(2)}`;
                 }
-                message += `\n*Total Final:* *S/ ${totals.finalTotal.toFixed(2)}*`;
+                message += `\n*Total a Pagar:* *S/ ${totals.finalTotal.toFixed(2)}*\n`;
+                
+                if(cAdd) message += `\n*Dirección de envío:* ${cAdd}\n`;
+                
+                message += `\nPor favor, confírmanos por aquí para coordinar el pago y envío. ¡Gracias por confiar en Wawachay! 🌸`;
                 
                 const originalText = this.innerHTML;
                 this.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div> Procesando...';
@@ -1290,7 +1319,9 @@
 
                 posShoppingCart = []; updatePosCartUI(); closePosCart();
                 this.innerHTML = originalText; this.style.pointerEvents = 'auto';
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+                
+                // REDIRIGIR AL WHATSAPP DEL CLIENTE CON EL MENSAJE CREADO
+                window.open(`https://wa.me/${cPhone}?text=${encodeURIComponent(message)}`, '_blank');
             };
         }
 
